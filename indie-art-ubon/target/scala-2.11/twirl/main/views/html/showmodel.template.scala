@@ -156,7 +156,7 @@ Seq[Any](format.raw/*1.50*/("""
 object showmodel extends showmodel_Scope0.showmodel
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/showmodel.scala.html
                   HASH: 87973c7c4870021a2466608af7d5352890f250cc
                   MATRIX: 549->1|692->49|720->51|763->69|812->110|850->111|886->121|6198->5406|6232->5418|6266->5421

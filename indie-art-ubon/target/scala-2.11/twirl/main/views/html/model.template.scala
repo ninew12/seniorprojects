@@ -97,7 +97,7 @@ Seq[Any](format.raw/*1.50*/("""
 object model extends model_Scope0.model
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/model.scala.html
                   HASH: bee50b86184ed28b445bc4a2f73ea77b300c4e20
                   MATRIX: 541->1|684->49|712->51|755->69|791->97|829->98|859->102|3411->2624

@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for indie-art-ubon#indie-art-ubon_2.11;0.3.1 [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies indie-art-ubon#indie-art-ubon_2.11;0.3.1->org.scala-lang#scala-library;2.11.7 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.7 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@194ae14[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@6839f3[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.7[0m
 [0m[[0mdebug[0m] [0m	found org.scala-lang#scala-library;2.11.7 in sbt-chain[0m
 [0m[[0mdebug[0m] [0m	[2.11.7] org.scala-lang#scala-library;2.11.7[0m
@@ -434,7 +434,7 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.inject.extensions#guice-assistedinject;4.0!guice-assistedinject.pom(pom.original) (1283ms)[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.inject.extensions#guice-assistedinject;4.0!guice-assistedinject.pom(pom.original) (1611ms)[0m
 [0m[[0minfo[0m] [0mResolving com.google.inject.extensions#extensions-parent;4.0 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.google.inject.extensions#extensions-parent;4.0 {}[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: com.google.inject.extensions#extensions-parent;4.0[0m
@@ -1106,7 +1106,7 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.inject.extensions#guice-multibindings;4.0!guice-multibindings.pom(pom.original) (1191ms)[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.inject.extensions#guice-multibindings;4.0!guice-multibindings.pom(pom.original) (1608ms)[0m
 [0m[[0minfo[0m] [0mResolving com.google.inject.extensions#extensions-parent;4.0 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.google.inject.extensions#extensions-parent;4.0 {}[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: com.google.inject.extensions#extensions-parent;4.0[0m
@@ -9336,7 +9336,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4!scala-parser-combinators_2.11.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] jline#jline;2.12.1!jline.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 7713ms :: artifacts dl 141ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 9757ms :: artifacts dl 125ms[0m
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 compile produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 runtime produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 test produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-test.xml[0m
@@ -9350,5 +9350,5 @@
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 docs produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-docs.xml[0m
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 pom produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-pom.xml[0m
 [0m[[0mdebug[0m] [0m	report for indie-art-ubon#indie-art-ubon_2.11;0.3.1 scala-tool produced in D:\Project\59201kamonwan-ad-56\indie-art-ubon\target\resolution-cache\reports\indie-art-ubon-indie-art-ubon_2.11-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (7713ms resolve - 141ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (9757ms resolve - 125ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

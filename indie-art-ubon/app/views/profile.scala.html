@@ -1,4 +1,5 @@
-@(user: models.User)(implicit messages: Messages)
+@(user: models.User,users : Seq[models.DBUser])(implicit request: RequestHeader, messages: Messages)
+
 <!DOCTYPE html>
 @main(Messages("home.title"), Some(user)){
   <br><br>
@@ -27,9 +28,11 @@
 
      </div><!--col-sm-8-->
      <div id="land-widget" class="col-sm-4 list-group ">
+       @for(user
+         <- users){
             <li  class=" list-group-item ">
                 <img src= "assets/images/user.png" class="img-circle " width="70">
-                <h5 class="list-group-item-heading"><i class="fa fa-user" aria-hidden="true"></i> By name user</h5>
+                <h5 class="list-group-item-heading"><i class="fa fa-user" aria-hidden="true"></i> @user.fullName</h5>
                 <div class="row overview ">
                   <div class="col-md-6 user-pad text-center">
                       <h5  style="color:#FF9933">FOLLOWERS</h5>
@@ -45,13 +48,14 @@
 
           <li class="list-group-item">
                 <h5 class="list-group-item-heading">About Me </h5>
-                <h5><i class="fa fa-user" aria-hidden="true"></i> Name</h5>
-                <h5><i class="fa fa-envelope" aria-hidden="true"></i> Email</h5>
+                <h5><i class="fa fa-user" aria-hidden="true"></i> Name : @user.fullName</h5>
+                <h5><i class="fa fa-envelope" aria-hidden="true"></i> Email : @user.email</h5>
                 <h5><i class="fa fa-link" aria-hidden="true"></i> Website</h5>
                 <h5><i class="fa fa-calendar" aria-hidden="true"></i> Date</h5>
 
                 <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
           </li>
+        }
           <li class="list-group-item">
                 <a href="#"><h5 style="color:#FF9933">Edit Peofile</h5></a>
                 <a data-toggle="modal" href="#modelpassword"><h5 style="color:#FF9933">Change Password</h5></a>

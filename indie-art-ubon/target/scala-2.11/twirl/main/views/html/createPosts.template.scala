@@ -42,42 +42,26 @@ Seq[Any](format.raw/*1.113*/("""
                              """),_display_(/*19.31*/helper/*19.37*/.CSRF.formField),format.raw/*19.52*/("""
 
                                 """),format.raw/*21.33*/("""<h5 >หัวข้อกระทู้</h5>
-                                <!-- <input type="text" name = "title" class="form-control"> -->
+                              
                                """),_display_(/*23.33*/b3/*23.35*/.text( forumForm("title"), '_label -> "Topic" )),format.raw/*23.82*/("""
                                """),_display_(/*24.33*/b3/*24.35*/.textarea( forumForm("detail"), '_label -> "details" )),format.raw/*24.89*/("""
                                """),_display_(/*25.33*/b3/*25.35*/.file( forumForm("imagepost"), '_label -> "File" )),format.raw/*25.85*/("""
                                """),_display_(/*26.33*/b3/*26.35*/.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )),format.raw/*26.106*/("""
 
-                              """),format.raw/*28.31*/("""<!-- </div>
-                                 <div class="form-group">
-                                   <h5 for="exampleTextarea">เนื้อหากระทู้สนทนา</h5>
-                                   <textarea class="form-control" id="exampleTextarea" name = "detail"  rows="3"></textarea>
-                                 </div>
-                              <div class="form-group">
-                                  <h5 for="exampleInputFile">แนบไฟล์รูปภาพ</h5>
-                                  <input type="file" class="form-control-file" id="exampleInputFile" name = "image_post" aria-describedby="fileHelp" style="color:#FF9933">
-                              </div>
-                              <div class="form-group">
-                                  <h5 >link URL:</h5>
-                                  <input type="text" class="form-control" name = "vdo_post" placeholder="@youtube">
-                                  <input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input"> -->
-                                  <!-- <small id="emailHelp" class="form-text text-muted">เฉพาะ link จาก youtube เท่านั้น</small>
-                              </div> -->
-
-                              <div class=" text-right">
+                              """),format.raw/*28.31*/("""<div class=" text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
                                 <button type="submit" class="btn btn-danger">Cancel</button>
                               </div>
 
-                          """)))}),format.raw/*49.28*/("""
-                              """),format.raw/*50.31*/("""</div>   <!-- col-md-8 -->
+                          """)))}),format.raw/*33.28*/("""
+                              """),format.raw/*34.31*/("""</div>   <!-- col-md-8 -->
                            </div>   <!-- row -->
                         </div><!-- container -->
                      </div><!-- panal-body -->
                    </div><!-- panal -->
                 </div><!--inner-->
 
-""")))}),format.raw/*57.2*/("""
+""")))}),format.raw/*41.2*/("""
 """))
       }
     }
@@ -98,11 +82,11 @@ Seq[Any](format.raw/*1.113*/("""
 object createPosts extends createPosts_Scope0.createPosts
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/createPosts.scala.html
-                  HASH: 4da8531347f2875cd9122eb5c2119d4ffbe3a327
-                  MATRIX: 594->1|834->112|862->114|907->170|954->209|992->210|1022->214|1584->749|1599->755|1655->802|1695->804|1754->836|1769->842|1805->857|1869->893|2050->1047|2061->1049|2129->1096|2190->1130|2201->1132|2276->1186|2337->1220|2348->1222|2419->1272|2480->1306|2491->1308|2584->1379|2646->1413|4215->2952|4275->2984|4561->3240
-                  LINES: 20->1|25->1|26->2|28->5|28->5|28->5|29->6|41->18|41->18|41->18|41->18|42->19|42->19|42->19|44->21|46->23|46->23|46->23|47->24|47->24|47->24|48->25|48->25|48->25|49->26|49->26|49->26|51->28|72->49|73->50|80->57
+                  HASH: b5f35576779158678877bdbbed098867eedcc9e6
+                  MATRIX: 594->1|834->112|862->114|907->170|954->209|992->210|1022->214|1584->749|1599->755|1655->802|1695->804|1754->836|1769->842|1805->857|1869->893|1984->981|1995->983|2063->1030|2124->1064|2135->1066|2210->1120|2271->1154|2282->1156|2353->1206|2414->1240|2425->1242|2518->1313|2580->1347|2908->1644|2968->1676|3254->1932
+                  LINES: 20->1|25->1|26->2|28->5|28->5|28->5|29->6|41->18|41->18|41->18|41->18|42->19|42->19|42->19|44->21|46->23|46->23|46->23|47->24|47->24|47->24|48->25|48->25|48->25|49->26|49->26|49->26|51->28|56->33|57->34|64->41
                   -- GENERATED --
               */
           

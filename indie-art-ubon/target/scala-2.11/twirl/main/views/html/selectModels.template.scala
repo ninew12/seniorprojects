@@ -156,7 +156,7 @@ Seq[Any](format.raw/*1.50*/("""
 object selectModels extends selectModels_Scope0.selectModels
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/selectModels.scala.html
                   HASH: d4fe869f155733519d0b8e3182b05beda832284f
                   MATRIX: 555->1|698->49|726->51|769->69|805->97|843->98|879->108|6191->5393|6225->5405|6259->5408

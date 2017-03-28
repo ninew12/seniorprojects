@@ -145,7 +145,7 @@ Seq[Any](format.raw/*1.50*/("""
 object uploadModel extends uploadModel_Scope0.uploadModel
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:51 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/uploadModel.scala.html
                   HASH: 4e66b1a00dff0f85ed13f1736ffce6c3bbf60e85
                   MATRIX: 553->1|696->49|724->51|769->71|817->111|855->112|885->116|6831->6031

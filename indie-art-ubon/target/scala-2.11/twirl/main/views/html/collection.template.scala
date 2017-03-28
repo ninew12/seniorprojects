@@ -107,7 +107,7 @@ Seq[Any](format.raw/*1.50*/("""
 object collection extends collection_Scope0.collection
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/collection.scala.html
                   HASH: 3ab5a1c259c2ad8dd47cc7eb4722d98023d1274a
                   MATRIX: 551->1|694->49|722->51|811->115|859->155|897->156|929->162|2300->1503|2329->1505

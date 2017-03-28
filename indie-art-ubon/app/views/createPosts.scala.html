@@ -19,27 +19,11 @@
                              @helper.CSRF.formField
 
                                 <h5 >หัวข้อกระทู้</h5>
-                                <!-- <input type="text" name = "title" class="form-control"> -->
+                              
                                @b3.text( forumForm("title"), '_label -> "Topic" )
                                @b3.textarea( forumForm("detail"), '_label -> "details" )
                                @b3.file( forumForm("imagepost"), '_label -> "File" )
                                @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )
-
-                              <!-- </div>
-                                 <div class="form-group">
-                                   <h5 for="exampleTextarea">เนื้อหากระทู้สนทนา</h5>
-                                   <textarea class="form-control" id="exampleTextarea" name = "detail"  rows="3"></textarea>
-                                 </div>
-                              <div class="form-group">
-                                  <h5 for="exampleInputFile">แนบไฟล์รูปภาพ</h5>
-                                  <input type="file" class="form-control-file" id="exampleInputFile" name = "image_post" aria-describedby="fileHelp" style="color:#FF9933">
-                              </div>
-                              <div class="form-group">
-                                  <h5 >link URL:</h5>
-                                  <input type="text" class="form-control" name = "vdo_post" placeholder="@@youtube">
-                                  <input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input"> -->
-                                  <!-- <small id="emailHelp" class="form-text text-muted">เฉพาะ link จาก youtube เท่านั้น</small>
-                              </div> -->
 
                               <div class=" text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;

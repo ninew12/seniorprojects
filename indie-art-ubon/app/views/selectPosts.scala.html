@@ -1,6 +1,7 @@
-@(Forms: Form[forms.CommentForm.Data],dbforuminfo : Seq[models.Foruminfo])(implicit messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment])(implicit request: RequestHeader , messages: Messages)
 <!-- , dbcomment : Seq[models.Comment] -->
 <!DOCTYPE html>
+@import b3.inline.fieldConstructor
 @main(Messages("home.title")){
    <body>
      <div class="container">
@@ -38,7 +39,7 @@
                              <h5> @foruminfo.detail</h5>
 
                              <!--video upload-->
-                                <h5>Simple Scene with Blend4Web (with subtitles)</h5>
+
                                <div class="embed-responsive embed-responsive-16by9" >
 
                                  <iframe class="embed-responsive-item" src="@foruminfo.vdopost" style="border:none;"></iframe>
@@ -53,50 +54,35 @@
                                                      <img class="img-responsive user-photo" src="assets/images/user.png" >
                                             </div><!-- /col-sm-1 -->
                              <div class="col-sm-10">
-                                           <form>
-                                                <div class="form-group">
-
-                                                     <textarea class="form-control" rows="5" placeholder="comment" name="detail"></textarea>
-                                                    
-                                               </div>
+                               @helper.form(action = routes.IndieApplication.comment()) {
+                                   @helper.CSRF.formField
+                                                 @b3.textarea( Forms("detail"), '_label -> "Comment" ,'rows -> 3 )
                                                <div class=" text-right" >
                                                     <button type="submit" class="btn btn-info  ">send</button>
                                                   </div>
-                                              </form>
+                                            }
                                           </div>
                                     </div><!-- /row -->
                                     <br>
                             <div class="row">
+                              @for(comment
+                                <- dbcommemt){
                                    <div class="col-sm-1">
                                                <img class="img-responsive user-photo" src="assets/images/user.png" >
                                       </div><!-- /col-sm-1 -->
+
                                   <div class="col-sm-10">
                                        <div class="panel panel-default">
                                             <div class="panel-heading">
                                                   <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
                                             </div>
                                      <div class="panel-body">
-                                       <h5>Panel content</h5>
+                                       <h5>@comment.detail</h5>
                                      </div><!-- /panel-body -->
                                    </div><!-- /panel panel-default -->
                                  </div><!-- /col-sm-10 -->
+                               }
                                </div><!--row-->
-
-                            <div class="row">
-                                    <div class="col-sm-1">
-                                            <img class="img-responsive user-photo" src="assets/images/user.png"  >
-                                  </div><!-- /col-sm-1 -->
-                            <div class="col-sm-10">
-                                  <div class="panel panel-default">
-                                     <div class="panel-heading">
-                                              <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                                         </div>
-                                     <div class="panel-body">
-                                         <h5>Panel content</h5>
-                                       </div><!-- /panel-body -->
-                                      </div><!-- /panel panel-default -->
-                                    </div><!-- /col-sm-10 -->
-                                 </div><!--row-->
                               </div>   <!-- col-md-8 -->
                            </div>   <!-- row -->
                         </div><!-- container -->

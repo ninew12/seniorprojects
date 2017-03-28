@@ -74,7 +74,7 @@ Seq[Any](format.raw/*1.50*/("""
 object footer extends footer_Scope0.footer
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/footer.scala.html
                   HASH: 36a5266f9f99515a4d849359d98f93d561fe8ee9
                   MATRIX: 543->1|686->49|714->51|757->69|777->81|815->82|845->86|2067->1278

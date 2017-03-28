@@ -13,7 +13,7 @@ import models.daos._
 
 
 case class Foruminfo(
-    id: String,
+    userID: String,
     title: Option[String],
     detail: Option[String],
     imagepost: Option[String],
@@ -22,12 +22,13 @@ case class Foruminfo(
 
 )
 case class Comment (
-    id: String,
+    userID : String,
     detail: Option[String]
 )
 
+
 class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
-  def  id = column[String]("id", O.PrimaryKey)
+  def  id = column[String]("userID", O.PrimaryKey)
   def title = column[Option[String]]("title")
   def detail = column[Option[String]]("detail")
   def imagepost = column[Option[String]]("imagepost")
@@ -37,7 +38,7 @@ class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
-  def  id = column[String]("id", O.PrimaryKey)
+  def  id = column[String]("userID", O.PrimaryKey)
   def detail = column[Option[String]]("detail")
   def * = (id, detail) <> (Comment.tupled, Comment.unapply)
 }
@@ -75,9 +76,9 @@ object addcomment {
     }
   }
 
-  //def get(id: String): Future[Option[Comment]] = {
-  // dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
- //}
+  def get(id: String): Future[Option[Comment]] = {
+   dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
+ }
 
   def listAll: Future[Seq[Comment]] = {
     dbConfig.db.run(dbcomment.result)

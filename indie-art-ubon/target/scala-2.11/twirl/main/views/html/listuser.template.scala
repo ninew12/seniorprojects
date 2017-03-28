@@ -84,7 +84,7 @@ Seq[Any](format.raw/*1.83*/("""
 object listuser extends listuser_Scope0.listuser
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/listuser.scala.html
                   HASH: d5319c5e2f9d78650ad07920da76e1bedc96b8b9
                   MATRIX: 568->1|744->82|774->87|794->99|832->100|862->104|1457->672|1508->707|1547->708|1576->709|1632->738|1645->742|1676->752|1733->782|1746->786|1776->795|1833->825|1846->829|1876->838|1933->868|1946->872|1973->878|2328->1202|2370->1216|2473->1289

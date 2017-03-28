@@ -100,7 +100,7 @@ Seq[Any](format.raw/*1.101*/("""
 object member extends member_Scope0.member
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/member.scala.html
                   HASH: e5528ceaafacea0e35040ae2ff702f9b667d5908
                   MATRIX: 576->1|771->100|801->104|844->122|892->162|930->163|960->167|2362->1542|2412->1576|2451->1577|2492->1590|2781->1852|2794->1856|2824->1865|3083->2093|3123->2105|3254->2206

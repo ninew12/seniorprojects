@@ -31,7 +31,7 @@ Seq[Any](format.raw/*1.50*/("""
         <div class="row">
             <hr class="col-md-12">
             <br><br>
-            <h3 class="col-md-8 text-right" >"""),_display_(/*10.47*/Messages("welcome.guest")),format.raw/*10.72*/("""</h3>
+            <h3 class="col-md-10 text-right" >&nbsp;&nbsp;&nbsp;&nbsp;"""),_display_(/*10.72*/Messages("welcome.guest")),format.raw/*10.97*/("""</h3>
             <!-- <div class="col-md-4 text-right">
                 <img src=""""),_display_(/*12.28*/user/*12.32*/.avatarURL.getOrElse(routes.Assets.at("images/silhouette.png"))),format.raw/*12.95*/("""" height="40px" />
             </div> -->
@@ -72,10 +72,10 @@ Seq[Any](format.raw/*1.50*/("""
 object guesthome extends guesthome_Scope0.guesthome
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/guesthome.scala.html
-                  HASH: d2d13a09999d980f3768b3cd7dd025553ff4d025
-                  MATRIX: 549->1|692->49|720->51|797->103|834->132|873->134|901->136|1135->343|1181->368|1294->454|1307->458|1391->521|1615->719|1647->730|1676->732|1717->747|1749->758|1786->769|1819->781|1850->785|1890->795
+                  HASH: f763df58f66cc2bb287520206aee8387f18788d7
+                  MATRIX: 549->1|692->49|720->51|797->103|834->132|873->134|901->136|1160->368|1206->393|1319->479|1332->483|1416->546|1640->744|1672->755|1701->757|1742->772|1774->783|1811->794|1844->806|1875->810|1915->820
                   LINES: 20->1|25->1|26->2|27->3|27->3|27->3|28->4|34->10|34->10|36->12|36->12|36->12|46->22|46->22|47->23|48->24|48->24|51->27|51->27|53->29|54->30
                   -- GENERATED --
               */

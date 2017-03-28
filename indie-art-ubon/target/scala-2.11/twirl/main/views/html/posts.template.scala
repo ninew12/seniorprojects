@@ -173,7 +173,7 @@ Seq[Any](format.raw/*1.50*/("""
 object posts extends posts_Scope0.posts
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/posts.scala.html
                   HASH: cfba5b5975cb4a4e137a54bdbba8cae2c8d73f42
                   MATRIX: 541->1|684->49|712->51|801->115|837->143|875->144|907->150|7300->6512

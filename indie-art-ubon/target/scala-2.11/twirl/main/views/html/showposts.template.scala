@@ -148,7 +148,7 @@ Seq[Any](format.raw/*1.86*/("""
 object showposts extends showposts_Scope0.showposts
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 27 21:44:07 ICT 2017
+                  DATE: Tue Mar 28 21:22:50 ICT 2017
                   SOURCE: D:/Project/59201kamonwan-ad-56/indie-art-ubon/app/views/showposts.scala.html
                   HASH: 4d26ce922f28f6f9b0bb16cb870ac38fde3b320d
                   MATRIX: 571->1|750->85|778->87|821->105|869->145|907->146|938->151|2425->1611|2499->1669|2538->1670|2600->1704|2632->1709|2650->1718|2677->1724|2841->1861|2859->1870|2890->1880|3046->2009|3064->2018|3092->2025|3431->2337|3449->2346|3478->2354|3614->2459|3674->2491|7391->6177
