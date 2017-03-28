@@ -1,0 +1,30 @@
+@(user: models.User)(implicit messages: Messages)
+<!-- , dbforuminfo : Option[models.Foruminfo] -->
+@main(Messages("home.title") ) {
+<body>
+  <div id="wrap3">
+    <div class="user col-md-6 col-md-offset-3">
+        <div class="row">
+            <hr class="col-md-12">
+            <br><br>
+            <h3 class="col-md-8 text-right" >@Messages("welcome.guest")</h3>
+            <!-- <div class="col-md-4 text-right">
+                <img src="@user.avatarURL.getOrElse(routes.Assets.at("images/silhouette.png"))" height="40px" />
+            </div> -->
+            <hr class="col-md-12" >
+        </div>
+    </div>
+    <div class = "container">
+      <div id="headerwrap">
+      </div>
+</div>
+
+    @model(user)
+</div>
+      @posts(user)
+
+
+    @footer(user)
+
+</body>
+}

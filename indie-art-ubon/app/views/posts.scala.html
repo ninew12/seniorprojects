@@ -1,0 +1,131 @@
+@(user: models.User)(implicit messages: Messages)
+<!-- dbforuminfo : Seq[models.Foruminfo] -->
+<!DOCTYPE html>
+@main(Messages("home.title")){
+
+  <div class="container">
+      <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Blender Artists Community</h3>
+      <h5>   Welcome to the Blender Artists Community.</h5>
+    <div class="panel panel-info">
+       <div class="panel-body">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-11">
+                          <ul class="breadcrumb">
+                              <li>
+                                  <i class="fa fa-list-alt" aria-hidden="true"></i><a href="#"> General Forums</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+             </div>
+
+          <div class="section">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-11">
+                          <table class="table  table-filte ">
+                              <tbody>
+
+                                  <tr>
+                                      <td>
+                                        <img src="assets/images/user.png" class="img-circle" width="60">
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>Blend4web</b>
+                                          </h5>
+                                          <h6><i class="fa fa-user" aria-hidden="true"></i> by kamonwan</h6>
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>การใช้งานเบื้องต้น</b>
+                                          </h5>
+                                      </td>
+                                      <td><h5><i class="fa fa-calendar" aria-hidden="true"></i> 23/01/2560</h5></td>
+                                      <td>
+                                          <div class="btn-group">
+                                            <a href="/selectposts "><button class="btn btn-warning" value="right" type="button" >Read More
+                                                <i class="fa fa-fw fa-arrow-right"></i></button></a>
+                                          </div>
+                                      </td>
+                                  </tr>
+
+                                  <tr>
+                                      <td>
+                                        <img src="assets/images/user.png" class="img-circle" width="60">
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>Simple Scene </b>
+                                          </h5>
+                                          <h6><i class="fa fa-user" aria-hidden="true"></i> by kamonwan</h6>
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>Simple Scene with Blend4Web</b>
+                                          </h5>
+                                      </td>
+                                        <td><h5><i class="fa fa-calendar" aria-hidden="true"></i> 26/01/2560</h5></td>
+                                      <td>
+                                          <div class="btn-group">
+                                            <a href="/selectposts "><button class="btn btn-warning" value="right" type="button" >Read More
+                                                <i class="fa fa-fw fa-arrow-right"></i></button></a>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                        <img src="assets/images/user.png" class="img-circle" width="60">
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>Using Shader Nodes </b>
+                                          </h5>
+                                          <h6><i class="fa fa-user" aria-hidden="true"></i> by kamonwan</h6>
+                                      </td>
+                                      <td>
+                                          <h5>
+                                              <b>Creating Blend4Web Materials </b>
+                                          </h5>
+                                      </td>
+                                        <td><h5><i class="fa fa-calendar" aria-hidden="true"></i> 27/01/2560</h5></td>
+                                      <td>
+                                          <div class="btn-group">
+                                            <a href="/selectposts "><button class="btn btn-warning" value="right" type="button" >Read More
+                                                <i class="fa fa-fw fa-arrow-right"></i></button></a>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <div class="container ">
+          <nav aria-label="Page navigation">
+             <ul class="pagination pagination-sm ">
+              <li>
+                  <a href="#" aria-label="Previous">
+                 <span aria-hidden="true">&laquo;</span>
+                 </a>
+             </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+
+             <li>
+                 <a href="#" aria-label="Next">
+                 <span aria-hidden="true">&raquo;</span>
+              </a>
+             </li>
+           </ul>
+         </nav>
+        </div><!-- container -->
+      </div><!-- panal-body -->
+    </div><!-- panal -->
+  </div><!-- container -->
+
+}

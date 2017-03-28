@@ -1,0 +1,42 @@
+error.email = โปรดกรอก email ที่ถูกต้อง
+error.required = ข้อมูลจำเป็น
+invalid.credentials = ข้อมูลผู้ใช้ไม่ถูกต้อง!
+access.denied = ไม่อนุญาติ!
+user.exists = มีผู้ใช้ email นี้แล้ว!
+could.not.authenticate = ไม่สามารถยืนยันกับไซต์ได้! โปรดลองอีกครั้ง!
+
+home.title = Indie Art Ubon
+sign.up.title = Indie Art Ubon - ลงชื่อ
+sign.in.title = Indie Art Ubon - เข้าใช้งาน
+
+toggle.navigation = เปิด/ปิด เมนู
+welcome.signed.in = ยินดีต้อนรับ, เข้าใช้งานได้แล้ว!
+welcome.guest = ยินดีต้อนรับ, ผู้เยี่ยมชมเว็บไซต์!
+
+sign.up.account = ลงทะเบียนผู้ใช้ใหม่
+sign.in.credentials = ลงชื่อเข้าใช้งาน
+
+error = มีข้อผิดพลาด!
+home = หน้าหลัก
+first.name = ชื่อ
+last.name = สกุล
+full.name = ชื่อ-สกุล
+email = Email
+password = รหัสผ่าน
+sign.up = ลงทะเบียนใหม่
+sign.in = ลงชื่อเข้าใช้งาน
+sign.out = ออกจากระบบ
+sign.in.now = เข้าใช้งานตอนนี้
+sign.up.now = ลงทะเบียนตอนนี้
+already.a.member = เป็นสมาชิกแล้ว?
+not.a.member = ยังไม่เป็นสมาชิก?
+
+remember.me = จำข้อมูลการเข้าใช้งาน
+or.use.social = หรือเข้าใช้งานจากเว็บเหล่านี้:
+
+google = Google
+facebook = Facebook
+twitter = Twitter
+vk = VK
+xing = Xing
+yahoo = Yahoo

@@ -1,0 +1,106 @@
+@(dbforuminfo : Seq[models.Foruminfo],user: models.User)(implicit messages: Messages)
+<!DOCTYPE html>
+@main(Messages("home.title"), Some(user)){
+   <body>
+     <div class="container">
+            <br><br><br>
+               <div class="panel panel-info">
+                  <div class="panel-body">
+                    <div class="container">
+                      <div class="row">
+                            <div class="col-sm-3  ">
+                                <ul class="breadcrumb">
+                                <li>
+                                    <img src="assets/images/user.png" class="img-circle" width="80">
+                                    <br>
+                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by kamonwan</a>
+                                </li>
+                                    <span> <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button></span>
+                                    <br><a><i class="fa fa-calendar" aria-hidden="true"></i> 26/01/2560</a>
+                                    <br><a><i class="fa fa-clock-o" aria-hidden="true"></i> 15:50 น.</a>
+                                    <br><a href="#"><i class="fa fa-eye" aria-hidden="true"></i>  2 </a>
+                                    <br>
+                                    <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> Other</a>
+
+                                </ul>
+                             </div>
+
+                        <div class="col-sm-8  ">
+                          @for(foruminfo
+                            <- dbforuminfo){
+                                <h3>@foruminfo.title</h3>
+                                <hr>
+                             <!--upload image-->
+                              <img src= "@foruminfo.imagepost" class="img-responsive" width="600">
+
+                            <!--add Description -->
+                             <h5> @foruminfo.detail</h5>
+
+                             <!--video upload-->
+                                <h5>Simple Scene with Blend4Web (with subtitles)</h5>
+                               <div class="embed-responsive embed-responsive-16by9" >
+
+                                 <iframe class="embed-responsive-item" src="@foruminfo.vdopost" style="border:none;"></iframe>
+
+                               </div>
+                             }
+                              <br>
+                             <div class="row">
+                                            <h5><span class="badge">2</span> Comment </h5>
+                                            <br>
+                                            <div class="col-sm-1">
+                                                     <img class="img-responsive user-photo" src="assets/images/user.png" >
+                                            </div><!-- /col-sm-1 -->
+                             <div class="col-sm-10">
+                                           <form>
+                                                <div class="form-group">
+                                                     <textarea class="form-control" rows="5" placeholder="comment"></textarea>
+                                               </div>
+                                               <div class=" text-right" >
+                                                    <button type="submit" class="btn btn-info  ">send</button>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                    </div><!-- /row -->
+                                    <br>
+                            <div class="row">
+                                   <div class="col-sm-1">
+                                               <img class="img-responsive user-photo" src="assets/images/user.png" >
+                                      </div><!-- /col-sm-1 -->
+                                  <div class="col-sm-10">
+                                       <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                  <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                                            </div>
+                                     <div class="panel-body">
+                                       <h5>Panel content</h5>
+                                     </div><!-- /panel-body -->
+                                   </div><!-- /panel panel-default -->
+                                 </div><!-- /col-sm-10 -->
+                               </div><!--row-->
+
+                            <div class="row">
+                                    <div class="col-sm-1">
+                                            <img class="img-responsive user-photo" src="assets/images/user.png"  >
+                                  </div><!-- /col-sm-1 -->
+                            <div class="col-sm-10">
+                                  <div class="panel panel-default">
+                                     <div class="panel-heading">
+                                              <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                                         </div>
+                                     <div class="panel-body">
+                                         <h5>Panel content</h5>
+                                       </div><!-- /panel-body -->
+                                      </div><!-- /panel panel-default -->
+                                    </div><!-- /col-sm-10 -->
+                                 </div><!--row-->
+                              </div>   <!-- col-md-8 -->
+                           </div>   <!-- row -->
+                        </div><!-- container -->
+                     </div><!-- panal-body -->
+                   </div><!-- panal -->
+                 </div><!-- container -->
+         <!--link social-->
+
+  </body>
+}

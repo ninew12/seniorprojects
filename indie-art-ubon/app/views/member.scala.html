@@ -1,0 +1,58 @@
+@(users : Seq[models.DBUser],user: models.User)(implicit request: RequestHeader, messages: Messages)
+
+<!DOCTYPE html>
+@main(Messages("home.title"), Some(user)){
+  <br><br>
+  <div class="container">
+      <div class="inner">
+           <div class="mt mb ">
+              <h3><i class="fa fa-users" aria-hidden="true"></i> USERS</h3>
+          </div>
+          <div class="panel panel-info">
+             <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+              <ul class="breadcrumb">
+                  <li>
+                      <i class="fa fa-trophy" aria-hidden="true"></i><a href="#"> Top User</a>
+                  </li>
+              </ul>
+          </div>
+          <!--shoe user-->
+
+             <div class=" col-sm-2" >
+                <div class="box2">
+                       <a  class="image fit"><img src="assets/images/back3.jpg" alt="" width="300" height="150" /></a>
+                    <div class="inner">
+                       <a href=""><h5>Wasan</h5></a>
+                       <a href="/selectModel" class="button fit btn-sm" ><i class="fa fa-plus" aria-hidden="true"></i> Follow</a>
+                   </div>
+                 </div>
+             </div>
+
+             <div class="col-md-12">
+                 <ul class="breadcrumb">
+                     <li>
+                        <i class="fa fa-users" aria-hidden="true"></i><a href="#"> All User</a>
+                     </li>
+                 </ul>
+             </div>
+             @for(user
+               <- users){
+           <div class=" col-sm-2">
+               <div class="box2">
+                       <a  class="image fit"><img src="assets/images/user2.jpg" alt="" width="300" height="150" /></a>
+                  <div class="inner">
+                   <a href="/profile"><h5>@user.fullName</h5></a>
+                      <a href="#" class="button fit btn-sm" ><i class="fa fa-plus" aria-hidden="true"></i> Follow</a>
+                 </div>
+               </div>
+            </div><!--col-sm2-2-->
+             }
+          </div><!--row-->
+        </div><!--inner-->
+      </div><!--container-->
+    </div>
+  </div>
+
+}

@@ -1,0 +1,114 @@
+@(user: models.User)(implicit messages: Messages)
+<!DOCTYPE html>
+@main(Messages("home.title") , Some(user)){
+
+      <div class="container">
+	        <div class="col-sm-8 ">
+            <br><br>
+	           	<h3>Name Models</h3>
+	       </div>
+       <div class="col-sm-8 " >
+			          <!--upload file html-->
+            <!-- <embed src="public/members/01/car2.html" height="480" width="740"> -->
+
+            <iframe src= "assets/images/model/scene.html" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
+						   <br>
+
+               <a href="#"><i class="fa fa-eye" aria-hidden="true"></i>  2 </a>
+               <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>  1 </a>
+
+            <div class=" text-right" >
+                     <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button>
+                     <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECT</button>
+                     <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  DOWNLOAD</button>
+             </div>
+
+						<div class="row">
+												<h5><span class="badge">2</span> Comment </h5>
+												<br>
+										<div class="col-sm-1">
+															<img class="img-responsive user-photo" src="assets/images/user.png" >
+										</div><!-- /col-sm-1 -->
+						<div class="col-sm-10">
+									 <form>
+												<div class="form-group">
+																 <textarea class="form-control" rows="5" placeholder="comment"></textarea>
+											  </div>
+													     <div class=" text-right" >
+																<button type="submit" class="btn btn-info  ">send</button>
+															</div>
+													</form>
+												</div>
+							     	  </div><!-- /row -->
+										<br>
+
+            <div class="row">
+									<div class="col-sm-1">
+													 <img class="img-responsive user-photo" src="assets/images/user.png" >
+									</div><!-- /col-sm-1 -->
+						<div class="col-sm-10">
+									<div class="panel panel-default">
+											<div class="panel-heading">
+															<strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+											</div>
+								 <div class="panel-body">
+									 <h5>Panel content</h5>
+								 </div><!-- /panel-body -->
+							 </div><!-- /panel panel-default -->
+						 </div><!-- /col-sm-10 -->
+					 </div><!--row-->
+
+						<div class="row">
+								<div class="col-sm-1">
+												<img class="img-responsive user-photo" src="assets/images/user.png"  >
+								</div><!-- /col-sm-1 -->
+							<div class="col-sm-10">
+									<div class="panel panel-default">
+										 <div class="panel-heading">
+													<strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+										 </div>
+							 <div class="panel-body">
+										 <h5>Panel content</h5>
+									 </div><!-- /panel-body -->
+									</div><!-- /panel panel-default -->
+								</div><!-- /col-sm-10 -->
+				    	</div><!--row-->
+           </div><!--col-md-8-->
+
+             	<div id="land-widget" class="col-sm-4 list-group ">
+                    	<li  class=" list-group-item ">
+                          <img  src= "assets/images/user.png" class="img-circle " width="70">
+		                    	<h5 class="list-group-item-heading">By name user</h5>
+		                    	<a href="/profile" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
+              	  	</li>
+
+	                 	<li class="list-group-item">
+		                    	<h5 class="list-group-item-heading">About This Model</h5>
+                          <h5>Description</h5>
+                          <h5>Date</h5>
+                          <h5>Time</h5>
+                          <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
+	                	</li>
+	        	<li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
+		               	<h4 class="widgettitle list-group-item-heading"><a href="#">Vad tycker andra om Vulkan</a></h4>
+			         <div class="recent_custom_posts_item">
+				            <div class="post-entry">
+				                <div class="testemonial-item">
+					                  	<div class="mb-thumb"></div>
+					                       	<blockquote cite="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/" title="Jag är mycket nöjd med det färdiga resultatet">
+							                    <a href="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/">
+								                  <p><i class="fa fa-quote-left"></i> Jag har från första stund varit nöjd med Vulkan. Jag har fått bra handledning och fint bemötande. <i class="fa fa-quote-right"></i></p>
+						                    	</a>
+					 	                    	<i class="fa fa-user fa-fw pull-left"></i><small>Thomas Nybom                                            </small>
+					                      	</blockquote>
+				                    	</div>
+				               	<div class="clear"> </div>
+				            </div>
+			           </div>
+	           	</li>
+	        </div><!--col-md-4 list-group-->
+     </div><!--container-->
+
+  <!-- /Page -->
+ @footer(user)
+}
