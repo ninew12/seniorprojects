@@ -1,6 +1,7 @@
 */logs/
 */target/
-*/project/
+*/project/target/
+*/project/project/
 */.idea
 */.idea_modules
 */.classpath
