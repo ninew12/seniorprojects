@@ -1,0 +1,11 @@
+*/logs/
+*/target/
+*/project/
+*/.idea
+*/.idea_modules
+*/.classpath
+*/.project
+*/.settings
+*/RUNNING_PID
+*/db/
+*/conf/evolutions/default/1.sql

@@ -12,6 +12,7 @@ GET         /authenticate/:provider          controllers.SocialAuthController.au
 POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp
 GET         /selectmodel                     controllers.IndieApplication.selectmodel
+GET         /selectModel                     controllers.IndieApplication.selectmodel
 GET         /selectposts                     controllers.IndieApplication.selectposts
 
 GET         /pagelist                        controllers.ApplicationController.getlist
