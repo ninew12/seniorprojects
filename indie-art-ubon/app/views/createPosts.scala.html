@@ -3,39 +3,39 @@
 
 @import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(user)){
-  <div class="container">
-         <br><br><br>
-              <div class="mt mb ">
-                 <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> CREATE POSTS</h3>
-             </div>
-               <div class="panel panel-info">
-                  <div class="panel-body">
-                    <div class="container">
-                      <div class="row">
-                       <div class="col-sm-1  ">
-                       </div>
-                        <div class="col-sm-8  ">
-                         @helper.form(action = routes.IndieApplication.forum()) {
-                             @helper.CSRF.formField
+<div class="container">
+  <br><br><br>
+  <div class="mt mb ">
+    <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> CREATE POSTS</h3>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-1  ">
+          </div>
+          <div class="col-sm-8  ">
+            @helper.form(action = routes.IndieApplication.forum()) {
+            @helper.CSRF.formField
 
-                                <h5 >หัวข้อกระทู้</h5>
-                              
-                               @b3.text( forumForm("title"), '_label -> "Topic" )
-                               @b3.textarea( forumForm("detail"), '_label -> "details" )
-                               @b3.file( forumForm("imagepost"), '_label -> "File" )
-                               @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )
+            <h5 >หัวข้อกระทู้</h5>
 
-                              <div class=" text-right">
-                                <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
-                                <button type="submit" class="btn btn-danger">Cancel</button>
-                              </div>
+            @b3.text( forumForm("title"), '_label -> "Topic" )
+            @b3.textarea( forumForm("detail"), '_label -> "details" )
+            @b3.file( forumForm("imagepost"), '_label -> "File" )
+            @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )
 
-                          }
-                              </div>   <!-- col-md-8 -->
-                           </div>   <!-- row -->
-                        </div><!-- container -->
-                     </div><!-- panal-body -->
-                   </div><!-- panal -->
-                </div><!--inner-->
+            <div class=" text-right">
+              <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
+              <button type="submit" class="btn btn-danger">Cancel</button>
+            </div>
+
+            }
+          </div>   <!-- col-md-8 -->
+        </div>   <!-- row -->
+      </div><!-- container -->
+    </div><!-- panal-body -->
+  </div><!-- panal -->
+</div><!--inner-->
 
 }

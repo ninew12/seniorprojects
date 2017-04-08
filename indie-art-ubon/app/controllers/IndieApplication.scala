@@ -145,5 +145,17 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
   }
 
+  // ทดสอบ scala.html
+  def b4wmodel() = Action {
+    Ok(views.html.b4wmodel(""))
+  }
+
+  def three() = Action {
+    Ok(views.html.threejsmodel())
+  }
+
+  def threejs2() = Action {
+    Ok(views.html.threejs2())
+  }
 
 }
