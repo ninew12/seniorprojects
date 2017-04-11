@@ -1,4 +1,7 @@
+@import forms._
+
 @(user: models.User)(implicit messages: Messages)
+
 <!DOCTYPE html>
 
 @main(Messages("home.title"), Some(user)){
@@ -14,19 +17,19 @@
                      <div class="col-sm-1  ">
                      </div>
                       <div class="col-sm-8  ">
-                        <form>
+                        <form method="POST" action="/uploadmodel" enctype="multipart/form-data">
+                            <input type="hidden" name="user" value=@user.userID />
                             <div class="form-group">
                               <h5 >ชื่อโมเดล</h5>
-                              <input type="text" class="form-control">
-
+                              <input type="text" name="title" class="form-control">
                             </div>
                                <div class="form-group">
                                  <h5 for="exampleTextarea">รายละเอียดโมเดล</h5>
-                                 <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                 <textarea name="detail" class="form-control" id="exampleTextarea" rows="3"></textarea>
                                </div>
 
                                <div class="form-group">
-                               <select class="custom-select">
+                               <select name="modelType" class="custom-select">
                                  <option selected>เลือกหมวดหมู่</option>
                                  <option value="1">Character</option>
                                  <option value="2">Assets</option>
@@ -37,22 +40,22 @@
 
                             <div class="form-group">
                                 <h5 for="exampleInputFile">แนบไฟล์รูปภาพ</h5>
-                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
+                                <input type="file" name="picturefile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
                             </div>
 
                             <div class="form-group">
                             <h5 for="exampleInputFile">แนบไฟล์.blend</h5>
-                              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
+                              <input type="file" name="blendfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
                             </div>
 
                             <div class="form-group">
                             <h5 for="exampleInputFile">แนบไฟล์.่json</h5>
-                              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
+                              <input type="file" name="jsonfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
                             </div>
 
                             <div class="form-group">
                             <h5 for="exampleInputFile">แนบไฟล์.html</h5>
-                            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
+                            <input type="file" name="htmlfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
                             </div>
 
                             <div class="form-group has-success">
