@@ -1,9 +1,10 @@
 @(user: models.User,dbforuminfo : Seq[models.Foruminfo])(implicit messages: Messages)
 <!-- dbforuminfo : Seq[models.Foruminfo] -->
 <!DOCTYPE html>
-@main(Messages("home.title")){
+@main(Messages("home.title"),Some(user)){
 
   <div class="container">
+      <br><br><br>
       <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Blender Artists Community</h3>
       <h5>   Welcome to the Blender Artists Community.</h5>
     <div class="panel panel-info">
@@ -46,7 +47,7 @@
                                       <td><h5><i class="fa fa-calendar" aria-hidden="true"></i> 23/01/2560</h5></td>
                                       <td>
                                           <div class="btn-group">
-                                            <a href="@routes.IndieApplication.userP(foruminfo.userID ) "><button class="btn btn-warning" value="right" type="button" >Read More
+                                            <a href="@routes.IndieApplication.showpost(foruminfo.userID ) "><button class="btn btn-warning" value="right" type="button" >Read More
                                                 <i class="fa fa-fw fa-arrow-right"></i></button></a>
                                           </div>
                                       </td>

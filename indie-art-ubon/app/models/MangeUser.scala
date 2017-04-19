@@ -51,6 +51,9 @@ object ListUser {
   def listAll: Future[Seq[DBUser]] = {
     dbConfig.db.run(users.result)
   }
+  def find(userID: String): Future[Seq[DBUser]] = {
+   dbConfig.db.run(users.filter(_.id === userID).result)
+ }
 
 }
 

@@ -1,10 +1,11 @@
 @(user: models.User)(implicit messages: Messages)
 <!DOCTYPE html>
-@main(Messages("home.title")){
+@main(Messages("home.title"),Some(user)){
 
 <div class="container">
           <br><br>
            <h3><i class="fa fa-cubes" aria-hidden="true"></i> The 3D Model </h3>
+           <br><br>
            <div class="thumbnails">
                <div class="box">
                    <a  class="image fit"><img src="assets/images/model/car.png" alt="" width="600" height="200"/></a>
@@ -15,7 +16,7 @@
                </div>
               <div class="inner">
                    <h5>Car model 3d</h5>
-                    <a href="/selectModel" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                    <a href="/showmodel" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
               </div>
             </div>
 
@@ -28,7 +29,7 @@
               </div>
             <div class="inner">
                   <h5>Vase model 3d </h5>
-                  <a href="/selectmodel" class="button style2 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                  <a href="/showmodel" class="button style2 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
                 </div>
             </div>
 
@@ -41,15 +42,32 @@
               </div>
               <div class="inner">
                    <h5>Monkey model 3d</h5>
-                   <a href="/selectmodel" class="button style3 fit" > <i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                   <a href="/showmodel" class="button style3 fit" > <i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
               </div>
             </div>
-          </div>
-         </div><!--thumbnails-->
+          </div><!--thumbnails-->
 
-      <nav aria-label="...">
-           <ul class="pager">
-              <li><a href="#">Discover More </a></li>
-        </ul>
-     </nav>
+          <div class="text-center ">
+          <nav aria-label="Page navigation">
+             <ul class="pagination pagination-sm ">
+              <li>
+                  <a href="#" aria-label="Previous">
+                 <span aria-hidden="true">&laquo;</span>
+                 </a>
+             </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+
+             <li>
+                 <a href="#" aria-label="Next">
+                 <span aria-hidden="true">&raquo;</span>
+              </a>
+             </li>
+           </ul>
+         </nav>
+        </div>
+       </div><!-- container -->
+
+
 }

@@ -21,7 +21,7 @@
             <h5 >หัวข้อกระทู้</h5>
 
             @b3.text( forumForm("title"), '_label -> "Topic" )
-            @b3.textarea( forumForm("detail"), '_label -> "details" )
+            @b3.textarea( forumForm("detail"), '_label -> "details" ,'rows -> 3 )
             @b3.file( forumForm("imagepost"), '_label -> "File" )
             @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )
 

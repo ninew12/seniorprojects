@@ -23,6 +23,7 @@ case class Foruminfo(
 )
 case class Comment (
     userID : String,
+    idcm : String ,
     detail: Option[String]
 )
 
@@ -39,8 +40,9 @@ class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
   def  id = column[String]("userID", O.PrimaryKey)
+  def  idcm = column[String]("idcomment")
   def detail = column[Option[String]]("detail")
-  def * = (id, detail) <> (Comment.tupled, Comment.unapply)
+  def * = (id,idcm, detail) <> (Comment.tupled, Comment.unapply)
 }
 
 object addforum {
@@ -58,6 +60,10 @@ object addforum {
   def get(id: String): Future[Option[Foruminfo]] = {
    dbConfig.db.run(dbforuminfo.filter(_.id === id).result.headOption)
  }
+  def find(userID: String): Future[Seq[Foruminfo]] = {
+   dbConfig.db.run(dbforuminfo.filter(_.id === userID).result)
+ }
+
 
   def listAll: Future[Seq[Foruminfo]] = {
     dbConfig.db.run(dbforuminfo.result)
@@ -79,6 +85,9 @@ object addcomment {
   def get(id: String): Future[Option[Comment]] = {
    dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
  }
+   def find(idcm: String): Future[Seq[Comment]] = {
+  dbConfig.db.run(dbcomment.filter(_.id === idcm).result)
+}
 
   def listAll: Future[Seq[Comment]] = {
     dbConfig.db.run(dbcomment.result)

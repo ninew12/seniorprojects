@@ -13,18 +13,21 @@ POST        /authenticate/credentials        controllers.CredentialsAuthControll
 POST        /signUp                          controllers.SignUpController.signUp
 GET         /selectmodel                     controllers.IndieApplication.selectmodel
 GET         /selectModel                     controllers.IndieApplication.selectmodel
-GET         /selectposts                     controllers.IndieApplication.selectposts
+#GET         /selectposts                     controllers.IndieApplication.selectposts
 
 GET         /pagelist                        controllers.ApplicationController.getlist
-#GET         /showpost                        controllers.IndieApplication.showpost
-#GET         /showmodel                       controllers.IndieApplication.showmodel
+GET         /showpost/:id                    controllers.IndieApplication.showpost(id : String)
+GET         /posts                           controllers.IndieApplication.posts
+GET         /model                           controllers.IndieApplication.model
+GET         /showmodel                       controllers.IndieApplication.showmodel
 GET         /col                             controllers.IndieApplication.collection
-GET         /profile                         controllers.IndieApplication.profile
+GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
+GET         /user/:id                        controllers.IndieApplication.userP(id : String)
 
 #GET         /test                            controllers.IndieApplication.b4wmodel
 #GET         /test                            controllers.IndieApplication.three

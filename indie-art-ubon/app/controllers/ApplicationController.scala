@@ -34,21 +34,37 @@ class ApplicationController @Inject() (
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
 
-  def index = UserAwareAction.async { implicit request =>
-    request.identity match {
-      case Some(user) => Future.successful(Ok(views.html.home(user)))
-      case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
-    }
-  }
-
-  //def index = UserAwareAction.async { implicit request =>
+//  def index = UserAwareAction.async { implicit request =>
   //  request.identity match {
-    //  case Some(user) => addforum.get(user.userID.toString).map{ dbforuminfo =>
-      //  Ok(views.html.home(user,dbforuminfo))
-      //  }
-      //  case None => Future.successful(Redirect(routes.ApplicationController.index()))
-    //}
-  //}
+    //  case Some(user) => Future.successful(Ok(views.html.home(user)))
+    //  case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+  //  }
+//  }
+
+  def index = UserAwareAction.async { implicit request =>
+   request.identity match {
+
+    case Some(user) =>
+        val data = for{
+          a <- ListUser.listAll
+          b <- addforum.listAll
+        }yield(b)
+        data.map { dbforuminfo =>
+        Ok(views.html.home(user,dbforuminfo))
+        }
+        case None =>
+        val data = for{
+          a <- addforum.listAll
+
+        }yield(a)
+        data.map { dbforuminfo =>
+        Ok(views.html.guesthome(UserConstants.guest,dbforuminfo))
+       }
+      }
+    }
+
+
+
 
   def run = Action { request =>
       //val r = "git --version" !
@@ -62,7 +78,7 @@ class ApplicationController @Inject() (
       case Some(user) => ListUser.listAll.map {users =>
           Ok(views.html.listuser(users))
     }
-     case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+     case None => Future.successful(Redirect(routes.ApplicationController.index()))
   }
  }
   /**
@@ -70,9 +86,9 @@ class ApplicationController @Inject() (
    *
    * @return The result to display.
    */
-  def securedPage = SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.home(request.identity)))
-  }
+  //def securedPage = SecuredAction.async { implicit request =>
+  // Future.successful(Ok(views.html.home(request.identity)))
+//  }
 
   /**
    * Handles the Sign In action.

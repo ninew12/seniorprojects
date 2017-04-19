@@ -38,7 +38,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     }
 
-    def selectposts = UserAwareAction.async {implicit request =>
+    /*def selectposts = UserAwareAction.async {implicit request =>
       val data = for{
         a <- addforum.listAll
         b <- addcomment.listAll
@@ -47,13 +47,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment))
 
       }
-    }
-
+    }*/
 
     def collection = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => Future.successful(Ok(views.html.collection(user)))
-        case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
 
@@ -64,12 +63,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     //  }
     //  }
 
-    def profile = UserAwareAction.async { implicit request =>
+    def profile(id: String) = UserAwareAction.async { implicit request =>
       request.identity match {
-        case Some(user) => ListUser.listAll.map {users =>
+        case Some(user) => ListUser.find(id).map {users =>
           Ok(views.html.profile(user,users))
         }
-        case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
 
     }
@@ -78,7 +77,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def forums = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => Future.successful(Ok(views.html.createPosts(forumForm.form,user)))
-        case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
 
     }
@@ -112,12 +111,14 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         data => {
           val comments = Comment(
             userID = UUID.randomUUID.toString,
+            idcm =  UUID.randomUUID.toString,
             detail = Some(data.detail)
 
           )
 
         addcomment.add(comments).map(res =>
-            Redirect("/selectposts")
+            Redirect("/")
+
             )
 
         }
@@ -127,7 +128,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def upmodel = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => Future.successful(Ok(views.html.uploadModel(user)))
-        case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
 
@@ -140,10 +141,57 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         case Some(user) => ListUser.listAll.map {users =>
           Ok(views.html.member(users,user))
         }
-        case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
 
     }
+
+     def userP(id: String) = Action.async { implicit request =>
+        val data = for{
+          a <- addforum.find(id)
+          b <- addcomment.find(id)
+        }yield(a,b)
+        data.map { case (dbforuminfo,dbcomment) =>
+          Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment))
+          }
+     }
+
+     def showpost (id : String) = UserAwareAction.async { implicit request =>
+       request.identity match {
+         case Some(user) =>
+         val data = for{
+           a <- addforum.find(id)
+           b <- addcomment.find(id)
+         }yield(a,b)
+         data.map { case (dbforuminfo,dbcomment) =>
+           Ok(views.html.showposts(CommentForm.form,user,dbforuminfo,dbcomment))
+           }
+            case None => Future.successful(Redirect(routes.ApplicationController.index()))
+         }
+       }
+
+       def posts = UserAwareAction.async {implicit request =>
+         request.identity match {
+         case Some(user) =>  addforum.listAll.map {dbforuminfo =>
+            Ok(views.html.postsUser(user,dbforuminfo))
+        }
+         case None => Future.successful(Redirect(routes.ApplicationController.index()))
+       }
+      }
+
+      def model = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) => Future.successful(Ok(views.html.modelsUser(user)))
+          case None => Future.successful(Redirect(routes.ApplicationController.index()))
+        }
+      }
+
+      def showmodel = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) => Future.successful(Ok(views.html.showmodel(user)))
+          case None => Future.successful(Redirect(routes.ApplicationController.index()))
+        }
+      }
 
     // ทดสอบ scala.html
     def b4wmodel() = Action {

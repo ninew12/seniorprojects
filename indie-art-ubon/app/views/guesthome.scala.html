@@ -1,4 +1,4 @@
-@(user: models.User)(implicit messages: Messages)
+@(user: models.User,dbforuminfo : Seq[models.Foruminfo])(implicit messages: Messages)
 <!-- , dbforuminfo : Option[models.Foruminfo] -->
 @main(Messages("home.title") ) {
 <body>
@@ -21,7 +21,7 @@
 
     @model(user)
 </div>
-      @posts(user)
+      @posts(user,dbforuminfo)
 
 
     @footer(user)

@@ -1,9 +1,9 @@
 @import forms._
 
-@(user: models.User)(implicit messages: Messages)
-
+@(user: models.User)(implicit request: RequestHeader , messages: Messages)
+<!-- ArtForm: Form[forms.ArtForm.Data], -->
 <!DOCTYPE html>
-
+//@import b3.inline.fieldConstructor
 @main(Messages("home.title"), Some(user)){
   <div class="container">
          <br><br><br>
@@ -17,6 +17,7 @@
                      <div class="col-sm-1  ">
                      </div>
                       <div class="col-sm-8  ">
+
                         <form method="POST" action="/uploadmodel" enctype="multipart/form-data">
                             <input type="hidden" name="user" value=@user.userID />
                             <div class="form-group">
@@ -71,6 +72,7 @@
                               <button type="submit" class="btn btn-danger">Cancel</button>
                             </div>
                           </form>
+
                             </div>   <!-- col-md-8 -->
                          </div>   <!-- row -->
                       </div><!-- container -->
@@ -88,13 +90,11 @@
                                              <h4 class="modal-title">เงื่อนไขการอัพโหลดผลงาน</h4>
                                        </div>
                                <div class="modal-body">
-                                 <div class="well">
+                                 <!-- <div class="well">
                                      <p>&nbsp;&nbsp;&nbsp;&nbsp;ผลงานที่ทำการอัพโหลดเป็นผลงานที่ถูกพัฒนาขึ้นด้วยสมาชิกเอง</p>
                                      <p>&nbsp;&nbsp;&nbsp;&nbsp;หากมีการคัดลอกผลงานเพื่อนำมาอัพโหลดทางเราจะไม่รับผิดชอบใดๆทั้งสิ้น</p>
                                      <p>&nbsp;&nbsp;&nbsp;&nbsp;ผู้พัฒนาต้องการแชร์ผลงานให้สมาชิกท่านอื่นโดยไม่มีเงื่อนไขหรือเสียค่าใช้จ่ายใดๆทั้งสิ้น</p>
-                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;การใช้งานของเว็บไซต์อยู่ภายใต้กฎหมายและกฎระเบียบที่บังคับใช้ทั้งหมดและคุณจะต้องรับผิดชอบต่อเนื้อหาของการสื่อสารของคุณผ่านทางเว็บไซต์
-                                     ไม่ใช้เนื้อหาที่ไม่เหมาะสม ล่วงละเมิด หรือการฉ้อโกงรุกราน และทำการฝ่าฝืนกฎระเบียบ นโยบายของเรา </p>
-                                </div>
+                                </div> -->
                               </div>
                                   <div class="modal-footer">
                                              <a href="#" data-dismiss="modal" class="btn">Close</a>
