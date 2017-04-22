@@ -1,9 +1,9 @@
 @import forms._
+@(user: models.User,uploadForm: Form[forms.uploadForm.Data])(implicit request: RequestHeader , messages: Messages)
 
-@(user: models.User)(implicit request: RequestHeader , messages: Messages)
-<!-- ArtForm: Form[forms.ArtForm.Data], -->
 <!DOCTYPE html>
-//@import b3.inline.fieldConstructor
+@import b3.inline.fieldConstructor
+@blend = @{ Seq("C"->"Category","C"->"Character","A"->"Assets","S"->"Scene","O"->"Others") }
 @main(Messages("home.title"), Some(user)){
   <div class="container">
          <br><br><br>
@@ -18,60 +18,23 @@
                      </div>
                       <div class="col-sm-8  ">
 
-                        <form method="POST" action="/uploadmodel" enctype="multipart/form-data">
-                            <input type="hidden" name="user" value=@user.userID />
-                            <div class="form-group">
-                              <h5 >ชื่อโมเดล</h5>
-                              <input type="text" name="title" class="form-control">
-                            </div>
-                               <div class="form-group">
-                                 <h5 for="exampleTextarea">รายละเอียดโมเดล</h5>
-                                 <textarea name="detail" class="form-control" id="exampleTextarea" rows="3"></textarea>
-                               </div>
+                        @helper.form(action = routes.IndieApplication.upload()) {
+                          @helper.CSRF.formField
 
-                               <div class="form-group">
-                               <select name="modelType" class="custom-select">
-                                 <option selected>เลือกหมวดหมู่</option>
-                                 <option value="1">Character</option>
-                                 <option value="2">Assets</option>
-                                 <option value="3">Scene</option>
-                                 <option value="4">Others</option>
-                               </select>
-                             </div>
-
-                            <div class="form-group">
-                                <h5 for="exampleInputFile">แนบไฟล์รูปภาพ</h5>
-                                <input type="file" name="picturefile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
-                            </div>
-
-                            <div class="form-group">
-                            <h5 for="exampleInputFile">แนบไฟล์.blend</h5>
-                              <input type="file" name="blendfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
-                            </div>
-
-                            <div class="form-group">
-                            <h5 for="exampleInputFile">แนบไฟล์.่json</h5>
-                              <input type="file" name="jsonfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
-                            </div>
-
-                            <div class="form-group">
-                            <h5 for="exampleInputFile">แนบไฟล์.html</h5>
-                            <input type="file" name="htmlfile" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" style="color:#FF9933">
-                            </div>
-
-                            <div class="form-group has-success">
-                              <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input">
-                                <span class="custom-control-indicator"></span>
-                                <span style="color:#FFFFFF" class="custom-control-description">ยอมรับเงื่อนไข  <a data-toggle="modal" href="#model"  > เงื่อนไขการอัพโหลดผลงาน  </a></span>
-                              </label>
-                            </div>
+                            @b3.text( uploadForm("title"), '_label -> "Topic" )
+                            @b3.textarea( uploadForm("detail"), '_label -> "details" ,'rows -> 3 )
+                            @b3.select( uploadForm("modelType"), options = blend, '_label -> "Select" )
+                            @b3.file( uploadForm("picturefile"), '_label -> "Picturefile" )
+                            @b3.file( uploadForm("blendfile"), '_label -> "Blendfile" )
+                            @b3.file( uploadForm("jsonfile"), '_label -> "Jsonfile" )
+                            @b3.file( uploadForm("htmlfile"), '_label -> "Htmlfile" )
 
                             <div class=" text-right">
-                              <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
-                              <button type="submit" class="btn btn-danger">Cancel</button>
-                            </div>
-                          </form>
+                               <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
+                               <button type="submit" class="btn btn-danger">Cancel</button>
+                             </div>
+
+                          }
 
                             </div>   <!-- col-md-8 -->
                          </div>   <!-- row -->

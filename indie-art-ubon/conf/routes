@@ -28,6 +28,7 @@ POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
 GET         /user/:id                        controllers.IndieApplication.userP(id : String)
+POST        /upload                          controllers.IndieApplication.upload
 
 #GET         /test                            controllers.IndieApplication.b4wmodel
 #GET         /test                            controllers.IndieApplication.three

@@ -22,27 +22,33 @@ case class Foruminfo(
 
 )
 case class Comment (
-    userID : String,
-    idcm : String ,
-    detail: Option[String]
+    id :  String,
+    detail: Option[String],
+    userID : String ,
+    artworkid: String ,
+    forumid: String
+
 )
 
 
 class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
-  def  id = column[String]("userID", O.PrimaryKey)
+  def id = column[String]("userID", O.PrimaryKey)
   def title = column[Option[String]]("title")
   def detail = column[Option[String]]("detail")
   def imagepost = column[Option[String]]("imagepost")
   def vdopost = column[Option[String]]("vdopost")
 //  def date = column[Option[java.sql.Date]]("date")
-  def * = (id, title, detail, imagepost, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
+  def * = ( id, title, detail, imagepost, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
-  def  id = column[String]("userID", O.PrimaryKey)
-  def  idcm = column[String]("idcomment")
+  def  id = column[String]("id", O.PrimaryKey)
   def detail = column[Option[String]]("detail")
-  def * = (id,idcm, detail) <> (Comment.tupled, Comment.unapply)
+  def userID = column[String]("userID")
+  def artworkid = column[String]("artworkid")
+  def forumid = column[String]("forumid")
+
+  def * = (id, detail, userID, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
 }
 
 object addforum {
@@ -85,8 +91,8 @@ object addcomment {
   def get(id: String): Future[Option[Comment]] = {
    dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
  }
-   def find(idcm: String): Future[Seq[Comment]] = {
-  dbConfig.db.run(dbcomment.filter(_.id === idcm).result)
+   def find(id : String): Future[Seq[Comment]] = {
+  dbConfig.db.run(dbcomment.filter(_.id === id).result)
 }
 
   def listAll: Future[Seq[Comment]] = {

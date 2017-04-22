@@ -7,7 +7,6 @@ object forumForm {
 
 val form = Form(
     mapping(
-
       "title" -> nonEmptyText,
       "detail" -> nonEmptyText,
       "imagepost" -> nonEmptyText,

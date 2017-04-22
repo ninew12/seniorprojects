@@ -8,10 +8,13 @@ object CommentForm {
 val form = Form(
     mapping(
       "detail" -> nonEmptyText
+
     )(Data.apply)(Data.unapply)
   )
 
   case class Data(
     detail: String
+
+
   )
 }

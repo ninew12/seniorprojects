@@ -62,5 +62,6 @@ class ArtApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesApi
       //}
     }
       */
+      
 
   }

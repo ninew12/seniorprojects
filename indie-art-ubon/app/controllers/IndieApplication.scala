@@ -11,8 +11,6 @@ import models.addcomment
 import models.addforum
 import models.addcollection
 import forms._
-import forms.forumForm
-import forms.CommentForm
 import play.api.libs.json.Json
 import models.User
 import models.DBUser
@@ -24,7 +22,7 @@ import play.api.i18n.MessagesApi
 import java.util.UUID
 //import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
 import scala.concurrent.ExecutionContext.Implicits.global
-
+import java.io.File
 import scala.concurrent.Future
 
 
@@ -110,9 +108,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         form => Future.successful( Redirect("/")),
         data => {
           val comments = Comment(
+            id = UUID.randomUUID.toString,
             userID = UUID.randomUUID.toString,
-            idcm =  UUID.randomUUID.toString,
-            detail = Some(data.detail)
+            detail = Some(data.detail),
+            artworkid = UUID.randomUUID.toString,
+            forumid = UUID.randomUUID.toString
+
 
           )
 
@@ -127,7 +128,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     def upmodel = UserAwareAction.async { implicit request =>
       request.identity match {
-        case Some(user) => Future.successful(Ok(views.html.uploadModel(user)))
+        case Some(user) => Future.successful(Ok(views.html.uploadModel(user,uploadForm.form)))
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
@@ -192,6 +193,17 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           case None => Future.successful(Redirect(routes.ApplicationController.index()))
         }
       }
+
+      def upload = Action(parse.multipartFormData) { request =>
+      request.body.file("img").map { picture =>
+         val filename = picture.filename
+         val contentType = picture.contentType
+         picture.ref.moveTo(new File(s"public/images/$filename"))
+         Ok("File uploaded")
+     }.getOrElse {
+         Ok("File F")
+       }
+     }
 
     // ทดสอบ scala.html
     def b4wmodel() = Action {
