@@ -87,6 +87,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         form => Future.successful( Redirect("/")),
         data => {
           val forums = Foruminfo(
+            id = UUID.randomUUID.toString,
             userID = UUID.randomUUID.toString,
             title = Some(data.title),
             detail = Some(data.detail),
@@ -118,7 +119,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           )
 
         addcomment.add(comments).map(res =>
-            Redirect("/")
+            Redirect("/ ")
 
             )
 
@@ -151,9 +152,10 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         val data = for{
           a <- addforum.find(id)
           b <- addcomment.find(id)
-        }yield(a,b)
-        data.map { case (dbforuminfo,dbcomment) =>
-          Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment))
+          c <- ListUser.listAll //ยังไม่ได้เชคid
+        }yield(a,b,c)
+        data.map { case (dbforuminfo,dbcomment,users) =>
+          Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment,users))
           }
      }
 
@@ -163,9 +165,10 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
          val data = for{
            a <- addforum.find(id)
            b <- addcomment.find(id)
-         }yield(a,b)
-         data.map { case (dbforuminfo,dbcomment) =>
-           Ok(views.html.showposts(CommentForm.form,user,dbforuminfo,dbcomment))
+           c <- ListUser.listAll //ยังไม่ได้เชคid
+         }yield(a,b,c)
+         data.map { case (dbforuminfo,dbcomment,users) =>
+           Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
            }
             case None => Future.successful(Redirect(routes.ApplicationController.index()))
          }
@@ -195,13 +198,14 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       }
 
       def upload = Action(parse.multipartFormData) { request =>
-      request.body.file("img").map { picture =>
+      request.body.file("picture").map { picture =>
          val filename = picture.filename
          val contentType = picture.contentType
          picture.ref.moveTo(new File(s"public/images/$filename"))
          Ok("File uploaded")
      }.getOrElse {
-         Ok("File F")
+         Redirect(routes.ApplicationController.index).flashing(
+          "error" -> "Missing file")
        }
      }
 

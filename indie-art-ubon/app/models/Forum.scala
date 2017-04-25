@@ -13,6 +13,7 @@ import models.daos._
 
 
 case class Foruminfo(
+    id: String,
     userID: String,
     title: Option[String],
     detail: Option[String],
@@ -32,13 +33,14 @@ case class Comment (
 
 
 class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
-  def id = column[String]("userID", O.PrimaryKey)
+  def id = column[String]("id", O.PrimaryKey)
+  def userID = column[String]("userID")
   def title = column[Option[String]]("title")
   def detail = column[Option[String]]("detail")
   def imagepost = column[Option[String]]("imagepost")
   def vdopost = column[Option[String]]("vdopost")
 //  def date = column[Option[java.sql.Date]]("date")
-  def * = ( id, title, detail, imagepost, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
+  def * = ( id, userID, title, detail, imagepost, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
@@ -67,7 +69,7 @@ object addforum {
    dbConfig.db.run(dbforuminfo.filter(_.id === id).result.headOption)
  }
   def find(userID: String): Future[Seq[Foruminfo]] = {
-   dbConfig.db.run(dbforuminfo.filter(_.id === userID).result)
+   dbConfig.db.run(dbforuminfo.filter(_.userID === userID).result)
  }
 
 
@@ -91,8 +93,8 @@ object addcomment {
   def get(id: String): Future[Option[Comment]] = {
    dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
  }
-   def find(id : String): Future[Seq[Comment]] = {
-  dbConfig.db.run(dbcomment.filter(_.id === id).result)
+   def find(userID : String): Future[Seq[Comment]] = {
+  dbConfig.db.run(dbcomment.filter(_.userID === userID).result)
 }
 
   def listAll: Future[Seq[Comment]] = {

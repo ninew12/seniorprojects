@@ -32,13 +32,13 @@ class DBUserRoles(tag: Tag) extends Table[DBUserRole](tag, "userrole") {
 }
 
 class Users(tag: Tag) extends Table[DBUser](tag, "user") {
-  def id = column[String]("userID", O.PrimaryKey)
+  def userID = column[String]("userID", O.PrimaryKey)
   def firstName = column[Option[String]]("firstName")
   def lastName = column[Option[String]]("lastName")
   def fullName = column[Option[String]]("fullName")
   def email = column[Option[String]]("email")
   def avatarURL = column[Option[String]]("avatarURL")
-  def * = (id, firstName, lastName, fullName, email, avatarURL) <> (DBUser.tupled, DBUser.unapply)
+  def * = (userID, firstName, lastName, fullName, email, avatarURL) <> (DBUser.tupled, DBUser.unapply)
 }
 
 object ListUser {
@@ -48,11 +48,19 @@ object ListUser {
   val users = TableQuery[Users]
   val roles = TableQuery[DBUserRoles]
 
-  def listAll: Future[Seq[DBUser]] = {
-    dbConfig.db.run(users.result)
+    def listAll: Future[Seq[DBUser]] = {
+      dbConfig.db.run(users.result)
+    }
+    def find(userID: String): Future[Seq[DBUser]] = {
+      dbConfig.db.run(users.filter(_.userID === userID).result)
+   }
+
+  def delete(userID: String): Future[Int] = {
+    dbConfig.db.run(users.filter(_.userID === userID).delete)
   }
-  def find(userID: String): Future[Seq[DBUser]] = {
-   dbConfig.db.run(users.filter(_.id === userID).result)
+
+ def get(userID: String): Future[Option[DBUser]] = {
+   dbConfig.db.run(users.filter(_.userID === userID).result.headOption)
  }
 
 }

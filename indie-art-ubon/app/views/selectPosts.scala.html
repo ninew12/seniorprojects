@@ -1,4 +1,4 @@
-@(Forms: Form[forms.CommentForm.Data],dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment])(implicit request: RequestHeader , messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader , messages: Messages)
 <!-- , dbcomment : Seq[models.Comment] -->
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
@@ -10,12 +10,14 @@
                   <div class="panel-body">
                     <div class="container">
                       <div class="row">
+                        @for(user
+                          <- users){
                             <div class="col-sm-3  ">
                                 <ul class="breadcrumb">
                                 <li>
-                                    <img src="assets/images/user.png" class="img-circle" width="80">
+                                    <img src="assets/images/@user.avatarURL" class="img-circle" width="80">
                                     <br>
-                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by kamonwan</a>
+                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by @user.fullName</a>
                                 </li>
                                     <span> <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button></span>
                                     <br><a><i class="fa fa-calendar" aria-hidden="true"></i> 26/01/2560</a>
@@ -26,7 +28,7 @@
 
                                 </ul>
                              </div>
-
+                           }
                         <div class="col-sm-8  ">
                           @for(foruminfo
                             <- dbforuminfo){
@@ -84,6 +86,7 @@
                                }
                                </div><!--row-->
                               </div>   <!-- col-md-8 -->
+
                            </div>   <!-- row -->
                         </div><!-- container -->
                      </div><!-- panal-body -->

@@ -18,7 +18,7 @@
                      </div>
                       <div class="col-sm-8  ">
 
-                        @helper.form(action = routes.IndieApplication.upload()) {
+                        @helper.form(action = routes.IndieApplication.upload,'enctype -> "multipart/form-data") {
                           @helper.CSRF.formField
 
                             @b3.text( uploadForm("title"), '_label -> "Topic" )
