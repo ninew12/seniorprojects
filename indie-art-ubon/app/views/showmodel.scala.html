@@ -1,5 +1,8 @@
-@(user: models.User)(implicit messages: Messages)
+@import forms._
+
+@(user: models.User, commentForm: Form[CommentForm.Data])(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
+@import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(user)){
 
   <div class="container">
@@ -28,14 +31,17 @@
           <img class="img-responsive user-photo" src="assets/images/user.png" >
         </div><!-- /col-sm-1 -->
         <div class="col-sm-10">
-          <form>
-            <div class="form-group">
-              <textarea class="form-control" rows="5" placeholder="comment"></textarea>
-            </div>
+          @helper.form(action = routes.IndieApplication.comment) {
+            @helper.CSRF.formField
+
+            @b3.hidden( "commenterID", user.userID )
+
+            @b3.textarea( commentForm("detail"), '_label -> "details", 'rows -> 3 )
+
             <div class=" text-right" >
               <button type="submit" class="btn btn-info  ">send</button>
             </div>
-          </form>
+          }
         </div>
       </div><!-- /row -->
       <br>

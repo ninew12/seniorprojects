@@ -12,6 +12,7 @@ import models.addforum
 import models.addcollection
 import forms._
 import play.api.libs.json.Json
+import play.api.Logger
 import models.User
 import models.DBUser
 import models.Comment
@@ -104,23 +105,23 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         )
     }
 
-    def comment = Action.async { implicit request =>
+    //def comment = Action.async { implicit request =>
+    def comment = UserAwareAction.async { implicit request =>
+      Logger.warn(s"controller.IndieApplication.comment")
       CommentForm.form.bindFromRequest.fold(
         form => Future.successful( Redirect("/")),
         data => {
+          Logger.warn(s"data=$data \ndata.commenterID=${data.commenterID}")
           val comments = Comment(
             id = UUID.randomUUID.toString,
-            userID = UUID.randomUUID.toString,
+            userID = data.commenterID, // assign from data.commenterID see forms.CommentForm
             detail = Some(data.detail),
             artworkid = UUID.randomUUID.toString,
             forumid = UUID.randomUUID.toString
-
-
           )
 
         addcomment.add(comments).map(res =>
             Redirect("/ ")
-
             )
 
         }
@@ -192,7 +193,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
       def showmodel = UserAwareAction.async { implicit request =>
         request.identity match {
-          case Some(user) => Future.successful(Ok(views.html.showmodel(user)))
+          case Some(user) => Future.successful(Ok(views.html.showmodel(user, CommentForm.form)))
           case None => Future.successful(Redirect(routes.ApplicationController.index()))
         }
       }
