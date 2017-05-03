@@ -21,6 +21,7 @@ Answer:
 2. ผู้ใช้ไปหน้าหลัก /
 3. ผู้ใช้เลือก model ในส่วน 3D model แล้วกด watch
 4. ผู้ใช้เขียน comment แล้ว กด send
+
 Code: 
 1. forms.CommentForm เพิ่ม field ชื่อ commenterID และปรับ Data ให้มี commenterID ด้วย
 2. showmodel.scala.html บรรทัดที่ 37 เพิ่ม hidden field สำหรับเก็บ commenterID เป็น user.userID
