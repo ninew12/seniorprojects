@@ -15,15 +15,15 @@
           <div class="col-sm-1  ">
           </div>
           <div class="col-sm-8  ">
-            @helper.form(action = routes.IndieApplication.forum()) {
+            @helper.form(action = routes.IndieApplication.forum()){
             @helper.CSRF.formField
 
             <h5 >หัวข้อกระทู้</h5>
-
+            @b3.hidden( "forumID", user.userID )
             @b3.text( forumForm("title"), '_label -> "Topic" )
             @b3.textarea( forumForm("detail"), '_label -> "details" ,'rows -> 3 )
-            @b3.file( forumForm("imagepost"), '_label -> "File" )
-            @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@@youtube" )
+            @b3.file( forumForm("picture"), '_label -> "File" )
+            @b3.text( forumForm("vdopost"), '_label -> "Link", '_help -> "@youtube" )
 
             <div class=" text-right">
               <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;

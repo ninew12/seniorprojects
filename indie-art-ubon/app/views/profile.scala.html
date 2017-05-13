@@ -17,7 +17,7 @@
             <!--show my model -->
                <div class=" col-sm-4">
                  <div class="box">
-                     <a  class="image fit"><img src="assets/images/pic01.jpg" alt="" width="300" height="150"/></a>
+                     <a  class="image fit"><img src="@routes.Assets.at("images/pic01.jpg")" alt="" width="300" height="150"/></a>
                  <div class="inner">
                      <h5>Nascetur nunc varius commodo</h5>
                       <a href="/selectModel" class="button style2 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
@@ -31,7 +31,7 @@
        @for(user
          <- users){
             <li  class=" list-group-item ">
-                <img src= "assets/images/user.png" class="img-circle " width="70">
+                <img src= "@routes.Assets.at("images/user.png")" class="img-circle " width="70">
                 <h5 class="list-group-item-heading"><i class="fa fa-user" aria-hidden="true"></i> @user.fullName</h5>
                 <div class="row overview ">
                   <div class="col-md-6 user-pad text-center">

@@ -14,7 +14,7 @@
                             <div class="col-sm-3  ">
                                 <ul class="breadcrumb">
                                 <li>
-                                    <img src="assets/images/@user.avatarURL" class="img-circle" width="80">
+                                    <img src="@routes.Assets.at("images/@user.avaterURL")"  class="img-circle" width="80">
                                     <br>
                                     <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by @user.fullName</a>
                                 </li>
@@ -34,7 +34,7 @@
                                      <h3>@foruminfo.title</h3>
                                      <hr>
                                   <!--upload image-->
-                                   <img src= "@foruminfo.imagepost" class="img-responsive" width="600">
+                                   <img src= "@foruminfo.picture" class="img-responsive" width="600">
 
                                  <!--add Description -->
                                   <h5> @foruminfo.detail</h5>
@@ -52,7 +52,7 @@
                                                  <h5><span class="badge">2</span> Comment </h5>
                                                  <br>
                                                  <div class="col-sm-1">
-                                                          <img class="img-responsive user-photo" src="assets/images/user.png" >
+                                                          <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
                                                  </div><!-- /col-sm-1 -->
                                   <div class="col-sm-10">
                                     @helper.form(action = routes.IndieApplication.comment()) {
@@ -69,7 +69,7 @@
                                    @for(comment
                                      <- dbcommemt){
                                         <div class="col-sm-1">
-                                                    <img class="img-responsive user-photo" src="assets/images/user.png" >
+                                                    <img class="img-responsive user-photo" "@routes.Assets.at("images/user.png")"  >
                                            </div><!-- /col-sm-1 -->
 
                                        <div class="col-sm-10">

@@ -25,7 +25,7 @@
       <h5><span class="badge">2</span> Comment </h5>
       <br>
       <div class="col-sm-1">
-        <img class="img-responsive user-photo" src="assets/images/user.png" >
+        <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
       </div><!-- /col-sm-1 -->
       <div class="col-sm-10">
         <form action=@routes.IndieApplication.comment method="POST">
@@ -43,23 +43,7 @@
 
     <div class="row">
       <div class="col-sm-1">
-        <img class="img-responsive user-photo" src="assets/images/user.png" >
-      </div><!-- /col-sm-1 -->
-      <div class="col-sm-10">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-          </div>
-          <div class="panel-body">
-            <h5>Panel content</h5>
-          </div><!-- /panel-body -->
-        </div><!-- /panel panel-default -->
-      </div><!-- /col-sm-10 -->
-    </div><!--row-->
-
-    <div class="row">
-      <div class="col-sm-1">
-        <img class="img-responsive user-photo" src="assets/images/user.png"  >
+        <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
       </div><!-- /col-sm-1 -->
       <div class="col-sm-10">
         <div class="panel panel-default">
@@ -76,7 +60,7 @@
 
   <div id="land-widget" class="col-sm-4 list-group ">
     <li  class=" list-group-item ">
-      <img  src= "assets/images/user.png" class="img-circle " width="70">
+      <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
       <h5 class="list-group-item-heading">By name user</h5>
       <a href="/profile" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
     </li>

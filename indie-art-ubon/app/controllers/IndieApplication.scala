@@ -83,16 +83,19 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
 
 
-    def forum = Action.async { implicit request =>
+    //def forum = Action.async { implicit request =>
+    def forum = UserAwareAction.async { implicit request =>
+      Logger.warn(s"controller.IndieApplication.forum")
       forumForm.form.bindFromRequest.fold(
         form => Future.successful( Redirect("/")),
         data => {
+          Logger.warn(s"data=$data \ndata.forumID=${data.forumID}")
           val forums = Foruminfo(
             id = UUID.randomUUID.toString,
-            userID = UUID.randomUUID.toString,
+            userID = data.forumID,
             title = Some(data.title),
             detail = Some(data.detail),
-            imagepost = Some(data.imagepost),
+            picture = Some(data.picture),
             vdopost = Some(data.vdopost)
 
           )
@@ -104,7 +107,6 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         }
         )
     }
-
     //def comment = Action.async { implicit request =>
     def comment = UserAwareAction.async { implicit request =>
       Logger.warn(s"controller.IndieApplication.comment")
@@ -193,7 +195,11 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
       def showmodel = UserAwareAction.async { implicit request =>
         request.identity match {
-          case Some(user) => Future.successful(Ok(views.html.showmodel(user, CommentForm.form)))
+          case Some(user) =>
+          addcomment.listAll.map {dbcomment =>
+            Ok(views.html.showmodel(user,CommentForm.form,dbcomment))
+
+              }
           case None => Future.successful(Redirect(routes.ApplicationController.index()))
         }
       }

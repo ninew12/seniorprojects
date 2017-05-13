@@ -5,13 +5,13 @@ access.denied = Access denied!
 user.exists = There already exists a user with this email!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
-home.title = Silhouette - Home
-sign.up.title = Silhouette - Sign Up
-sign.in.title = Silhouette - Sign In
+home.title = Indie Art Ubon - Home
+sign.up.title =Indie Art Ubon - Sign Up
+sign.in.title = Indie Art Ubon - Sign In
 
 toggle.navigation = Toggle navigation
 welcome.signed.in = Welcome, you are now signed in!
-welcome.guest = Welcome, CSUBU In Die Art Portal !
+welcome.guest = Welcome, CSUBU Indie Art Portal!
 
 sign.up.account = Sign up for a new account
 sign.in.credentials = Sign in with your credentials

@@ -17,7 +17,7 @@ case class Foruminfo(
     userID: String,
     title: Option[String],
     detail: Option[String],
-    imagepost: Option[String],
+    picture: Option[String],
     vdopost:Option[String]
     //date: Option[java.sql.Date]
 
@@ -37,10 +37,10 @@ class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
   def userID = column[String]("userID")
   def title = column[Option[String]]("title")
   def detail = column[Option[String]]("detail")
-  def imagepost = column[Option[String]]("imagepost")
+  def picture = column[Option[String]]("picture")
   def vdopost = column[Option[String]]("vdopost")
 //  def date = column[Option[java.sql.Date]]("date")
-  def * = ( id, userID, title, detail, imagepost, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
+  def * = ( id, userID, title, detail, picture, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
@@ -52,7 +52,6 @@ class comments (tag: Tag) extends Table[Comment](tag, "comment") {
 
   def * = (id, detail, userID, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
 }
-
 object addforum {
 
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
