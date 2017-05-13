@@ -28,4 +28,4 @@ Code:
 3. controllers.IndieApplication.comment เอา data.commenterID ไปใช้ได้
 
 	
->upload ได้ แต่ยังทำไม่เสร็จสมบูรณ์คะ  
+
