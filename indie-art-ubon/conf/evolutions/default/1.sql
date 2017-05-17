@@ -9,9 +9,10 @@ create table "openidinfo" ("id" VARCHAR NOT NULL PRIMARY KEY,"logininfoid" BIGIN
 create table "openidattributes" ("id" VARCHAR NOT NULL,"key" VARCHAR NOT NULL,"value" VARCHAR NOT NULL);
 create table "foruminfo" ("id" VARCHAR NOT NULL PRIMARY KEY,"userID" VARCHAR NOT NULL ,"title" VARCHAR NOT NULL,"detail" VARCHAR ,"picture" VARCHAR,"vdopost" VARCHAR );
 create table "comment" ("id" VARCHAR NOT NULL PRIMARY KEY,"detail" VARCHAR,"userID" VARCHAR NOT NULL,"artworkid" VARCHAR NOT NULL,"forumid" VARCHAR NOT NULL );
+create table "artwork" ("id" VARCHAR NOT NULL PRIMARY KEY, "userID" VARCHAR NOT NULL, "title" VARCHAR, "detail" VARCHAR, "tags" VARCHAR, "modelType" VARCHAR)
 
 # --- !Downs
-
+drop table "artwork"
 drop table "comment";
 drop table "foruminfo";
 drop table "openidattributes";

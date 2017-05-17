@@ -204,17 +204,70 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         }
       }
 
-      def upload = Action(parse.multipartFormData) { request =>
-      request.body.file("picture").map { picture =>
-         val filename = picture.filename
-         val contentType = picture.contentType
-         picture.ref.moveTo(new File(s"public/images/$filename"))
-         Ok("File uploaded")
-     }.getOrElse {
-         Redirect(routes.ApplicationController.index).flashing(
-          "error" -> "Missing file")
-       }
-     }
+      def upload = Action { request =>
+      request.body.asMultipartFormData.map {a =>
+        val datatitle = a.dataParts.get("title").map { a =>
+           for{
+             b <- a.mkString("")
+            }yield b
+        }
+
+        val datadetail = a.dataParts.get("detail").map { a =>
+           for{
+             b <- a.mkString("")
+            }yield b
+        }
+
+        val dataimg = a.file("picture").map { a=>
+          val filename = a.filename
+          a.ref.moveTo(new File(s"public/images/$filename"))
+          for{
+            b <- a.filename
+          }yield b
+        }
+
+        val datablend = a.file("blend").map { a=>
+          val filename = a.filename
+          a.ref.moveTo(new File(s"public/images/$filename"))
+          for{
+            b <- a.filename
+          }yield b
+        }
+
+        val datajson = a.file("json").map { a=>
+          val filename = a.filename
+          a.ref.moveTo(new File(s"public/images/$filename"))
+          for{
+            b <- a.filename
+          }yield b
+        }
+
+        val datahtml = a.file("html").map { a=>
+          val filename = a.filename
+          a.ref.moveTo(new File(s"public/images/$filename"))
+          for{
+            b <- a.filename
+          }yield b
+        }
+
+        val title = getdata(datatitle)
+        val detail = getdata(datadetail)
+        val picture = getdata(dataimg)
+        val blend = getdata(datablend)
+        val json = getdata(datajson)
+        val html = getdata(datahtml)
+
+        Redirect("/up")
+      }.getOrElse {
+        Redirect("/up")
+      }
+    }
+    def getdata(x: Option[String]) = x match {
+     case Some(s) => s
+     case None => ""
+   }
+
+
 
     // ทดสอบ scala.html
     def b4wmodel() = Action {

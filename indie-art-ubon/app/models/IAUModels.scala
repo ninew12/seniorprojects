@@ -11,13 +11,6 @@ import slick.lifted.ProvenShape.proveShapeOf
 import models.daos._
 
 
-case class ArtWork(
-  id: UUID,
-  userid: UUID, // user: User
-  title: String,
-  detail: Option[String],
-  tags: Option[String]
-  )
 
   case class Collection(
       id: String,

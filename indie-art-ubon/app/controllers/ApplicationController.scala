@@ -125,4 +125,19 @@ class ApplicationController @Inject() (
 
     env.authenticatorService.discard(request.authenticator, result)
   }
+
+  def uploadfile = UserAwareAction.async { implicit request =>
+    request.identity match {
+      case Some(user) =>
+      val c = for{
+        a <- ListUser.get(user.userID.toString)
+      }yield a
+
+      c.map { case (role) =>
+          Ok(views.html.uploadModel(user,uploadForm.form))
+      }
+
+      case None => Future.successful(Redirect("/"))
+    }
+  }
 }
