@@ -1,10 +1,10 @@
-@(user: models.User,dbforuminfo : Seq[models.Foruminfo])(implicit messages: Messages)
+@(user: models.User,dbforuminfo : Seq[models.Foruminfo] ,users : Seq[models.DBUser],dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
 
 @main(Messages("home.title"), Some(user)) {
 
-    @modelsUser(user)
+    @modelsUser(user,dbartwork)
 
-    @postsUser(user,dbforuminfo)
+    @postsUser(user,dbforuminfo,users)
 
 
     <br><br><br> <!--footer -->

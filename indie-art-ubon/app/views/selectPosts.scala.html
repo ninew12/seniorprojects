@@ -5,7 +5,8 @@
 @main(Messages("home.title")){
    <body>
      <div class="container">
-            <br><br><br>
+            <br><br>
+            <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Artists Community</h3>
                <div class="panel panel-info">
                   <div class="panel-body">
                     <div class="container">
@@ -35,7 +36,7 @@
                                 <h3>@foruminfo.title</h3>
                                 <hr>
                              <!--upload image-->
-                              <img src= "@foruminfo.picture" class="img-responsive" width="600">
+                              <img src= "@routes.Assets.at("images/@foruminfo.picture")" class="img-responsive" width="600">
 
                             <!--add Description -->
                              <h5> @foruminfo.detail</h5>

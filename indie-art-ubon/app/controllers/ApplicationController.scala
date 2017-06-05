@@ -10,10 +10,7 @@ import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import forms._
-import models.User
-import models.addforum
-import models.Foruminfo
-import forms.forumForm
+import models._
 import models.UserConstants
 import play.api.i18n.MessagesApi
 import java.util.UUID
@@ -46,19 +43,21 @@ class ApplicationController @Inject() (
 
     case Some(user) =>
         val data = for{
-          a <- ListUser.listAll
-          b <- addforum.listAll
-        }yield(b)
-        data.map { dbforuminfo =>
-        Ok(views.html.home(user,dbforuminfo))
+          a <- addforum.listAll
+          b <- ListUser.listAll
+          c <- uploadart.listAll
+        }yield(a,b,c)
+        data.map { case (dbforuminfo,users,dbartwork) =>
+        Ok(views.html.home(user,dbforuminfo,users,dbartwork))
+
         }
         case None =>
         val data = for{
           a <- addforum.listAll
-
-        }yield(a)
-        data.map { dbforuminfo =>
-        Ok(views.html.guesthome(UserConstants.guest,dbforuminfo))
+          b <- uploadart.listAll
+        }yield(a,b)
+        data.map { case (dbforuminfo,dbartwork) =>
+        Ok(views.html.guesthome(UserConstants.guest,dbforuminfo,dbartwork))
        }
       }
     }

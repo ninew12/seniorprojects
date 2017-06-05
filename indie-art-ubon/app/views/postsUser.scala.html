@@ -1,4 +1,4 @@
-@(user: models.User,dbforuminfo : Seq[models.Foruminfo])(implicit messages: Messages)
+@(user: models.User,dbforuminfo : Seq[models.Foruminfo],users : Seq[models.DBUser])(implicit messages: Messages)
 <!-- dbforuminfo : Seq[models.Foruminfo] -->
 <!DOCTYPE html>
 @main(Messages("home.title"),Some(user)){
@@ -37,7 +37,10 @@
                                           <h5>
                                               <b>@foruminfo.title</b>
                                           </h5>
+                                          @for(user
+                                            <- users){
                                           <h6><i class="fa fa-user" aria-hidden="true"></i> by @user.fullName</h6>
+                                          }
                                       </td>
                                       <td>
                                           <h5>

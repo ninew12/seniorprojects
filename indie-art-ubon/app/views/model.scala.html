@@ -1,4 +1,4 @@
-@(user: models.User)(implicit messages: Messages)
+@(user: models.User , dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
 <!DOCTYPE html>
 @main(Messages("home.title")){
 
@@ -6,46 +6,24 @@
           <br><br>
            <h3><i class="fa fa-cubes" aria-hidden="true"></i> The 3D Model </h3>
            <div class="thumbnails">
+             @for(artwork
+             <- dbartwork ){
                <div class="box">
-                   <a  class="image fit"><img src="@routes.Assets.at("images/model/car.png")" alt="" width="600" height="200"/></a>
+                   <a  class="image fit"><img src="@routes.Assets.at("images/@artwork.picture")" alt="" width="600" height="200"/></a>
+                   <!-- <a  class="image fit"><img src="@routes.Assets.at("images/model/car.png")" alt="" width="600" height="200"/></a> -->
                <div class="text-left">
                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 1</a>
                    <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> 2</a>
                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 5</a>
                </div>
               <div class="inner">
-                   <h5>Car model 3d</h5>
+                   <h5>@artwork.title</h5>
                     <a href="/selectModel" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
               </div>
             </div>
-
-            <div class="box">
-                    <a class="image fit"><img src="@routes.Assets.at("images/model/jagun.png")" alt="" width="600" height="200"/></a>
-              <div class="text-left">
-                   <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 2</a>
-                   <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> 2</a>
-                   <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 3</a>
-              </div>
-            <div class="inner">
-                  <h5>Vase model 3d </h5>
-                  <a href="/selectmodel" class="button style2 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
-                </div>
-            </div>
-
-            <div class="box">
-                  <a class="image fit"><img src="@routes.Assets.at("images/model/king.png")" alt="" width="600" height="200"/></a>
-              <div class="text-left">
-                   <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 3</a>
-                   <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> 2</a>
-                   <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 2</a>
-              </div>
-              <div class="inner">
-                   <h5>Monkey model 3d</h5>
-                   <a href="/selectmodel" class="button style3 fit" > <i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
-              </div>
-            </div>
-          </div>
-         </div><!--thumbnails-->
+          }
+          </div><!--thumbnails-->
+         </div><!--container-->
 
       <nav aria-label="...">
            <ul class="pager">

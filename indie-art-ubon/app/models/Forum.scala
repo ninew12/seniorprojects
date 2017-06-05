@@ -15,17 +15,17 @@ import models.daos._
 case class Foruminfo(
     id: String,
     userID: String,
-    title: Option[String],
-    detail: Option[String],
-    picture: Option[String],
-    vdopost:Option[String]
+    title: String,
+    detail: String,
+    picture: String,
+    vdopost: String
     //date: Option[java.sql.Date]
 
 )
 case class Comment (
     id :  String,
-    detail: Option[String],
     userID : String ,
+    detail: Option[String],
     artworkid: String ,
     forumid: String
 
@@ -35,22 +35,22 @@ case class Comment (
 class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
   def id = column[String]("id", O.PrimaryKey)
   def userID = column[String]("userID")
-  def title = column[Option[String]]("title")
-  def detail = column[Option[String]]("detail")
-  def picture = column[Option[String]]("picture")
-  def vdopost = column[Option[String]]("vdopost")
-//  def date = column[Option[java.sql.Date]]("date")
+  def title = column[String]("title")
+  def detail = column[String]("detail")
+  def picture = column[String]("picture")
+  def vdopost = column[String]("vdopost")
+//  def date = column[String]("date")
   def * = ( id, userID, title, detail, picture, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
   def  id = column[String]("id", O.PrimaryKey)
-  def detail = column[Option[String]]("detail")
   def userID = column[String]("userID")
+  def detail = column[Option[String]]("detail")
   def artworkid = column[String]("artworkid")
   def forumid = column[String]("forumid")
 
-  def * = (id, detail, userID, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
+  def * = (id,  userID, detail, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
 }
 object addforum {
 

@@ -1,17 +1,20 @@
 @import forms._
-
-@(user: models.User, commentForm: Form[CommentForm.Data],dbcommemt : Seq[models.Comment])(implicit request: RequestHeader, messages: Messages)
+@(user: models.User,users : Seq[models.DBUser],dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment])(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(user)){
 
   <div class="container">
+    @for(artwork
+    <- dbartwork ){
     <div class="col-sm-8 ">
       <br><br>
-      <h3>Name Models</h3>
+
+      <h3>@artwork.title</h3>
     </div>
     <div class="col-sm-8 " >
       <!--upload file html-->
+      <!-- <iframe src="@routes.Assets.at("members/01/@artwork.filehtml")" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
       <iframe src="@routes.Assets.at("members/01/car2.html")" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
       <br>
 
@@ -28,20 +31,18 @@
         <h5><span class="badge">2</span> Comment </h5>
         <br>
         <div class="col-sm-1">
-          <img class="img-responsive user-photo" src="assets/images/user.png" >
+          <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
         </div><!-- /col-sm-1 -->
         <div class="col-sm-10">
-          @helper.form(action = routes.IndieApplication.comment) {
-            @helper.CSRF.formField
-
-            @b3.hidden( "commenterID", user.userID )
-
-            @b3.textarea( commentForm("detail"), '_label -> "details", 'rows -> 3 )
-
+          <form action=@routes.IndieApplication.comment method="POST">
+            <input type="hidden" name="posterID" value="@user.userID" />
+            <div class="form-group">
+              <textarea name="detail" class="form-control" rows="5" placeholder="comment"></textarea>
+            </div>
             <div class=" text-right" >
               <button type="submit" class="btn btn-info  ">send</button>
             </div>
-          }
+          </form>
         </div>
       </div><!-- /row -->
       <br>
@@ -50,13 +51,12 @@
         @for(comment
           <- dbcommemt){
         <div class="col-sm-1">
-          <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")" >
+          <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
         </div><!-- /col-sm-1 -->
         <div class="col-sm-10">
-
           <div class="panel panel-default">
             <div class="panel-heading">
-              <strong>@comment.userID</strong> <span class="text-muted">commented 5 days ago</span>
+              <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
             </div>
             <div class="panel-body">
               <h5>@comment.detail</h5>
@@ -66,20 +66,21 @@
       }
       </div><!--row-->
     </div><!--col-md-8-->
-
+    @for(user
+      <- users){
     <div id="land-widget" class="col-sm-4 list-group ">
       <li  class=" list-group-item ">
         <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
-        <h5 class="list-group-item-heading">By name user</h5>
+        <h5 class="list-group-item-heading">By @user.fullName</h5>
         <a href="/profile" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
       </li>
 
       <li class="list-group-item">
         <h5 class="list-group-item-heading">About This Model</h5>
-        <h5>Description</h5>
-        <h5>Date</h5>
-        <h5>Time</h5>
-        <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
+        <h5>Description : @artwork.detail</h5>
+        <h5>Date :</h5>
+        <h5>Time :</h5>
+        <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> : @artwork.tags</a>
       </li>
       <li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
         <h4 class="widgettitle list-group-item-heading"><a href="#">Vad tycker andra om Vulkan</a></h4>
@@ -91,15 +92,18 @@
                 <a href="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/">
                   <p><i class="fa fa-quote-left"></i> Jag har från första stund varit nöjd med Vulkan. Jag har fått bra handledning och fint bemötande. <i class="fa fa-quote-right"></i></p>
                 </a>
-                <i class="fa fa-user fa-fw pull-left"></i><small>Thomas Nybom                                            </small>
-              </blockquote>
+                  <i class="fa fa-user fa-fw pull-left"></i><small>Thomas Nybom                                            </small>
+                </blockquote>
+              </div>
+              <div class="clear"> </div>
             </div>
-            <div class="clear"> </div>
           </div>
-        </div>
-      </li>
-    </div><!--col-md-4 list-group-->
+        </li>
+      </div><!--col-md-4 list-group-->
+    }
+  }
   </div><!--container-->
+
 
   <!-- /Page -->
 

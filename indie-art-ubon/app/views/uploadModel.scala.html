@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
-@blend = @{ Seq("C"->"Category","C"->"Character","A"->"Assets","S"->"Scene","O"->"Others") }
+@blend = @{ Seq("Category"->"Category","Character"->"Character","Assets"->"Assets","Scene"->"Scene","Others"->"Others") }
 @main(Messages("home.title"), Some(user)){
   <div class="container">
          <br><br><br>
@@ -23,11 +23,10 @@
 
                             @b3.text( uploadForm("title"), '_label -> "Topic" )
                             @b3.textarea( uploadForm("detail"), '_label -> "details" ,'rows -> 3 )
-                            @b3.select( uploadForm("modelType"), options = blend, '_label -> "Select" )
+                            @b3.select( uploadForm("tags"), options = blend, '_label -> "Select" )
                             @b3.file( uploadForm("picture"), '_label -> "Picturefile" )
-                            @b3.file( uploadForm("blend"), '_label -> "Blendfile" )
-                            @b3.file( uploadForm("json"), '_label -> "Jsonfile" )
-                            @b3.file( uploadForm("html"), '_label -> "Htmlfile" )
+                            @b3.file( uploadForm("fileblend"), '_label -> "Blendfile" )
+                            @b3.file( uploadForm("filehtml"), '_label -> "Htmlfile" )
 
                             <div class=" text-right">
                                <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;

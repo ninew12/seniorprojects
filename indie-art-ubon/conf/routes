@@ -12,20 +12,20 @@ GET         /authenticate/:provider          controllers.SocialAuthController.au
 POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp
 GET         /up                              controllers.ApplicationController.uploadfile
-GET         /selectmodel                     controllers.IndieApplication.selectmodel
+GET         /showmodel/:id                   controllers.IndieApplication.showmodel(id : String)
 GET         /selectModel                     controllers.IndieApplication.selectmodel
-#GET        /selectposts                     controllers.IndieApplication.selectposts
+
 
 GET         /pagelist                        controllers.ApplicationController.getlist
 GET         /showpost/:id                    controllers.IndieApplication.showpost(id : String)
 GET         /posts                           controllers.IndieApplication.posts
 GET         /model                           controllers.IndieApplication.model
-GET         /showmodel                       controllers.IndieApplication.showmodel
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
+
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
 GET         /user/:id                        controllers.IndieApplication.userP(id : String)

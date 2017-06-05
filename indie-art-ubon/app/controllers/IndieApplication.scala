@@ -6,25 +6,17 @@ import play.api.mvc._
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.ListUser
-import models.addcomment
-import models.addforum
-import models.addcollection
 import forms._
+import models._
 import play.api.libs.json.Json
 import play.api.Logger
-import models.User
-import models.DBUser
-import models.Comment
-import models.Collection
-import models.Foruminfo
-import models.UserConstants
 import play.api.i18n.MessagesApi
 import java.util.UUID
 //import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.io.File
 import scala.concurrent.Future
+import org.apache.commons.io.FilenameUtils;
 
 
 class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesApi: MessagesApi,
@@ -32,22 +24,28 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
   socialProviderRegistry: SocialProviderRegistry) extends Controller with Silhouette[User, CookieAuthenticator] {
 
 
-    def selectmodel = UserAwareAction.async { implicit request =>
-      Future.successful(Ok(views.html.selectModels(UserConstants.guest)))
+//แสดงโมเดลเมื่อทำการคลิกเพื่อเข้าชมโมเดล
+ def selectmodel = UserAwareAction.async { implicit request =>
+   Future.successful(Ok(views.html.selectModels(UserConstants.guest)))
 
-    }
+ }
 
-    /*def selectposts = UserAwareAction.async {implicit request =>
-      val data = for{
-        a <- addforum.listAll
-        b <- addcomment.listAll
-      }yield(a,b)
-      data.map { case (dbforuminfo,dbcomment) =>
-        Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment))
-
+    def showmodel (id : String) = UserAwareAction.async { implicit request =>
+    request.identity match {
+    case Some(user) =>
+     val data = for{
+      a <- ListUser.find(id)
+      b <- uploadart.find(id)
+      c <- addcomment.find(id)
+     }yield(a,b,c)
+     data.map {case (users,dbartwork,dbcomment) =>
+      Ok(views.html.showmodel(user,users,dbartwork,dbcomment))
       }
-    }*/
+      case None => Future.successful(Redirect(routes.ApplicationController.index()))
+    }
+   }
 
+//แสดงแฟ้มสะสมผลงาน
     def collection = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => Future.successful(Ok(views.html.collection(user)))
@@ -62,6 +60,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     //  }
     //  }
 
+//แสดงข้อมูลส่วนตัว
     def profile(id: String) = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => ListUser.find(id).map {users =>
@@ -72,41 +71,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     }
 
-
-    def forums = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) => Future.successful(Ok(views.html.createPosts(forumForm.form,user)))
-        case None => Future.successful(Redirect(routes.ApplicationController.index()))
-      }
-
-    }
-
-
-
-    //def forum = Action.async { implicit request =>
-    def forum = UserAwareAction.async { implicit request =>
-      Logger.warn(s"controller.IndieApplication.forum")
-      forumForm.form.bindFromRequest.fold(
-        form => Future.successful( Redirect("/")),
-        data => {
-          Logger.warn(s"data=$data \ndata.forumID=${data.forumID}")
-          val forums = Foruminfo(
-            id = UUID.randomUUID.toString,
-            userID = data.forumID,
-            title = Some(data.title),
-            detail = Some(data.detail),
-            picture = Some(data.picture),
-            vdopost = Some(data.vdopost)
-
-          )
-
-        addforum.add(forums).map(res =>
-            Redirect("/")
-            )
-
-        }
-        )
-    }
+//แสดงความคิดเห็น
     //def comment = Action.async { implicit request =>
     def comment = UserAwareAction.async { implicit request =>
       Logger.warn(s"controller.IndieApplication.comment")
@@ -130,17 +95,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         )
     }
 
-    def upmodel = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) => Future.successful(Ok(views.html.uploadModel(user,uploadForm.form)))
-        case None => Future.successful(Redirect(routes.ApplicationController.index()))
-      }
-    }
-
-
-    //def member = UserAwareAction.async { implicit request =>
-    //Future.successful(Ok(views.html.member(UserConstants.guest)))
-
+//แสดง user ภายในระบบ
     def member  = UserAwareAction.async {implicit request =>
       request.identity match {
         case Some(user) => ListUser.listAll.map {users =>
@@ -151,11 +106,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     }
 
+//โชว์กระทู้เมื่อทำการคลิกเพื่อเข้าอ่านกระทู้
      def userP(id: String) = Action.async { implicit request =>
         val data = for{
           a <- addforum.find(id)
           b <- addcomment.find(id)
-          c <- ListUser.listAll //ยังไม่ได้เชคid
+          c <- ListUser.find(id)
         }yield(a,b,c)
         data.map { case (dbforuminfo,dbcomment,users) =>
           Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment,users))
@@ -168,7 +124,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
          val data = for{
            a <- addforum.find(id)
            b <- addcomment.find(id)
-           c <- ListUser.listAll //ยังไม่ได้เชคid
+           c <- ListUser.find(id)
          }yield(a,b,c)
          data.map { case (dbforuminfo,dbcomment,users) =>
            Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
@@ -177,35 +133,52 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
          }
        }
 
-       def posts = UserAwareAction.async {implicit request =>
+//แสดงรายการกระทู้
+       def posts   = UserAwareAction.async {implicit request =>
          request.identity match {
-         case Some(user) =>  addforum.listAll.map {dbforuminfo =>
-            Ok(views.html.postsUser(user,dbforuminfo))
+         case Some(user) =>
+         val data = for{
+             a <- addforum.listAll
+             b <- ListUser.listAll
+             }yield(a,b)
+             data.map { case (dbforuminfo,users) =>
+            Ok(views.html.postsUser(user,dbforuminfo,users))
         }
          case None => Future.successful(Redirect(routes.ApplicationController.index()))
        }
       }
 
+//แสดงรายการโมเดล
       def model = UserAwareAction.async { implicit request =>
         request.identity match {
-          case Some(user) => Future.successful(Ok(views.html.modelsUser(user)))
-          case None => Future.successful(Redirect(routes.ApplicationController.index()))
-        }
-      }
-
-      def showmodel = UserAwareAction.async { implicit request =>
-        request.identity match {
           case Some(user) =>
-          addcomment.listAll.map {dbcomment =>
-            Ok(views.html.showmodel(user,CommentForm.form,dbcomment))
-
-              }
+           val data = for{
+           a <- uploadart.listAll
+           }yield(a)
+           data.map { dbartwork =>
+           Ok(views.html.modelsUser(user,dbartwork))
+           }
           case None => Future.successful(Redirect(routes.ApplicationController.index()))
         }
       }
 
-      def upload = Action { request =>
-      request.body.asMultipartFormData.map {a =>
+      def upmodel = UserAwareAction.async { implicit request =>
+          request.identity match {
+            case Some(user) => Future.successful(Ok(views.html.uploadModel(user,uploadForm.form)))
+            case None => Future.successful(Redirect(routes.ApplicationController.index()))
+          }
+        }
+
+      def getdata(x: Option[String]) = x match {
+        case Some(s) => s
+        case None => ""
+     }
+
+//uploadfilemodel
+      def upload = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+        request.body.asMultipartFormData.map {a =>
         val datatitle = a.dataParts.get("title").map { a =>
            for{
              b <- a.mkString("")
@@ -218,57 +191,137 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
             }yield b
         }
 
+        val datatags = a.dataParts.get("tags").map { a =>
+           for{
+             b <- a.mkString("")
+            }yield b
+        }
+
         val dataimg = a.file("picture").map { a=>
           val filename = a.filename
+          val extension = FilenameUtils.getExtension(filename)
+          val newFileName = s"${UUID.randomUUID}.$extension"
           a.ref.moveTo(new File(s"public/images/$filename"))
           for{
-            b <- a.filename
+            b <- newFileName
           }yield b
         }
 
-        val datablend = a.file("blend").map { a=>
+        val datablend = a.file("fileblend").map { a=>
           val filename = a.filename
-          a.ref.moveTo(new File(s"public/images/$filename"))
+          val extension = FilenameUtils.getExtension(filename)
+          val newFileName = s"${UUID.randomUUID}.$extension"
+          a.ref.moveTo(new File(s"public/members/01/$filename"))
           for{
-            b <- a.filename
+            b <- newFileName
           }yield b
         }
 
-        val datajson = a.file("json").map { a=>
+        val datahtml = a.file("filehtml").map { a=>
           val filename = a.filename
-          a.ref.moveTo(new File(s"public/images/$filename"))
+          val extension = FilenameUtils.getExtension(filename)
+          val newFileName = s"${UUID.randomUUID}.$extension"
+          a.ref.moveTo(new File(s"public/members/01/$filename"))
           for{
-            b <- a.filename
+            b <- newFileName
           }yield b
         }
 
-        val datahtml = a.file("html").map { a=>
-          val filename = a.filename
-          a.ref.moveTo(new File(s"public/images/$filename"))
-          for{
-            b <- a.filename
-          }yield b
-        }
+          val title = getdata(datatitle)
+          val detail = getdata(datadetail)
+          val tags = getdata(datatags)
+          val picture = getdata(dataimg)
+          val fileblend = getdata(datablend)
+          val filehtml = getdata(datahtml)
 
-        val title = getdata(datatitle)
-        val detail = getdata(datadetail)
-        val picture = getdata(dataimg)
-        val blend = getdata(datablend)
-        val json = getdata(datajson)
-        val html = getdata(datahtml)
+          //add table database
+          val dbartwork =  ArtWork (
+          id = UUID.randomUUID.toString,
+          userID = user.userID.toString,
+          title = title ,
+          detail = detail ,
+          tags = tags ,
+          picture = picture ,
+          fileblend = fileblend,
+          filehtml = filehtml
 
-        Redirect("/up")
+          )
+
+          val saveDate = for{
+          a <- uploadart.add(dbartwork)
+          }yield a
+
+        Future.successful(Redirect("/up"))
       }.getOrElse {
-        Redirect("/up")
+        Future.successful(Redirect("/up"))
       }
+      case None => Future.successful(Redirect("/"))
     }
-    def getdata(x: Option[String]) = x match {
-     case Some(s) => s
-     case None => ""
-   }
+  }
 
+  //ตั้งกระทู้
+  def forum = UserAwareAction.async { implicit request =>
+    request.identity match {
+      case Some(user) =>
+      request.body.asMultipartFormData.map {a =>
+      val datatitle = a.dataParts.get("title").map { a =>
+        for{
+          b <- a.mkString("")
+          }yield b
+        }
+        val datadetail = a.dataParts.get("detail").map { a =>
+        for{
+          b <- a.mkString("")
+        }yield b
+      }
+        val dataimg = a.file("picture").map { a=>
+        val filename = a.filename
+        val extension = FilenameUtils.getExtension(filename)
+        val newFileName = s"${UUID.randomUUID}.$extension"
+        a.ref.moveTo(new File(s"public/images/$filename"))
+      for{
+        b <- newFileName
+      }yield b
+    }
+      val datavdopost = a.dataParts.get("vdopost").map { a =>
+       for{
+         b <- a.mkString("")
+        }yield b
+    }
 
+      val title = getdata(datatitle)
+      val detail = getdata(datadetail)
+      val picture = getdata(dataimg)
+      val vdopost = getdata(datavdopost)
 
+      //add table database
+      val dbforum =  Foruminfo (
+      id = UUID.randomUUID.toString,
+      userID = user.userID.toString,
+      title = title ,
+      detail = detail ,
+      picture = picture ,
+      vdopost= vdopost
+    )
+
+      val saveDate = for{
+      a <- addforum.add(dbforum)
+      }yield a
+
+      Future.successful(Redirect("/forums"))
+      }.getOrElse {
+        Future.successful(Redirect("/forums"))
+      }
+      case None => Future.successful(Redirect("/"))
+    }
+  }
+    def forums = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) => Future.successful(Ok(views.html.createPosts(forumForm.form,user)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+
+    }
     // ทดสอบ scala.html
     def b4wmodel() = Action {
       Ok(views.html.b4wmodel(""))
