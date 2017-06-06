@@ -7,7 +7,6 @@
 > play project files
 
 ## ฟังก์ชันที่เหลือ
-> Uploadmodel
 > Downloadmodel
 > เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน 
 > ติดตามผู้ใช้ในระบบ
