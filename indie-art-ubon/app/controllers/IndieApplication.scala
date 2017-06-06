@@ -201,7 +201,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           val filename = a.filename
           val extension = FilenameUtils.getExtension(filename)
           val newFileName = s"${UUID.randomUUID}.$extension"
-          a.ref.moveTo(new File(s"public/images/$filename"))
+          a.ref.moveTo(new File(s"public/images/$newFileName"))
           for{
             b <- newFileName
           }yield b
@@ -211,7 +211,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           val filename = a.filename
           val extension = FilenameUtils.getExtension(filename)
           val newFileName = s"${UUID.randomUUID}.$extension"
-          a.ref.moveTo(new File(s"public/members/01/$filename"))
+          a.ref.moveTo(new File(s"public/members/01/$newFileName"))
           for{
             b <- newFileName
           }yield b
@@ -221,7 +221,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           val filename = a.filename
           val extension = FilenameUtils.getExtension(filename)
           val newFileName = s"${UUID.randomUUID}.$extension"
-          a.ref.moveTo(new File(s"public/members/01/$filename"))
+          a.ref.moveTo(new File(s"public/members/01/$newFileName"))
           for{
             b <- newFileName
           }yield b
@@ -278,14 +278,14 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         val filename = a.filename
         val extension = FilenameUtils.getExtension(filename)
         val newFileName = s"${UUID.randomUUID}.$extension"
-        a.ref.moveTo(new File(s"public/images/$filename"))
+        a.ref.moveTo(new File(s"public/images/$newFileName"))
       for{
         b <- newFileName
       }yield b
     }
       val datavdopost = a.dataParts.get("vdopost").map { a =>
        for{
-         b <- a.mkString("")
+         b <- a.mkString("") //.split("=")
         }yield b
     }
 
