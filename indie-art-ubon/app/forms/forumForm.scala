@@ -10,8 +10,7 @@ val form = Form(
       "forumID"-> nonEmptyText,
       "title" -> nonEmptyText,
       "detail" -> nonEmptyText,
-      "picture" -> text,
-      "vdopost" -> nonEmptyText
+      "picture" -> text
     )(Data.apply)(Data.unapply)
   )
 
@@ -19,6 +18,5 @@ val form = Form(
     forumID: String,
     title: String,
     detail: String,
-    picture: String,
-    vdopost: String)
+    picture: String)
   }

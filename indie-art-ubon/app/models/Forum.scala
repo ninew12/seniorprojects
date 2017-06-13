@@ -17,8 +17,7 @@ case class Foruminfo(
     userID: String,
     title: String,
     detail: String,
-    picture: String,
-    vdopost: String
+    picture: String
     //date: Option[java.sql.Date]
 
 )
@@ -38,9 +37,8 @@ class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
   def title = column[String]("title")
   def detail = column[String]("detail")
   def picture = column[String]("picture")
-  def vdopost = column[String]("vdopost")
 //  def date = column[String]("date")
-  def * = ( id, userID, title, detail, picture, vdopost ) <> (Foruminfo.tupled, Foruminfo.unapply)
+  def * = ( id, userID, title, detail, picture ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
 class comments (tag: Tag) extends Table[Comment](tag, "comment") {
@@ -63,18 +61,23 @@ object addforum {
       case ex: Exception => ex.getCause.getMessage
     }
   }
-
-  def get(id: String): Future[Option[Foruminfo]] = {
-   dbConfig.db.run(dbforuminfo.filter(_.id === id).result.headOption)
- }
   def find(userID: String): Future[Seq[Foruminfo]] = {
    dbConfig.db.run(dbforuminfo.filter(_.userID === userID).result)
  }
-
-
   def listAll: Future[Seq[Foruminfo]] = {
     dbConfig.db.run(dbforuminfo.result)
   }
+  def update(foruminfo: Foruminfo): Future[String] = {
+   dbConfig.db.run(dbforuminfo.filter(_.id === foruminfo.id).update(foruminfo)).map(res => "successfully").recover {
+     case ex: Exception => ex.getCause.getMessage
+   }
+ }
+  def get(userID: String): Future[Option[Foruminfo]] = {
+   dbConfig.db.run(dbforuminfo.filter(_.userID === userID).result.headOption)
+ }
+  def delete(userID: String): Future[Int] = {
+     dbConfig.db.run(dbforuminfo.filter(_.userID=== userID).delete)
+   }
 }
 
 object addcomment {

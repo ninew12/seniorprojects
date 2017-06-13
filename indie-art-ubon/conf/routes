@@ -25,7 +25,9 @@ GET         /profile/:id                     controllers.IndieApplication.profil
 GET         /member                          controllers.IndieApplication.member
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
-
+POST        /updatePost2                     controllers.ApplicationController.updatePost2
+GET         /updatepost/:id                  controllers.ApplicationController.updatepost(id : String)
+GET         /deletePost/:id                  controllers.ApplicationController.deletePost(id : String)
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
 GET         /user/:id                        controllers.IndieApplication.userP(id : String)

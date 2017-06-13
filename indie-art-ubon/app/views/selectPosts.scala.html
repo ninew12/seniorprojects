@@ -16,7 +16,7 @@
                             <div class="col-sm-3  ">
                                 <ul class="breadcrumb">
                                 <li>
-                                    <img src="@routes.Assets.at("images/@user.avaterURL")"  class="img-circle" width="80">
+                                      <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  width="80" >
                                     <br>
                                     <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by @user.fullName</a>
                                 </li>
@@ -31,8 +31,13 @@
                              </div>
                            }
                         <div class="col-sm-8  ">
+
                           @for(foruminfo
                             <- dbforuminfo){
+                              <div class=" text-right">
+                               <a  style="color:#FF9933" href="@routes.ApplicationController.updatepost(foruminfo.userID ) "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
+                               <a  style="color:#FF9933" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                              </div>
                                 <h3>@foruminfo.title</h3>
                                 <hr>
                              <!--upload image-->
@@ -41,13 +46,6 @@
                             <!--add Description -->
                              <h5> @foruminfo.detail</h5>
 
-                             <!--video upload-->
-
-                               <div class="embed-responsive embed-responsive-16by9" >
-
-                                 <iframe class="embed-responsive-item" src="@foruminfo.vdopost" style="border:none;"></iframe>
-
-                               </div>
                              }
                               <br>
                              <div class="row">
@@ -59,6 +57,7 @@
                              <div class="col-sm-10">
                                @helper.form(action = routes.IndieApplication.comment()) {
                                    @helper.CSRF.formField
+
                                                  @b3.textarea( Forms("detail"), '_label -> "Comment" ,'rows -> 3 )
                                                <div class=" text-right" >
                                                     <button type="submit" class="btn btn-info  ">send</button>

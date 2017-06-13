@@ -283,16 +283,10 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         b <- newFileName
       }yield b
     }
-      val datavdopost = a.dataParts.get("vdopost").map { a =>
-       for{
-         b <- a.mkString("") //.split("=")
-        }yield b
-    }
 
       val title = getdata(datatitle)
       val detail = getdata(datadetail)
       val picture = getdata(dataimg)
-      val vdopost = getdata(datavdopost)
 
       //add table database
       val dbforum =  Foruminfo (
@@ -300,8 +294,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       userID = user.userID.toString,
       title = title ,
       detail = detail ,
-      picture = picture ,
-      vdopost= vdopost
+      picture = picture
     )
 
       val saveDate = for{

@@ -17,7 +17,8 @@ import java.util.UUID
 //import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-
+import java.io.File
+import org.apache.commons.io.FilenameUtils;
 /**
  * The basic application controller.
  *
@@ -31,12 +32,6 @@ class ApplicationController @Inject() (
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
 
-//  def index = UserAwareAction.async { implicit request =>
-  //  request.identity match {
-    //  case Some(user) => Future.successful(Ok(views.html.home(user)))
-    //  case None => Future.successful(Ok(views.html.guesthome(UserConstants.guest)))
-  //  }
-//  }
 
   def index = UserAwareAction.async { implicit request =>
    request.identity match {
@@ -61,8 +56,6 @@ class ApplicationController @Inject() (
        }
       }
     }
-
-
 
 
   def run = Action { request =>
@@ -139,4 +132,92 @@ class ApplicationController @Inject() (
       case None => Future.successful(Redirect("/"))
     }
   }
+
+  def getdata(x: Option[String]) = x match {
+    case Some(s) => s
+    case None => ""
+ }
+
+//แก้ไขกระทู้สนทนา
+  def  updatePost2= UserAwareAction.async { implicit request =>
+  request.identity match {
+    case Some(user) =>
+      request.body.asMultipartFormData.map {a =>
+      val datatitle = a.dataParts.get("title").map { a =>
+      for{
+          b <- a.mkString("")
+        }yield b
+      }
+      val datadetail = a.dataParts.get("detail").map { a =>
+      for{
+          b <- a.mkString("")
+          }yield b
+        }
+        val dataimg = a.file("picture").map { a=>
+        val filename = a.filename
+        val extension = FilenameUtils.getExtension(filename)
+        val newFileName = s"${UUID.randomUUID}.$extension"
+        a.ref.moveTo(new File(s"public/images/$newFileName"))
+
+      for{
+        b <- newFileName
+      }yield b
+    }
+
+      val getRelation = for{
+      a <- addforum.get(aaa)
+    }yield a
+
+      val title = getdata(datatitle)
+      val detail = getdata(datadetail)
+      val picture = getdata(dataimg)
+
+      //add table database
+      val aaaa = getRelation.map { data =>
+       data.map { aa =>
+       val dbforum =  Foruminfo (
+       id = aa.id,
+       userID = user.userID.toString,
+       title = title ,
+       detail = detail ,
+       picture = picture
+     )
+
+    val saveDate = for{
+      a <- addforum.update(dbforum)
+    }yield a
+
+    }
+}
+      Future.successful(Redirect("/posts"))
+      }.getOrElse {
+      Future.successful(Redirect("/fourums"))
+      }
+    case None => Future.successful(Redirect("/"))
+    }
+  }
+
+  var aaa = "";
+  def updatepost (id : String) = UserAwareAction.async { implicit request =>
+    request.identity match {
+      case Some(user) =>
+        aaa =id;
+        Future.successful(Ok(views.html.EditPost(forumForm.form,user)))
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+    }
+    }
+
+//ลบกระทู้สนทนา
+    def deletePost (id : String) = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+        val c = for{
+          a <- addforum.delete(id)
+        }yield a
+           Future.successful(Redirect("/posts"))
+
+        case None => Future.successful(Redirect("/"))
+        }
+  }
+
 }

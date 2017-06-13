@@ -15,7 +15,7 @@
           <div class="col-sm-1  ">
           </div>
           <div class="col-sm-8  ">
-            @helper.form(action = routes.IndieApplication.forum,'enctype -> "multipart/form-data") {
+            @helper.form(action = routes.ApplicationController.updatePost2 ,'enctype -> "multipart/form-data") {
             @helper.CSRF.formField
 
             <h5 >หัวข้อกระทู้</h5>
