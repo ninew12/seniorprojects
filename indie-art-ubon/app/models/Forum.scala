@@ -21,14 +21,6 @@ case class Foruminfo(
     //date: Option[java.sql.Date]
 
 )
-case class Comment (
-    id :  String,
-    userID : String ,
-    detail: Option[String],
-    artworkid: String ,
-    forumid: String
-
-)
 
 
 class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
@@ -41,15 +33,6 @@ class foruminfos(tag: Tag) extends Table[Foruminfo](tag, "foruminfo") {
   def * = ( id, userID, title, detail, picture ) <> (Foruminfo.tupled, Foruminfo.unapply)
 }
 
-class comments (tag: Tag) extends Table[Comment](tag, "comment") {
-  def  id = column[String]("id", O.PrimaryKey)
-  def userID = column[String]("userID")
-  def detail = column[Option[String]]("detail")
-  def artworkid = column[String]("artworkid")
-  def forumid = column[String]("forumid")
-
-  def * = (id,  userID, detail, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
-}
 object addforum {
 
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
@@ -78,28 +61,4 @@ object addforum {
   def delete(userID: String): Future[Int] = {
      dbConfig.db.run(dbforuminfo.filter(_.userID=== userID).delete)
    }
-}
-
-object addcomment {
-
-  val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
-
-  val dbcomment = TableQuery[comments]
-
-  def add(role: Comment): Future[String] = {
-    dbConfig.db.run(dbcomment += role).map(res => "successfully").recover {
-      case ex: Exception => ex.getCause.getMessage
-    }
-  }
-
-  def get(id: String): Future[Option[Comment]] = {
-   dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
- }
-   def find(userID : String): Future[Seq[Comment]] = {
-  dbConfig.db.run(dbcomment.filter(_.userID === userID).result)
-}
-
-  def listAll: Future[Seq[Comment]] = {
-    dbConfig.db.run(dbcomment.result)
-  }
 }

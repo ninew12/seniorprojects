@@ -68,7 +68,7 @@ class ApplicationController @Inject() (
       def getlist = UserAwareAction.async {implicit request =>
       request.identity match {
       case Some(user) => ListUser.listAll.map {users =>
-          Ok(views.html.listuser(users))
+          Ok(views.html.listuser(users,user))
     }
      case None => Future.successful(Redirect(routes.ApplicationController.index()))
   }
@@ -205,7 +205,7 @@ class ApplicationController @Inject() (
         Future.successful(Ok(views.html.EditPost(forumForm.form,user)))
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
-    }
+  }
 
 //ลบกระทู้สนทนา
     def deletePost (id : String) = UserAwareAction.async { implicit request =>
@@ -219,5 +219,142 @@ class ApplicationController @Inject() (
         case None => Future.successful(Redirect("/"))
         }
   }
+
+  //แก้ไขรายละเอียดโมเดล
+    def  updateMD2= UserAwareAction.async { implicit request =>
+    request.identity match {
+      case Some(user) =>
+      request.body.asMultipartFormData.map {a =>
+      val datatitle = a.dataParts.get("title").map { a =>
+         for{
+           b <- a.mkString("")
+          }yield b
+      }
+
+      val datadetail = a.dataParts.get("detail").map { a =>
+         for{
+           b <- a.mkString("")
+          }yield b
+      }
+
+      val datatags = a.dataParts.get("tags").map { a =>
+         for{
+           b <- a.mkString("")
+          }yield b
+      }
+
+      val dataimg = a.file("picture").map { a=>
+        val filename = a.filename
+        val extension = FilenameUtils.getExtension(filename)
+        val newFileName = s"${UUID.randomUUID}.$extension"
+        a.ref.moveTo(new File(s"public/images/$newFileName"))
+        for{
+          b <- newFileName
+        }yield b
+      }
+
+      val datablend = a.file("fileblend").map { a=>
+        val filename = a.filename
+        val extension = FilenameUtils.getExtension(filename)
+        val newFileName = s"${UUID.randomUUID}.$extension"
+        a.ref.moveTo(new File(s"public/members/01/$newFileName"))
+        for{
+          b <- newFileName
+        }yield b
+      }
+
+      val datahtml = a.file("filehtml").map { a=>
+        val filename = a.filename
+        val extension = FilenameUtils.getExtension(filename)
+        val newFileName = s"${UUID.randomUUID}.$extension"
+        a.ref.moveTo(new File(s"public/members/01/$newFileName"))
+        for{
+          b <- newFileName
+        }yield b
+      }
+
+        val getRelation = for{
+        a <- uploadart.getUser(bb)
+      }yield a
+
+      val title = getdata(datatitle)
+      val detail = getdata(datadetail)
+      val tags = getdata(datatags)
+      val picture = getdata(dataimg)
+      val fileblend = getdata(datablend)
+      val filehtml = getdata(datahtml)
+
+        //add table database
+        val aaaa = getRelation.map { data =>
+         data.map { aa =>
+         val dbartwork =  ArtWork (
+         id = aa.id,
+         userID = user.userID.toString,
+         title = title ,
+         detail = detail ,
+         tags = tags ,
+         picture = picture ,
+         fileblend = fileblend,
+         filehtml = filehtml
+       )
+
+      val saveDate = for{
+        a <- uploadart.update(dbartwork)
+      }yield a
+
+      }
+  }
+        Future.successful(Redirect("/model"))
+        }.getOrElse {
+        Future.successful(Redirect("/"))
+        }
+      case None => Future.successful(Redirect("/"))
+      }
+    }
+
+    var bb = "";
+    def updatemd (id : String) = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+          bb =id;
+          Future.successful(Ok(views.html.EditModel(user,uploadForm.form)))
+          case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
+  //ลบโมเดล
+      def deleteModel (id : String) = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) =>
+          val c = for{
+            a <- uploadart.delete(id)
+          }yield a
+             Future.successful(Redirect("/"))
+
+          case None => Future.successful(Redirect("/"))
+          }
+    }
+    //ลบความคิดเห็น
+        def deleteComment (id : String) = UserAwareAction.async { implicit request =>
+          request.identity match {
+            case Some(user) =>
+            val c = for{
+              a <- addcomment.delete(id)
+            }yield a
+               Future.successful(Redirect("/"))
+
+            case None => Future.successful(Redirect("/"))
+            }
+      }
+//ลบสมาชิกภายในระบบโดยadmin
+    def deleteUser (id : String) = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+        val c = for{
+          a <- ListUser.delete(id)
+        }yield a
+          Future.successful(Redirect("/pagelist"))
+          case None => Future.successful(Redirect("/"))
+          }
+      }
 
 }

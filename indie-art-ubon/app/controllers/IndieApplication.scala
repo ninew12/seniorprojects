@@ -39,7 +39,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       c <- addcomment.find(id)
      }yield(a,b,c)
      data.map {case (users,dbartwork,dbcomment) =>
-      Ok(views.html.showmodel(user,users,dbartwork,dbcomment))
+      Ok(views.html.showmodel(CommentForm.form,user,users,dbartwork,dbcomment))
       }
       case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }

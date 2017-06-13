@@ -59,7 +59,11 @@ case class ArtWork(
     def find(userID: String): Future[Seq[ArtWork]] = {
      dbConfig.db.run(dbupload.filter(_.userID === userID).result)
    }
-
+   def update(artwork: ArtWork): Future[String] = {
+    dbConfig.db.run(dbupload.filter(_.id === artwork.id).update(artwork)).map(res => "successfully").recover {
+      case ex: Exception => ex.getCause.getMessage
+    }
+  }
     def delete(userID: String): Future[Int] = {
       dbConfig.db.run(dbupload.filter(_.userID === userID).delete)
     }

@@ -55,14 +55,18 @@ object ListUser {
       dbConfig.db.run(users.filter(_.userID === userID).result)
    }
 
-  def delete(userID: String): Future[Int] = {
-    dbConfig.db.run(users.filter(_.userID === userID).delete)
+    def delete(userID: String): Future[Int] = {
+      dbConfig.db.run(users.filter(_.userID === userID).delete)
   }
 
- def get(userID: String): Future[Option[DBUser]] = {
-   dbConfig.db.run(users.filter(_.userID === userID).result.headOption)
+    def get(userID: String): Future[Option[DBUser]] = {
+      dbConfig.db.run(users.filter(_.userID === userID).result.headOption)
  }
-
+    def update(user: DBUser): Future[String] = {
+      dbConfig.db.run(users.filter(_.userID === user.userID).update(user)).map(res => "successfully").recover {
+      case ex: Exception => ex.getCause.getMessage
+  }
+ }
 }
 
 

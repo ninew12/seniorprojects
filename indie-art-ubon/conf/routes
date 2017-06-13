@@ -12,6 +12,14 @@ GET         /authenticate/:provider          controllers.SocialAuthController.au
 POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp
 GET         /up                              controllers.ApplicationController.uploadfile
+POST        /updatePost2                     controllers.ApplicationController.updatePost2
+GET         /updatepost/:id                  controllers.ApplicationController.updatepost(id : String)
+GET         /deletePost/:id                  controllers.ApplicationController.deletePost(id : String)
+POST        /updateMD2                       controllers.ApplicationController.updateMD2
+GET         /updatemd/:id                    controllers.ApplicationController.updatemd(id : String)
+GET         /deleteModel/:id                 controllers.ApplicationController.deleteModel(id : String)
+GET         /deleteComment/:id               controllers.ApplicationController.deleteComment(id : String)
+GET         /deleteUser/:id                  controllers.ApplicationController.deleteUser(id : String)
 GET         /showmodel/:id                   controllers.IndieApplication.showmodel(id : String)
 GET         /selectModel                     controllers.IndieApplication.selectmodel
 
@@ -25,16 +33,10 @@ GET         /profile/:id                     controllers.IndieApplication.profil
 GET         /member                          controllers.IndieApplication.member
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
-POST        /updatePost2                     controllers.ApplicationController.updatePost2
-GET         /updatepost/:id                  controllers.ApplicationController.updatepost(id : String)
-GET         /deletePost/:id                  controllers.ApplicationController.deletePost(id : String)
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
 GET         /user/:id                        controllers.IndieApplication.userP(id : String)
 POST        /upload                          controllers.IndieApplication.upload
-
-#GET         /test                            controllers.IndieApplication.b4wmodel
-#GET         /test                            controllers.IndieApplication.three
 GET         /test                            controllers.IndieApplication.threejs2
 
 # Map static resources from the /public folder to the /assets URL path

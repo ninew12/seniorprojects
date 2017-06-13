@@ -1,0 +1,47 @@
+@import forms._
+@(user: models.User,uploadForm: Form[forms.uploadForm.Data])(implicit request: RequestHeader , messages: Messages)
+
+<!DOCTYPE html>
+@import b3.inline.fieldConstructor
+@blend = @{ Seq("Category"->"Category","Character"->"Character","Assets"->"Assets","Scene"->"Scene","Others"->"Others") }
+@main(Messages("home.title"), Some(user)){
+  <div class="container">
+         <br><br><br>
+            <div class="mt mb ">
+               <h3><i class="fa fa-upload" aria-hidden="true"></i> UPLOAD MODEL</h3>
+           </div>
+             <div class="panel panel-info">
+                <div class="panel-body">
+                  <div class="container">
+                    <div class="row">
+                     <div class="col-sm-1  ">
+                     </div>
+                      <div class="col-sm-8  ">
+
+                        @helper.form(action = routes.ApplicationController.updateMD2,'enctype -> "multipart/form-data") {
+                          @helper.CSRF.formField
+
+                            @b3.text( uploadForm("title"), '_label -> "Topic" )
+                            @b3.textarea( uploadForm("detail"), '_label -> "details" ,'rows -> 3 )
+                            @b3.select( uploadForm("tags"), options = blend, '_label -> "Select" )
+                            @b3.file( uploadForm("picture"), '_label -> "Picturefile" )
+                            @b3.file( uploadForm("fileblend"), '_label -> "Blendfile" )
+                            @b3.file( uploadForm("filehtml"), '_label -> "Htmlfile" )
+
+                            <div class=" text-right">
+                               <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
+                               <button type="submit" class="btn btn-danger">Cancel</button>
+                             </div>
+
+                          }
+
+                            </div>   <!-- col-md-8 -->
+                         </div>   <!-- row -->
+                      </div><!-- container -->
+                   </div><!-- panal-body -->
+                 </div><!-- panal -->
+              </div><!--inner-->
+
+
+          @footer()
+}
