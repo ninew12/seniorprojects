@@ -22,8 +22,10 @@ GET         /deleteComment/:id               controllers.ApplicationController.d
 GET         /deleteUser/:id                  controllers.ApplicationController.deleteUser(id : String)
 GET         /showmodel/:id                   controllers.IndieApplication.showmodel(id : String)
 GET         /selectModel                     controllers.IndieApplication.selectmodel
+GET         /admin                           controllers.IndieApplication.admin
 
 
+GET         /listforum                       controllers.ApplicationController.listforum
 GET         /pagelist                        controllers.ApplicationController.getlist
 GET         /showpost/:id                    controllers.IndieApplication.showpost(id : String)
 GET         /posts                           controllers.IndieApplication.posts
@@ -31,6 +33,7 @@ GET         /model                           controllers.IndieApplication.model
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
+GET         /addfollow/:userID               controllers.IndieApplication.addfollow(userID : String)
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment

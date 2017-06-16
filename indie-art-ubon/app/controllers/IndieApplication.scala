@@ -30,6 +30,22 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
  }
 
+ def admin = UserAwareAction.async { implicit request =>
+ request.identity match {
+
+  case Some(user) =>
+      val data = for{
+        a <- addforum.listAll
+        b <- ListUser.listAll
+        c <- uploadart.listAll
+      }yield(a,b,c)
+      data.map { case (dbforuminfo,users,dbartwork) =>
+      Ok(views.html.adminHome(user,dbforuminfo,users,dbartwork))
+
+      }
+    case None => Future.successful(Redirect(routes.ApplicationController.index()))
+   }
+}
     def showmodel (id : String) = UserAwareAction.async { implicit request =>
     request.identity match {
     case Some(user) =>
@@ -98,7 +114,11 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 //แสดง user ภายในระบบ
     def member  = UserAwareAction.async {implicit request =>
       request.identity match {
-        case Some(user) => ListUser.listAll.map {users =>
+        case Some(user) =>
+          val data = for{
+           a <- ListUser.listAll
+          }yield (a)
+           data.map { users =>
           Ok(views.html.member(users,user))
         }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -315,6 +335,25 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       }
 
     }
+
+     var dataID = "";
+
+    def addfollow (userID : String) =  UserAwareAction.async { implicit request =>
+      request.identity match {
+      case Some(user) =>
+      val a = Follow(
+       id = Some(0) ,
+       fid = dataID ,
+       userID = userID
+     )
+     var n = for{
+       c <- DBfollow.add(a)
+     }yield c
+
+     Future.successful(Redirect("/"))
+     case None => Future.successful(Redirect("/"))
+     }
+ }
     // ทดสอบ scala.html
     def b4wmodel() = Action {
       Ok(views.html.b4wmodel(""))

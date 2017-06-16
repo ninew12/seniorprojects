@@ -1,0 +1,64 @@
+@(user: models.User,dbforuminfo : Seq[models.Foruminfo],users : Seq[models.DBUser])(implicit messages: Messages)
+
+@main(Messages("home.title"), Some(user)){
+  <br><br><br>
+
+     <div class="container">
+          <h3>Forum Info</h3>
+          <div class="row data">
+            <div id="wrap2">
+          <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" >
+            <thead>
+              <tr>
+                <th>ID Forum</th>
+                <th>Full name</th>
+                <th>Title</th>
+                <th>Details</th>
+
+                <th style="text-align: center;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(foruminfo
+                <- dbforuminfo){
+                  @for(user
+                    <- users){<tr>
+                  <td>@foruminfo.id</td>
+                  <td>@user.fullName</td>
+                  <td>@foruminfo.title</td>
+                  <td>@foruminfo.detail</td>
+
+                  <td style="text-align: center;" class="col-md-2 col-sm-3">
+                    <button name="delete" data-toggle="modal" href="#modeldelete" class="btn btn-sm  btn btn-danger">Delete</button>
+                  </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal" id="modeldelete" role="dialog">
+              <div class="modal-dialog">
+                 <div class="modal-content">
+                       <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h4 style="color:#000" class="modal-title">Delete Forum</h4>
+                        </div>
+                <div class="modal-body">
+                     <div class="well">
+                      <h4 style="color:#000" >คุณต้องการลบกระทู้สนทนานี้หรือไม่</h4>
+                 </div>
+               </div>
+                   <div class="modal-footer">
+                              <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
+                              <a href="@routes.ApplicationController.deletePost(foruminfo.userID)" class="btn btn-warning">ยืนยัน</a>
+                  </div>
+              </div>
+          </div>
+      </div>  <!--dialog edit password -->
+      }
+    }
+  </div>
+
+}

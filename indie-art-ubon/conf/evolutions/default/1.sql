@@ -10,7 +10,8 @@ create table "openidattributes" ("id" VARCHAR NOT NULL,"key" VARCHAR NOT NULL,"v
 create table "foruminfo" ("id" VARCHAR NOT NULL PRIMARY KEY,"userID" VARCHAR NOT NULL ,"title" VARCHAR NOT NULL,"detail" VARCHAR ,"picture" VARCHAR);
 create table "comment" ("id" VARCHAR NOT NULL PRIMARY KEY, "userID" VARCHAR NOT NULL, "detail" VARCHAR, "artworkid" VARCHAR NOT NULL,"forumid" VARCHAR NOT NULL );
 create table "artwork" ("id" VARCHAR NOT NULL PRIMARY KEY, "userID" VARCHAR NOT NULL, "title"  VARCHAR NOT NULL, "detail"  VARCHAR NOT NULL, "tags" VARCHAR NOT NULL ,"picture"  VARCHAR NOT NULL, "fileblend"  VARCHAR NOT NULL, "filehtml"  VARCHAR NOT NULL );
-
+create table "collection" ("id" VARCHAR NOT NULL PRIMARY KEY, "userID" VARCHAR NOT NULL, "artworkid" VARCHAR NOT NULL  );
+create table "follow" ("id" BIGINT NOT NULL ,"fid" VARCHAR NOT NULL PRIMARY KEY, "userID" VARCHAR NOT NULL );
 # --- !Downs
 
 drop table "openidattributes";
@@ -24,3 +25,5 @@ drop table "user";
 drop table "artwork";
 drop table "comment";
 drop table "foruminfo";
+drop table "collection";
+drop table "follow";

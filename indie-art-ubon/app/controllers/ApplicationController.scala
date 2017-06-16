@@ -65,6 +65,7 @@ class ApplicationController @Inject() (
       val r = new java.io.File("/tmp").listFiles
       Ok(views.html.listfiles(r))
   }
+
       def getlist = UserAwareAction.async {implicit request =>
       request.identity match {
       case Some(user) => ListUser.listAll.map {users =>
@@ -73,6 +74,24 @@ class ApplicationController @Inject() (
      case None => Future.successful(Redirect(routes.ApplicationController.index()))
   }
  }
+
+    def listforum = UserAwareAction.async { implicit request =>
+      request.identity match {
+
+        case Some(user) =>
+          val data = for{
+          a <- addforum.listAll
+          b <- ListUser.listAll
+          }yield(a,b)
+          data.map { case (dbforuminfo,users) =>
+          Ok(views.html.listforum(user,dbforuminfo,users))
+
+            }
+            case None => Future.successful(Redirect(routes.ApplicationController.index()))
+          }
+        }
+
+
   /**
    * Handles the index action.
    *
@@ -165,7 +184,7 @@ class ApplicationController @Inject() (
     }
 
       val getRelation = for{
-      a <- addforum.get(aaa)
+      a <- addforum.get(uid)
     }yield a
 
       val title = getdata(datatitle)
@@ -197,11 +216,11 @@ class ApplicationController @Inject() (
     }
   }
 
-  var aaa = "";
+  var uid = "";
   def updatepost (id : String) = UserAwareAction.async { implicit request =>
     request.identity match {
       case Some(user) =>
-        aaa =id;
+        uid =id;
         Future.successful(Ok(views.html.EditPost(forumForm.form,user)))
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
@@ -274,7 +293,7 @@ class ApplicationController @Inject() (
       }
 
         val getRelation = for{
-        a <- uploadart.getUser(bb)
+        a <- uploadart.getUser(uuid)
       }yield a
 
       val title = getdata(datatitle)
@@ -312,11 +331,11 @@ class ApplicationController @Inject() (
       }
     }
 
-    var bb = "";
+    var uuid = "";
     def updatemd (id : String) = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
-          bb =id;
+          uuid =id;
           Future.successful(Ok(views.html.EditModel(user,uploadForm.form)))
           case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
@@ -356,5 +375,7 @@ class ApplicationController @Inject() (
           case None => Future.successful(Redirect("/"))
           }
       }
+
+
 
 }
