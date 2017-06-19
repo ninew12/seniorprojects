@@ -7,9 +7,10 @@
 > play project files
 
 ## ฟังก์ชันที่เหลือ
-> Downloadmodel
+> Downloadmodel file.blend
 > เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน 
-> ติดตามผู้ใช้ในระบบ
+> Show Model
+> แยกหมวดหมู่ โมเดล
 
 
 ##
