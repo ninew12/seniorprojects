@@ -1,4 +1,4 @@
-@(users : Seq[models.DBUser],user: models.User)(implicit request: RequestHeader, messages: Messages)
+@(users : Seq[models.DBUser],user: models.User, dbfollow : Seq[models.Follow])(implicit request: RequestHeader, messages: Messages)
 
 <!DOCTYPE html>
 @main(Messages("home.title"), Some(user)){
@@ -11,24 +11,6 @@
           <div class="panel panel-info">
              <div class="panel-body">
         <div class="row">
-          <div class="col-sm-12">
-              <ul class="breadcrumb">
-                  <li>
-                      <i class="fa fa-trophy" aria-hidden="true"></i><a href="#"> Top User</a>
-                  </li>
-              </ul>
-          </div>
-          <!--shoe user-->
-
-             <div class=" col-sm-2" >
-                <div class="box2">
-                       <a  class="image fit"><img src="assets/images/back3.jpg" alt="" width="300" height="150" /></a>
-                    <div class="inner">
-                       <a href=""><h5>Wasan</h5></a>
-                       <a href="/selectModel" class="button fit btn-sm" ><i class="fa fa-plus" aria-hidden="true"></i> Follow</a>
-                   </div>
-                 </div>
-             </div>
 
              <div class="col-sm-12">
                  <ul class="breadcrumb">
@@ -37,21 +19,31 @@
                      </li>
                  </ul>
              </div>
-             @for(user
-               <- users){
 
-           <div class=" col-sm-2">
-               <div class="box2">
-                       <a  class="image fit"><img src="@routes.Assets.at("images/user2.jpg")" alt="" width="300" height="150" /></a>
-                  <div class="inner">
-                   <a href="@routes.IndieApplication.profile(user.userID)"><h5>@user.fullName</h5></a>
-                   <!-- <a href="routes.IndieApplication.addfollow(follow.userID)"  > -->
-                   <button class="button fit btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Follow</button>
+             @for(u
+               <- users){
+                 @if(u.userID.toString != user.userID.toString){
+                   <div class=" col-sm-2">
+                     <div class="box2">
+                       <a  class="image fit"><img src="@routes.Assets.at("images/user2.jpg")"  width="300" height="150" /></a>
+                       <div class="inner">
+                         <a href="@routes.IndieApplication.profile(u.userID)"><h5>@u.fullName</h5></a>
+
+                   @for(f <- dbfollow){
+                     @if(f.fid == u.userID.toString && user.userID.toString == f.userID){
+
+                             <a href="#"  >
+                               <button class="button fit btn-sm"><i class="fa fa-plus" ></i> UnFollow</button>
+                             </a>
+                     }
+                   }
+                   <a href="@routes.IndieApplication.addfollow(u.userID)"  >
+                     <button class="button fit btn-sm"><i class="fa fa-plus" ></i> follow</button>
                    </a>
                  </div>
                </div>
-            </div><!--col-sm2-2-->
-
+             </div><!--col-sm2-2-->
+                 }
              }
           </div><!--row-->
         </div><!--inner-->

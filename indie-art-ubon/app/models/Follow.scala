@@ -32,12 +32,7 @@ object DBfollow {
   val dbfollow = TableQuery[follows]
 
   def add(follow: Follow): Future[String] = {
-      val a = Follow (
-         id = Some(0),
-        fid= follow.fid,
-        userID = follow.userID
-      )
-    dbConfig.db.run(dbfollow += a).map(res => "successfully").recover {
+    dbConfig.db.run(dbfollow += follow).map(res => "successfully").recover {
       case ex: Exception => ex.getCause.getMessage
       }
  }

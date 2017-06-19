@@ -33,7 +33,7 @@ GET         /model                           controllers.IndieApplication.model
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
-GET         /addfollow/:userID               controllers.IndieApplication.addfollow(userID : String)
+GET         /addfollow/:fid           controllers.IndieApplication.addfollow(fid : String)
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment

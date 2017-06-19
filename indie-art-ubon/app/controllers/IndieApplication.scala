@@ -112,14 +112,15 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     }
 
 //แสดง user ภายในระบบ
-    def member  = UserAwareAction.async {implicit request =>
+    def member   = UserAwareAction.async {implicit request =>
       request.identity match {
         case Some(user) =>
           val data = for{
            a <- ListUser.listAll
-          }yield (a)
-           data.map { users =>
-          Ok(views.html.member(users,user))
+           b <- DBfollow.listAll
+          }yield (a,b)
+           data.map {  case (users,dbfollow) =>
+          Ok(views.html.member(users,user,dbfollow))
         }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
@@ -338,19 +339,19 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
      var dataID = "";
 
-    def addfollow (userID : String) =  UserAwareAction.async { implicit request =>
+    def addfollow (fid :String) =  UserAwareAction.async { implicit request =>
       request.identity match {
       case Some(user) =>
       val a = Follow(
        id = Some(0) ,
-       fid = dataID ,
-       userID = userID
+       fid = fid ,
+       userID = user.userID.toString
      )
-     var n = for{
+     val n = for{
        c <- DBfollow.add(a)
      }yield c
 
-     Future.successful(Redirect("/"))
+     Future.successful(Ok(""+n))
      case None => Future.successful(Redirect("/"))
      }
  }
