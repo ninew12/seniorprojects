@@ -7,10 +7,10 @@
 > play project files
 
 ## ฟังก์ชันที่เหลือ
-> Downloadmodel file.blend
-> เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน 
-> Show Model
-> แยกหมวดหมู่ โมเดล
+1.Downloadmodel file.blend
+2. เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน 
+3. Show Model
+4. แยกหมวดหมู่ โมเดล
 
 
 ##
