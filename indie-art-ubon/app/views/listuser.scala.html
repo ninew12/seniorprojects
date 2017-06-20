@@ -30,7 +30,7 @@
                     <button name="delete" data-toggle="modal" href="#modeldelete" class="btn btn-sm  btn btn-danger">Delete</button>
                   </td>
             </tr>
-
+          }
             </tbody>
           </table>
         </div>
@@ -48,14 +48,14 @@
                       <h4 style="color:#000" >คุณต้องการลบสมาชิกนี้หรือไม่</h4>
                  </div>
                </div>
+
                    <div class="modal-footer">
                               <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
-                              <a href="@routes.ApplicationController.deleteUser(user.userID)" class="btn btn-warning">ยืนยัน</a>
+                              <!-- <a href="@@routes.ApplicationController.deleteUser(user.userID)" class="btn btn-warning">ยืนยัน</a> -->
                   </div>
               </div>
           </div>
       </div>  <!--dialog edit password -->
-      }
   </div>
 
 }

@@ -1,4 +1,4 @@
-@(Forms: Form[forms.CommentForm.Data],user: models.User,users : Seq[models.DBUser],dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment])(implicit request: RequestHeader, messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],user: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(user)){
@@ -16,12 +16,16 @@
       <!-- <iframe src="@routes.Assets.at("members/01/")@artwork.filehtml" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
       <iframe src="@routes.Assets.at("members/01/car2.html")" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
       <br>
+      @for(u
+        <- users){
       <div class=" text-right" >
-        <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button>
-        <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECT</button>
+        <!-- <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button> -->
+        <a href="@routes.IndieApplication.addcollection(u.userID)"  >
+          <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECT</button>
+        </a>
         <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  DOWNLOAD</button>
       </div>
-
+    }
       <div class="row">
         <h5><span class="badge">2</span> Comment </h5>
         <br>
@@ -118,6 +122,7 @@
            <a href="@routes.ApplicationController.updatemd(artwork.userID ) " class="btn btn-warning " > Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
            <a data-toggle="modal" href="#modeldelete" class="btn btn-danger  "  > Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
           </div>
+
         </li>
       </div><!--col-md-4 list-group-->
       <div class="modal" id="modeldelete" role="dialog">

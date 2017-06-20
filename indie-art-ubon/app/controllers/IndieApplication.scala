@@ -46,16 +46,17 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     case None => Future.successful(Redirect(routes.ApplicationController.index()))
    }
 }
+//แสดงรายละเอียกโมเดล
     def showmodel (id : String) = UserAwareAction.async { implicit request =>
     request.identity match {
     case Some(user) =>
      val data = for{
-      a <- ListUser.find(id)
-      b <- uploadart.find(id)
-      c <- addcomment.find(id)
+      a <- uploadart.find(id)
+      b <- addcomment.find(id)
+      c <- ListUser.find(id)
      }yield(a,b,c)
-     data.map {case (users,dbartwork,dbcomment) =>
-      Ok(views.html.showmodel(CommentForm.form,user,users,dbartwork,dbcomment))
+     data.map {case (dbartwork,dbcomment,users) =>
+      Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users))
       }
       case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
@@ -64,17 +65,16 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 //แสดงแฟ้มสะสมผลงาน
     def collection = UserAwareAction.async { implicit request =>
       request.identity match {
-        case Some(user) => Future.successful(Ok(views.html.collection(user)))
-        case None => Future.successful(Redirect(routes.ApplicationController.index()))
-      }
+      case Some(user) =>
+       val data = for{
+       a <- uploadart.listAll
+       }yield(a)
+       data.map { dbartwork =>
+       Ok(views.html.collection(user,dbartwork))
+       }
+      case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
-
-
-    //def collection  = UserAwareAction.async {implicit request =>
-    //addcollection.listAll.map {dbcol =>
-    //   Ok(views.html.collection(dbcol))
-    //  }
-    //  }
+  }
 
 //แสดงข้อมูลส่วนตัว
     def profile(id: String) = UserAwareAction.async { implicit request =>
@@ -336,9 +336,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       }
 
     }
-
-     var dataID = "";
-
+//ติดตามผู้ใช้ภายในระบบ
     def addfollow (fid :String) =  UserAwareAction.async { implicit request =>
       request.identity match {
       case Some(user) =>
@@ -351,10 +349,31 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
        c <- DBfollow.add(a)
      }yield c
 
-     Future.successful(Ok(""+n))
+     Future.successful(Redirect("/member"))
      case None => Future.successful(Redirect("/"))
      }
  }
+
+//เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน
+var dataID = "";
+ def addcollection (artworkid :String) =  UserAwareAction.async { implicit request =>
+   request.identity match {
+   case Some(user) =>
+    val a = Collection(
+    id = Some(0) ,
+    userID = user.userID.toString,
+    artworkid = artworkid
+   )
+
+   val n = for{
+     c <- DBcollection.add(a)
+   }yield c
+
+
+  Future.successful(Redirect("/col"))
+  case None => Future.successful(Redirect("/"))
+  }
+}
     // ทดสอบ scala.html
     def b4wmodel() = Action {
       Ok(views.html.b4wmodel(""))

@@ -20,6 +20,7 @@ GET         /updatemd/:id                    controllers.ApplicationController.u
 GET         /deleteModel/:id                 controllers.ApplicationController.deleteModel(id : String)
 GET         /deleteComment/:id               controllers.ApplicationController.deleteComment(id : String)
 GET         /deleteUser/:id                  controllers.ApplicationController.deleteUser(id : String)
+GET         /deleteCol/:id                   controllers.ApplicationController.deleteCol(id : String)
 GET         /showmodel/:id                   controllers.IndieApplication.showmodel(id : String)
 GET         /selectModel                     controllers.IndieApplication.selectmodel
 GET         /admin                           controllers.IndieApplication.admin
@@ -33,7 +34,8 @@ GET         /model                           controllers.IndieApplication.model
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
-GET         /addfollow/:fid           controllers.IndieApplication.addfollow(fid : String)
+GET         /addfollow/:fid                  controllers.IndieApplication.addfollow(fid : String)
+GET         /addcollection/:artworkid        controllers.IndieApplication.addcollection(artworkid  : String)
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment

@@ -32,10 +32,12 @@
                            @for(foruminfo
                              <- dbforuminfo){
                              <div class="col-sm-8  ">
+                                @if(foruminfo.userID.toString == user.userID.toString){
                                <div class=" text-right">
                                 <a  style="color:#FF9933" href="@routes.ApplicationController.updatepost(foruminfo.userID ) "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
                                 <a  style="color:#FF9933" data-toggle="modal" href="#modeldelete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                </div>
+                             }
                                      <h3>@foruminfo.title</h3>
                                      <hr>
                                   <!--upload image-->

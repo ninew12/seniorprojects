@@ -6,21 +6,12 @@ import play.api.mvc._
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.ListUser
-import models.addcomment
-import models.addforum
-import models.addcollection
 import play.api.data._
 import play.api.data.Forms._
 import forms._
+import models._
 import views.html._
 import play.api.libs.json.Json
-import models.User
-import models.DBUser
-import models.Comment
-import models.Collection
-import models.Foruminfo
-import models.UserConstants
 import play.api.i18n.MessagesApi
 import java.util.UUID
 //import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
@@ -62,6 +53,6 @@ class ArtApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesApi
       //}
     }
       */
-      
+
 
   }

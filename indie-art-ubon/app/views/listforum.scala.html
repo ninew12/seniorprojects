@@ -21,10 +21,14 @@
             <tbody>
               @for(foruminfo
                 <- dbforuminfo){
-                  @for(user
-                    <- users){<tr>
+                  <tr>
                   <td>@foruminfo.id</td>
+                  @for(u
+                    <- users){
+                  @if(u.userID.toString == user.userID.toString){
                   <td>@user.fullName</td>
+                      }
+                    }
                   <td>@foruminfo.title</td>
                   <td>@foruminfo.detail</td>
 
@@ -32,7 +36,7 @@
                     <button name="delete" data-toggle="modal" href="#modeldelete" class="btn btn-sm  btn btn-danger">Delete</button>
                   </td>
             </tr>
-
+          }
             </tbody>
           </table>
         </div>
@@ -52,13 +56,13 @@
                </div>
                    <div class="modal-footer">
                               <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
-                              <a href="@routes.ApplicationController.deletePost(foruminfo.userID)" class="btn btn-warning">ยืนยัน</a>
+                              <!-- <a href="@@routes.ApplicationController.deletePost(foruminfo.userID)" class="btn btn-warning">ยืนยัน</a> -->
+
+
                   </div>
               </div>
           </div>
       </div>  <!--dialog edit password -->
-      }
-    }
   </div>
 
 }

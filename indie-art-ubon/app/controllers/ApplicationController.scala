@@ -376,6 +376,16 @@ class ApplicationController @Inject() (
           }
       }
 
-
+  //ลบโมเดลในแฟ้มสะสมผลงาน
+      def deleteCol (id : String) = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) =>
+            val c = for{
+              a <- DBcollection.delete(id)
+            }yield a
+              Future.successful(Redirect("/col"))
+              case None => Future.successful(Redirect("/"))
+            }
+        }
 
 }

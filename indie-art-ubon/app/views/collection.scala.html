@@ -1,7 +1,7 @@
-@(user: models.User)(implicit messages: Messages)
+@(user: models.User, dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
 <!-- dbforuminfo : Seq[models.Foruminfo] -->
 <!DOCTYPE html>
-@main(Messages("home.title"), Some(user)){
+@main(Messages("home.title"),Some(user)){
 
   <br><br>
   <div class="container">
@@ -17,18 +17,25 @@
                   <li>
                       <i class="fa fa-plus-square" aria-hidden="true"></i><a href="#"> collection</a>
                   </li>
-                      <li ><a  data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></i>
+                      <!-- <li ><a  data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></i> -->
 
               </ul>
           </div>
           <!--show collection-->
              <div class=" col-sm-3">
                <div class="box2">
-                   <a  class="image fit"><img src="@routes.Assets.at("images/pic01.jpg")" alt="" width="300" height="150"/></a>
+                 <div class=" text-right">
+                 <!-- <a  style="color:#FFFFFF" href="# "><i class="fa fa-trash-o" aria-hidden="true"></i></a> &nbsp; -->
+                 </div>
+                 @for(artwork
+                 <- dbartwork ){
+                   <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture"alt="" width="300" height="150"/></a>
+
                <div class="inner">
-                   <h5>Nascetur nunc varius commodo</h5>
-                    <a href="/selectModel" class="button style3 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                   <h5>@artwork.title</h5>
+                    <a href="@routes.IndieApplication.showmodel(artwork.userID )" class="button style3 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
                </div>
+             }
               </div>
             </div><!--col-sm3-->
          </div><!--row-->
@@ -38,29 +45,3 @@
 </div>
 
 }
-
-<!--dialog edit -->
-          <!-- <div class="modal" id="myModal" role="dialog">
-	                <div class="modal-dialog">
-                     <div class="modal-content">
-                           <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                  <h4 class="modal-title">Edit Collection</h4>
-                            </div>
-                    <div class="modal-body">
-                         <div class="well">
-                                  <label >Name</label>
-                                  <input type="text" class="form-control"  name="text" value="" required="" placeholder="name collection">
-                        <div class="form-group">
-                                  <label >Description</label>
-                                   <textarea class="form-control" rows="4" ></textarea>
-                       </div>
-                     </div>
-                   </div>
-                       <div class="modal-footer">
-                                  <a href="#" data-dismiss="modal" class="btn">Close</a>
-                                  <a href="#" class="btn btn-primary">Save changes</a>
-                      </div>
-                  </div>
-              </div>
-          </div> -->
