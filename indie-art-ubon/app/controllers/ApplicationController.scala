@@ -377,7 +377,7 @@ class ApplicationController @Inject() (
       }
 
   //ลบโมเดลในแฟ้มสะสมผลงาน
-      def deleteCol (id : String) = UserAwareAction.async { implicit request =>
+      def deleteCol (id : Long) = UserAwareAction.async { implicit request =>
         request.identity match {
           case Some(user) =>
             val c = for{

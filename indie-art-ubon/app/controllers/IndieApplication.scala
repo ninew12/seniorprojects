@@ -47,16 +47,17 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
    }
 }
 //แสดงรายละเอียกโมเดล
-    def showmodel (id : String) = UserAwareAction.async { implicit request =>
+    def showmodel (id : String, userID : String) = UserAwareAction.async { implicit request =>
     request.identity match {
     case Some(user) =>
      val data = for{
       a <- uploadart.find(id)
       b <- addcomment.find(id)
-      c <- ListUser.find(id)
-     }yield(a,b,c)
-     data.map {case (dbartwork,dbcomment,users) =>
-      Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users))
+      c <- ListUser.find(userID)
+      d <- DBcollection.listAll
+     }yield(a,b,c,d)
+     data.map {case (dbartwork,dbcomment,users,dbcol) =>
+      Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users,dbcol))
       }
       case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
@@ -67,10 +68,11 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       request.identity match {
       case Some(user) =>
        val data = for{
-       a <- uploadart.listAll
-       }yield(a)
-       data.map { dbartwork =>
-       Ok(views.html.collection(user,dbartwork))
+       a <- DBcollection.colUser(user.userID.toString)
+       b <- uploadart.listAll
+       }yield(a,b)
+       data.map { case (col,art) =>
+       Ok(views.html.collection(user,col,art))
        }
       case None => Future.successful(Redirect(routes.ApplicationController.index()))
     }
@@ -139,13 +141,13 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           }
      }
 
-     def showpost (id : String) = UserAwareAction.async { implicit request =>
+     def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
        request.identity match {
          case Some(user) =>
          val data = for{
-           a <- addforum.find(id)
+           a <- addforum.get(id)
            b <- addcomment.find(id)
-           c <- ListUser.find(id)
+           c <- ListUser.find(userID)
          }yield(a,b,c)
          data.map { case (dbforuminfo,dbcomment,users) =>
            Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
@@ -355,14 +357,14 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
  }
 
 //เพิ่มโมเดลเข้าแฟ้มสะสมผลงาน
-var dataID = "";
- def addcollection (artworkid :String) =  UserAwareAction.async { implicit request =>
+
+ def addcollection (id :String ) =  UserAwareAction.async { implicit request =>
    request.identity match {
    case Some(user) =>
     val a = Collection(
     id = Some(0) ,
     userID = user.userID.toString,
-    artworkid = artworkid
+    artworkid = id
    )
 
    val n = for{

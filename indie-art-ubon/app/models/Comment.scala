@@ -45,7 +45,7 @@ object addcomment {
    dbConfig.db.run(dbcomment.filter(_.id === id).result.headOption)
  }
    def find(userID : String): Future[Seq[Comment]] = {
-  dbConfig.db.run(dbcomment.filter(_.userID === userID).result)
+  dbConfig.db.run(dbcomment.filter(_.id === userID).result)
 }
 
   def listAll: Future[Seq[Comment]] = {

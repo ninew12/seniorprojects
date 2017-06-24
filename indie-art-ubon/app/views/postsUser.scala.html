@@ -33,21 +33,21 @@
                                       <td>
                                         <img src="@routes.Assets.at("images/user.png")" class="img-circle" width="60">
                                       </td>
-                                      <td>
+                                      <td style= "width: 20%;">
                                           <h5>
-                                              <b>@foruminfo.title</b>
+                                              <p style= "width: 50%; word-wrap: break-word ;">@foruminfo.title</p>
                                           </h5>
-            
+
                                       </td>
-                                      <td>
-                                          <h5>
-                                              <b>@foruminfo.detail</b>
+                                      <td >
+                                          <h5 >
+                                              <p style= "width: 20%; word-wrap: break-word ;">@foruminfo.detail</p>
                                           </h5>
                                       </td>
                                       <td><h5><i class="fa fa-calendar" aria-hidden="true"></i> 23/01/2560</h5></td>
                                       <td>
                                           <div class="btn-group">
-                                            <a href="@routes.IndieApplication.showpost(foruminfo.userID ) "><button class="btn btn-warning" value="right" type="button" >Read More
+                                            <a href="@routes.IndieApplication.showpost(foruminfo.id,foruminfo.userID ) "><button class="btn btn-warning" value="right" type="button" >Read More
                                                 <i class="fa fa-fw fa-arrow-right"></i></button></a>
                                           </div>
                                       </td>

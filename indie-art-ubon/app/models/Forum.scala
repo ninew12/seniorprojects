@@ -44,8 +44,8 @@ object addforum {
       case ex: Exception => ex.getCause.getMessage
     }
   }
-  def find(userID: String): Future[Seq[Foruminfo]] = {
-   dbConfig.db.run(dbforuminfo.filter(_.userID === userID).result)
+  def find(id: String): Future[Seq[Foruminfo]] = {
+   dbConfig.db.run(dbforuminfo.filter(_.id === id).result)
  }
   def listAll: Future[Seq[Foruminfo]] = {
     dbConfig.db.run(dbforuminfo.result)
@@ -55,10 +55,10 @@ object addforum {
      case ex: Exception => ex.getCause.getMessage
    }
  }
-  def get(userID: String): Future[Option[Foruminfo]] = {
-   dbConfig.db.run(dbforuminfo.filter(_.userID === userID).result.headOption)
+  def get(id: String): Future[Option[Foruminfo]] = {
+   dbConfig.db.run(dbforuminfo.filter(_.id === id).result.headOption)
  }
-  def delete(userID: String): Future[Int] = {
-     dbConfig.db.run(dbforuminfo.filter(_.userID=== userID).delete)
+  def delete(id: String): Future[Int] = {
+     dbConfig.db.run(dbforuminfo.filter(_.id === id).delete)
    }
 }

@@ -45,8 +45,12 @@ import models.daos._
       dbConfig.db.run(dbcol.result)
     }
 
-    def find(userID: String): Future[Seq[Collection]] = {
+    def colUser(userID : String): Future[Seq[Collection]] = {
       dbConfig.db.run(dbcol.filter(_.userID === userID).result)
+    }
+
+    def find(id: Long): Future[Seq[Collection]] = {
+      dbConfig.db.run(dbcol.filter(_.id === id).result)
   }
     def get(userID: String): Future[Option[Collection]] = {
       dbConfig.db.run(dbcol.filter(_.userID === userID).result.headOption)
@@ -56,7 +60,7 @@ import models.daos._
       case ex: Exception => ex.getCause.getMessage
       }
     }
-    def delete(userID: String): Future[Int] = {
-      dbConfig.db.run(dbcol.filter(_.userID=== userID).delete)
+    def delete(id: Long): Future[Int] = {
+      dbConfig.db.run(dbcol.filter(_.id=== id).delete)
       }
   }

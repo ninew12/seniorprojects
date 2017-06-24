@@ -1,4 +1,4 @@
-@(Forms: Form[forms.CommentForm.Data],user: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader, messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],user: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser],dbcol :Seq[models.Collection] )(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(user)){
@@ -16,16 +16,15 @@
       <!-- <iframe src="@routes.Assets.at("members/01/")@artwork.filehtml" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
       <iframe src="@routes.Assets.at("members/01/car2.html")" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
       <br>
-      @for(u
-        <- users){
+
       <div class=" text-right" >
         <!-- <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button> -->
-        <a href="@routes.IndieApplication.addcollection(u.userID)"  >
-          <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECT</button>
+        <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
+          <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECTION</button>
         </a>
         <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  DOWNLOAD</button>
       </div>
-    }
+
       <div class="row">
         <h5><span class="badge">2</span> Comment </h5>
         <br>
@@ -77,7 +76,7 @@
                  </div>
                      <div class="modal-footer">
                                 <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
-                                <a href="@routes.ApplicationController.deleteComment(comment.userID)" class="btn btn-warning">ยืนยัน</a>
+                                <a href="@routes.ApplicationController.deleteComment(comment.id)" class="btn btn-warning">ยืนยัน</a>
                     </div>
                 </div>
             </div>
@@ -91,9 +90,8 @@
       <li  class=" list-group-item ">
         <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
         <h5 class="list-group-item-heading">By @user.fullName</h5>
-        <a href="/profile" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
+        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
       </li>
-
       <li class="list-group-item">
         <h5 class="list-group-item-heading">About This Model</h5>
         <h5>Date :</h5>
@@ -118,11 +116,12 @@
         </li>
         <li class="list-group-item">
           <h5 class="list-group-item-heading "></h5>
-          <div class=" text-right">
-           <a href="@routes.ApplicationController.updatemd(artwork.userID ) " class="btn btn-warning " > Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
-           <a data-toggle="modal" href="#modeldelete" class="btn btn-danger  "  > Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
-          </div>
-
+          @if(artwork.userID.toString == user.userID.toString){
+        <div class=" text-right">
+         <a href="@routes.ApplicationController.updatemd(artwork.id ) " class="btn btn-warning " > Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
+         <a data-toggle="modal" href="#modeldelete" class="btn btn-danger  "  > Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+        </div>
+      }
         </li>
       </div><!--col-md-4 list-group-->
       <div class="modal" id="modeldelete" role="dialog">
@@ -137,7 +136,7 @@
                </div>
                    <div class="modal-footer">
                               <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
-                              <a href="@routes.ApplicationController.deleteModel(artwork.userID)" class="btn btn-warning">ยืนยัน</a>
+                              <a href="@routes.ApplicationController.deleteModel(artwork.id)" class="btn btn-warning">ยืนยัน</a>
                   </div>
               </div>
           </div>

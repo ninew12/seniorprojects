@@ -12,7 +12,7 @@
              <div class="panel-body">
         <div class="row">
 
-             <div class="col-sm-12">
+             <div class="col-sm-12 col-xs-12">
                  <ul class="breadcrumb">
                      <li>
                         <i class="fa fa-users" aria-hidden="true"></i><a href="#"> All User</a>
@@ -23,11 +23,11 @@
              @for(u
                <- users){
                  @if(u.userID.toString != user.userID.toString){
-                   <div class=" col-sm-2">
+                   <div class=" col-sm-2 col-xs-2">
                      <div class="box2">
                        <a  class="image fit"><img src="@routes.Assets.at("images/user2.jpg")"  width="300" height="150" /></a>
                        <div class="inner">
-                         <a href="@routes.IndieApplication.profile(u.userID)"><h5>@u.fullName</h5></a>
+                         <a href="@routes.IndieApplication.profile(u.userID)"><h5>@u.firstName</h5></a>
 
                    @for(f <- dbfollow){
                      @if(f.fid == u.userID.toString && user.userID.toString == f.userID){
@@ -50,5 +50,5 @@
       </div><!--container-->
     </div>
   </div>
-@footer()
+
 }

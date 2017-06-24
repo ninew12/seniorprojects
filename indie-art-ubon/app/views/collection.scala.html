@@ -1,4 +1,4 @@
-@(user: models.User, dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
+@(user: models.User, col : Seq[models.Collection],dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
 <!-- dbforuminfo : Seq[models.Foruminfo] -->
 <!DOCTYPE html>
 @main(Messages("home.title"),Some(user)){
@@ -22,22 +22,27 @@
               </ul>
           </div>
           <!--show collection-->
+          @for(artwork
+          <- dbartwork ){
+             @for(c <- col){
+               @if(artwork.id == c.artworkid){
              <div class=" col-sm-3">
                <div class="box2">
-                 <div class=" text-right">
-                 <!-- <a  style="color:#FFFFFF" href="# "><i class="fa fa-trash-o" aria-hidden="true"></i></a> &nbsp; -->
-                 </div>
-                 @for(artwork
-                 <- dbartwork ){
-                   <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture"alt="" width="300" height="150"/></a>
+                     <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture"alt="" width="300" height="150"/></a>
 
-               <div class="inner">
-                   <h5>@artwork.title</h5>
-                    <a href="@routes.IndieApplication.showmodel(artwork.userID )" class="button style3 fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
-               </div>
-             }
+                     <div class="inner">
+                       <h5>@artwork.title</h5>
+                       <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button btn-sm" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                      <a href="#" class="button btn-sm" ><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                      <!-- @@routes.ApplicationController.deleteCol(c.id) -->
+                </div>
               </div>
             </div><!--col-sm3-->
+          }
+        }
+    }
+
+
          </div><!--row-->
        </div><!--inner-->
      </div><!--container-->
