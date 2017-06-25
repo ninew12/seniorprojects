@@ -14,7 +14,9 @@
     <div class="col-sm-8 " >
       <!--upload file html-->
       <!-- <iframe src="@routes.Assets.at("members/01/")@artwork.filehtml" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
-      <iframe src="@routes.Assets.at("members/01/car2.html")" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
+      <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture" height="480" width="740" />
+          <!-- <a href="#" class="myButton">turquoise</a> -->
+      </a>
       <br>
 
       <div class=" text-right" >
@@ -47,6 +49,7 @@
       <div class="row">
         @for(comment
           <- dbcommemt){
+            @if(comment.artworkid == artwork.id){
         <div class="col-sm-1">
           <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
         </div><!-- /col-sm-1 -->
@@ -64,6 +67,7 @@
             </div><!-- /panel-body -->
           </div><!-- /panel panel-default -->
         </div><!-- /col-sm-10 -->
+      }
         <div class="modal" id="modeldelete2" role="dialog">
                 <div class="modal-dialog">
                    <div class="modal-content">

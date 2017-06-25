@@ -35,8 +35,8 @@ object addcomment {
 
   val dbcomment = TableQuery[comments]
 
-  def add(role: Comment): Future[String] = {
-    dbConfig.db.run(dbcomment += role).map(res => "successfully").recover {
+  def add(comment : Comment): Future[String] = {
+    dbConfig.db.run(dbcomment += comment).map(res => "successfully").recover {
       case ex: Exception => ex.getCause.getMessage
     }
   }
