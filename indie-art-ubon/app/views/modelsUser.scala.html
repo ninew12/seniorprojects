@@ -4,7 +4,7 @@
 
 <div class="container">
           <br><br>
-           <h3><i class="fa fa-cubes" aria-hidden="true"></i> The 3D Model </h3>
+           <h3><i class="fa fa-cubes" aria-hidden="true"></i> โมเดล 3มิติ </h3>
            <br><br>
            <div class="thumbnails">
              @for(artwork <- dbartwork){
@@ -13,7 +13,7 @@
                    <!-- <a  class="image fit"><img src="@routes.Assets.at("images/model/car.png")" alt="" width="600" height="200"/></a> -->
               <div class="inner">
                    <h5>@artwork.title</h5>
-                    <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                    <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> เนื้อหาโมเดล</a>
               </div>
             </div>
           }

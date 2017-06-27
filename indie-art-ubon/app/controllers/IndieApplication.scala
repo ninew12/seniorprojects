@@ -25,11 +25,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
   socialProviderRegistry: SocialProviderRegistry) extends Controller with Silhouette[User, CookieAuthenticator] {
 
 
+    /*
     //แสดงโมเดลเมื่อทำการคลิกเพื่อเข้าชมโมเดล
     def selectmodel = UserAwareAction.async { implicit request =>
       Future.successful(Ok(views.html.selectModels(UserConstants.guest)))
-
     }
+    */
 
     def admin = UserAwareAction.async { implicit request =>
       request.identity match {
@@ -67,6 +68,18 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     }
 
     //แสดงแฟ้มสะสมผลงาน
+   def  modelshow(id: String, userID : String) = Action.async { implicit request =>
+    val data = for{
+     a <- uploadart.find(id)
+     b <- addcomment.listAll
+     c <- ListUser.find(userID)
+    }yield(a,b,c)
+    data.map {case (dbartwork,dbcomment,users) =>
+     Ok(views.html.selectModels(dbartwork,dbcomment,users))
+     }
+  }
+
+//แสดงแฟ้มสะสมผลงาน
     def collection = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
@@ -98,7 +111,9 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     }
 
+
     //โชว์กระทู้เมื่อทำการคลิกเพื่อเข้าอ่านกระทู้
+    /*
     def userP(id: String) = Action.async { implicit request =>
       val data = for{
         a <- addforum.find(id)
@@ -109,6 +124,8 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment,users))
       }
     }
+    */
+
     var forumid = "";
     def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
       request.identity match {
@@ -127,6 +144,38 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     }
 
     //แสดงความคิดเห็น
+         def post(id: String) = Action.async { implicit request =>
+            val data = for{
+              a <- addforum.listAll
+              b <- addcomment.listAll
+              c <- ListUser.find(id)
+            }yield(a,b,c)
+            data.map { case (dbforuminfo,dbcomment,users) =>
+              Ok(views.html.selectPosts(dbforuminfo,dbcomment,users))
+              }
+         }
+         /*
+       var forumid = "";
+         def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
+           request.identity match {
+             case Some(user) =>
+             forumid = id
+             val data = for{
+               a <- addforum.get(id)
+               b <- addcomment.listAll
+               c <- ListUser.find(userID)
+             }yield(a,b,c)
+             data.map { case (dbforuminfo,dbcomment,users) =>
+               Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
+               }
+                case None => Future.successful(Redirect(routes.ApplicationController.index()))
+             }
+           }
+           */
+
+
+
+//แสดงความคิดเห็น
     def comment = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>

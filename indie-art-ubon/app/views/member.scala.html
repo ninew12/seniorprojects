@@ -1,12 +1,12 @@
 @(users : Seq[models.DBUser],user: models.User, dbfollow : Seq[models.Follow])(implicit request: RequestHeader, messages: Messages)
-
+@import scala.util.control._;var a = "n";
 <!DOCTYPE html>
 @main(Messages("home.title"), Some(user)){
   <br><br>
   <div class="container">
       <div class="inner">
            <div class="mt mb ">
-              <h3><i class="fa fa-users" aria-hidden="true"></i> USERS</h3>
+              <h3><i class="fa fa-users" aria-hidden="true"></i> ผู้ใช้งานระบบ</h3>
           </div>
           <div class="panel panel-info">
              <div class="panel-body">
@@ -15,7 +15,7 @@
              <div class="col-sm-12 col-xs-12">
                  <ul class="breadcrumb">
                      <li>
-                        <i class="fa fa-users" aria-hidden="true"></i><a href="#"> All User</a>
+                        <i class="fa fa-users" aria-hidden="true"></i><a href="#"> ผู้ใช้งานระบบ</a>
                      </li>
                  </ul>
              </div>
@@ -31,20 +31,25 @@
 
                    @for(f <- dbfollow){
                      @if(f.fid == u.userID.toString && user.userID.toString == f.userID){
-
-                             <a href="#"  >
-                               <button class="button fit btn-sm"><i class="fa fa-plus" ></i> UnFollow</button>
+                            @{a = "h"}
+                             <a href="@routes.ApplicationController.deletefollow(f.fid)"  >
+                               <button class="button fit btn-sm"><i class="fa fa-plus" ></i> เลิกติดตาม</button>
                              </a>
                      }
                    }
+                   @if(a == "n"){
                    <a href="@routes.IndieApplication.addfollow(u.userID)"  >
-                     <button class="button fit btn-sm"><i class="fa fa-plus" ></i> follow</button>
+                     <button class="button fit btn-sm"><i class="fa fa-plus" ></i> ติดตาม</button>
                    </a>
+                 }
+                 @{a = "n"}
+
                  </div>
                </div>
              </div><!--col-sm2-2-->
                  }
              }
+
           </div><!--row-->
         </div><!--inner-->
       </div><!--container-->

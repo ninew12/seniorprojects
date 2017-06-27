@@ -46,4 +46,7 @@ object DBfollow {
   def get(userID: String): Future[Option[Follow]] = {
    dbConfig.db.run(dbfollow.filter(_.userID === userID).result.headOption)
  }
+ def delete(fid: String): Future[Int] = {
+   dbConfig.db.run(dbfollow.filter(_.fid === fid).delete)
+ }
 }

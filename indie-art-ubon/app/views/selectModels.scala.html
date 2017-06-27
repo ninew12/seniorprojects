@@ -1,94 +1,82 @@
-@(user: models.User)(implicit messages: Messages)
+@( dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment], users : Seq[models.DBUser] )(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
+
 @main(Messages("home.title")){
 
-<div class="container">
-  <div class="col-sm-8 ">
-    <br><br>
-    <h3>Name Models</h3>
-  </div>
-  <div class="col-sm-8 " >
-    <!--upload file html-->
-    <!-- <iframe src="@routes.Assets.at("members/01/")artwork.filehtml" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
-    <iframe src="@routes.Assets.at("members/01/car2.html")" name="iframe_a" height="480" width="740" style="border:none;"></iframe>
-    <br>
+  <div class="container">
+    @for(artwork
+    <- dbartwork ){
+    <div class="col-sm-8 ">
+      <br><br>
 
-    <div class=" text-right" >
-      <!-- <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button> -->
-      <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECT</button>
-      <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  DOWNLOAD</button>
+      <h3>@artwork.title</h3>
     </div>
+    <div class="col-sm-8 " >
+      <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture" height="480" width="740" />
+      </a>
 
-    <div class="row">
-      <h5><span class="badge">2</span> Comment </h5>
-      <br>
-      <div class="col-sm-1">
-        <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
-      </div><!-- /col-sm-1 -->
-      <div class="col-sm-10">
-        <form action=@routes.IndieApplication.comment method="POST">
-          <input type="hidden" name="posterID" value="@user.userID" />
-          <div class="form-group">
-            <textarea name="detail" class="form-control" rows="5" placeholder="comment"></textarea>
-          </div>
-          <div class=" text-right" >
-            <button type="submit" class="btn btn-info  ">send</button>
-          </div>
-        </form>
+
+      <div class=" text-right" >
+        <a href= "@routes.Assets.at("members/01/")@artwork.filehtml"  target="_blank" >
+          <button class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
+        </a>
+        <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
+          <button class="btn btn-success btn-sm " disabled ><i class="fa fa-plus-square" aria-hidden="true"></i>  แฟ้มสะสม</button>
+        </a>
+        <button class="btn btn-warning btn-sm " disabled ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
+
       </div>
-    </div><!-- /row -->
-    <br>
 
-    <div class="row">
-      <div class="col-sm-1">
-        <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
-      </div><!-- /col-sm-1 -->
-      <div class="col-sm-10">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-          </div>
-          <div class="panel-body">
-            <h5>Panel content</h5>
-          </div><!-- /panel-body -->
-        </div><!-- /panel panel-default -->
-      </div><!-- /col-sm-10 -->
-    </div><!--row-->
-  </div><!--col-md-8-->
+      <br>
 
-  <div id="land-widget" class="col-sm-4 list-group ">
-    <li  class=" list-group-item ">
-      <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
-      <h5 class="list-group-item-heading">By name user</h5>
-      <a href="/profile" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
-    </li>
-
-    <li class="list-group-item">
-      <h5 class="list-group-item-heading">About This Model</h5>
-      <h5>Description</h5>
-      <h5>Date</h5>
-      <h5>Time</h5>
-      <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
-    </li>
-    <li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
-      <h4 class="widgettitle list-group-item-heading"><a href="#">Description </a></h4>
-      <div class="recent_custom_posts_item">
-        <div class="post-entry">
-          <div class="testemonial-item">
-            <div class="mb-thumb"></div>
-            <blockquote cite="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/" title="Jag är mycket nöjd med det färdiga resultatet">
-              <a href="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/">
-                <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i></p>
-              </a>
-              </blockquote>
+      <div class="row">
+        @for(comment
+          <- dbcommemt){
+        <div class="col-sm-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <strong>myusername</strong>
+               <!-- <span class="text-muted">commented 5 days ago</span> -->
             </div>
-            <div class="clear"> </div>
-          </div>
-        </div>
+            <div class="panel-body">
+              <h5>@comment.detail</h5>
+            </div><!-- /panel-body -->
+          </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-10 -->
+      }
+      </div><!--row-->
+    </div><!--col-md-8-->
+    @for(user
+      <- users){
+    <div id="land-widget" class="col-sm-4 list-group ">
+      <li  class=" list-group-item ">
+        <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
+        <h5 class="list-group-item-heading">เจ้าของผลงาน @user.fullName</h5>
+        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
       </li>
-  </div><!--col-md-4 list-group-->
-</div><!--container-->
-
-<!-- /Page -->
-@footer()
-}
+      <li class="list-group-item">
+        <h5 class="list-group-item-heading">เกี่ยวกับโมเดล</h5>
+        <h5>Date :</h5>
+        <h5>Time :</h5>
+        <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> : @artwork.tags</a>
+      </li>
+      <li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
+        <h4 class="widgettitle list-group-item-heading"><a href="#">รายละเอียดโมเดล </a></h4>
+        <div class="recent_custom_posts_item">
+          <div class="post-entry">
+            <div class="testemonial-item">
+              <div class="mb-thumb"></div>
+              <blockquote cite="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/" title="Jag är mycket nöjd med det färdiga resultatet">
+                <a href="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/">
+                  <p> @artwork.detail </p>
+                </a>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </li>
+      </div><!--col-md-4 list-group-->
+    }
+  }
+  </div><!--container-->
+  }

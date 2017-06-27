@@ -5,34 +5,34 @@ access.denied = Access denied!
 user.exists = There already exists a user with this email!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
-home.title = Indie Art Ubon - Home
+home.title = Indie Art Ubon - หน้าหลัก
 sign.up.title =Indie Art Ubon - Sign Up
 sign.in.title = Indie Art Ubon - Sign In
 
 toggle.navigation = Toggle navigation
 welcome.signed.in = Welcome, you are now signed in!
-welcome.guest = Welcome, CSUBU Indie Art Portal!
+welcome.guest = ยินดีต้อนรับสู่ ระบบรวมอินดี้อาร์ทอุบล
 
-sign.up.account = Sign up for a new account
-sign.in.credentials = Sign in with your credentials
+sign.up.account = ลงทะเบียน
+sign.in.credentials = เข้าสู่ระบบ
 
-error = Error!
-home = Home
-first.name = First name
-last.name = Last name
-full.name = Full name
+error = มีข้อผิดพลาด!
+home = หน้าหลัก
+first.name = ชื่อ
+last.name = สกุล
+full.name = ชื่อ-สกุล
 email = Email
-password = Password
-sign.up = Sign up
-sign.in = Sign in
-sign.out = Sign out
-sign.in.now = Sign in now
-sign.up.now = Sign up now
-already.a.member = Already a member?
-not.a.member = Not a member?
+password = รหัสผ่าน
+sign.up = ลงทะเบียน
+sign.in = เข้าสู่ระบบ
+sign.out = ออกจากระบบ
+sign.in.now = เข้าใช้งานตอนนี้
+sign.up.now = ลงทะเบียนตอนนี้
+already.a.member = เป็นสมาชิกแล้ว?
+not.a.member = ยังไม่เป็นสมาชิก?
 
-remember.me = Remember my login on this computer
-or.use.social = Or use your existing account on one of the following services to sign in:
+remember.me = จำข้อมูลการเข้าใช้งาน
+or.use.social = หรือเข้าใช้งานจากเว็บเหล่านี้:
 
 google = Google
 facebook = Facebook

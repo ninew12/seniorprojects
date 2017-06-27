@@ -55,45 +55,45 @@
 
                    }else{
                         <li class="dropdown">
-                    <a href="@routes.ApplicationController.index" class="dropdown-toggle" data-toggle="dropdown" >Blend</a>
+                    <a href="@routes.ApplicationController.index" class="dropdown-toggle" data-toggle="dropdown" >โมเดล</a>
                               <ul class="dropdown-menu">
-                                  <li><a href="/model"> <i class="fa fa-cubes" aria-hidden="true"></i> All Models </a></li>
-                                  <li><a href="#"><i class="fa fa-th-large" aria-hidden="true"></i> Category </a></li>
+                                  <li><a href="/model"> <i class="fa fa-cubes" aria-hidden="true"></i> โมเดล </a></li>
+                                  <li><a href="#"><i class="fa fa-th-large" aria-hidden="true"></i> หมวดหมู่ </a></li>
                                   <li role="separator" class="divider"></li>
-                                  <li><a href="/upmodel"><i class="fa fa-upload" aria-hidden="true"></i>  Upload Model </a></li>
+                                  <li><a href="/upmodel"><i class="fa fa-upload" aria-hidden="true"></i>  อัพโหลดโมเดล </a></li>
                               </ul>
                            </li>
 
-                          <li><a href="/col">Collections</a></li>
+                          <li><a href="/col">แฟ้มสะสม</a></li>
 
                           <li class="dropdown">
-                          <a href="@routes.ApplicationController.index" class="dropdown-toggle" data-toggle="dropdown" >Community</a>
+                          <a href="@routes.ApplicationController.index" class="dropdown-toggle" data-toggle="dropdown" >กระทู้สนทนา</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/posts"><i class="fa fa-envelope-o" aria-hidden="true"></i> Forum </a></li>
+                                        <li><a href="/posts"><i class="fa fa-envelope-o" aria-hidden="true"></i> กระทู้สนทนา </a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/forums"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Upload Forum </a></li>
+                                        <li><a href="/forums"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ตั้งกระทู้สนทนา </a></li>
                                     </ul>
                                  </li>
 
-                                   <li><a href="/member"> User</a></li>
+                                   <li><a href="/member"> ผู้ใช้งานระบบ </a></li>
 
                           <li class="dropdown">
                       <a href="@routes.ApplicationController.index" class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-user" aria-hidden="true"></i> @u.fullName</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/profile"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a></li>
-                                    <li><a href="/col"><i class="fa fa-folder" aria-hidden="true"></i> My Collection</a></li>
+                                    <li><a href="/profile"><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์ </a></li>
+                                    <li><a href="/col"><i class="fa fa-folder" aria-hidden="true"></i> แฟ้มสะสมผลงาน</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
-                                    <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a></li>
+                                    <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> แก้ไขโปรไฟล์</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="@routes.ApplicationController.signOut"><i class="fa fa-sign-out" aria-hidden="true"></i>@Messages("sign.out")</a></li>
+                                    <li><a href="@routes.ApplicationController.signOut"><i class="fa fa-sign-out" aria-hidden="true"></i> ออกจากระบบ</a></li>
                                 </ul>
                              </li>
 
                         }
                       }.getOrElse {
-                          <li><a href="@routes.ApplicationController.signIn"><i class="fa fa-sign-in" aria-hidden="true"></i> @Messages("sign.in")</a></li>
-                          <li><a href="@routes.ApplicationController.signUp"><i class="fa fa-user" aria-hidden="true"></i> @Messages("sign.up")</a></li>
+                          <li><a href="@routes.ApplicationController.signIn"><i class="fa fa-sign-in" aria-hidden="true"></i> เข้าสู่ระบบ</a></li>
+                          <li><a href="@routes.ApplicationController.signUp"><i class="fa fa-user" aria-hidden="true"></i> ลงทะเบียน</a></li>
                       }
                     </ul>
                 </nav>

@@ -1,12 +1,11 @@
-@(Forms: Form[forms.CommentForm.Data],dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader , messages: Messages)
-<!-- , dbcomment : Seq[models.Comment] -->
+@(dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader , messages: Messages)
 <!DOCTYPE html>
-@import b3.inline.fieldConstructor
+
 @main(Messages("home.title")){
    <body>
      <div class="container">
             <br><br>
-            <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Artists Community</h3>
+            <h3><i class="fa fa-list-alt" aria-hidden="true"></i> กระทู้สนทนา</h3>
                <div class="panel panel-info">
                   <div class="panel-body">
                     <div class="container">
@@ -16,83 +15,53 @@
                             <div class="col-sm-3  ">
                                 <ul class="breadcrumb">
                                 <li>
-                                      <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  width="80" >
+                                  <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  width="80" >
                                     <br>
-                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> by @user.fullName</a>
+                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> เจ้าของกระทู้ @user.fullName</a>
                                 </li>
-                                    <span> <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button></span>
-                                    <br><a><i class="fa fa-calendar" aria-hidden="true"></i> 26/01/2560</a>
-                                    <br><a><i class="fa fa-clock-o" aria-hidden="true"></i> 15:50 น.</a>
-                                    <br><a href="#"><i class="fa fa-eye" aria-hidden="true"></i>  2 </a>
                                     <br>
-                                    <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> Other</a>
+                                    <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
 
                                 </ul>
                              </div>
                            }
-                        <div class="col-sm-8  ">
+                           @for(foruminfo
+                             <- dbforuminfo){
+                               <div class="col-sm-8  ">
+                                     <h3>@foruminfo.title</h3>
+                                     <hr>
+                                  <!--upload image-->
+                                   <img src="@routes.Assets.at("images/")@foruminfo.picture" class="img-responsive" width="600">
 
-                          @for(foruminfo
-                            <- dbforuminfo){
-                              <div class=" text-right">
-                               <a  style="color:#FF9933" href="@routes.ApplicationController.updatepost(foruminfo.userID ) "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
-                               <a  style="color:#FF9933" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                              </div>
-                                <h3>@foruminfo.title</h3>
-                                <hr>
-                             <!--upload image-->
-                              <img src= "@routes.Assets.at("images/")@foruminfo.picture" class="img-responsive" width="600">
+                                 <!--add Description -->
+                                  <h5> @foruminfo.detail</h5>
+                                   <br>
 
-                            <!--add Description -->
-                             <h5> @foruminfo.detail</h5>
-
-                             }
-                              <br>
-                             <div class="row">
-                                            <h5><span class="badge">2</span> Comment </h5>
-                                            <br>
-                                            <div class="col-sm-1">
-                                                     <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
-                                            </div><!-- /col-sm-1 -->
-                             <div class="col-sm-10">
-                               @helper.form(action = routes.IndieApplication.comment()) {
-                                   @helper.CSRF.formField
-
-                                                 @b3.textarea( Forms("detail"), '_label -> "Comment" ,'rows -> 3 )
-                                               <div class=" text-right" >
-                                                    <button type="submit" class="btn btn-info  ">send</button>
-                                                  </div>
-                                            }
-                                          </div>
-                                    </div><!-- /row -->
-                                    <br>
-                            <div class="row">
-                              @for(comment
-                                <- dbcommemt){
-                                   <div class="col-sm-1">
-                                               <img class="img-responsive user-photo" "@routes.Assets.at("images/user.png")"  >
-                                      </div><!-- /col-sm-1 -->
-
-                                  <div class="col-sm-10">
-                                       <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                  <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                                            </div>
-                                     <div class="panel-body">
-                                       <h5>@comment.detail</h5>
-                                     </div><!-- /panel-body -->
-                                   </div><!-- /panel panel-default -->
-                                 </div><!-- /col-sm-10 -->
                                }
-                               </div><!--row-->
-                              </div>   <!-- col-md-8 -->
+                                         <br>
+                                 <div class="row">
+                                   @for(comment
+                                     <- dbcommemt){
 
-                           </div>   <!-- row -->
-                        </div><!-- container -->
-                     </div><!-- panal-body -->
-                   </div><!-- panal -->
-                 </div><!-- container -->
-         <!--link social-->
+                                       <div class="col-sm-10">
+                                            <div class="panel panel-default">
+                                                 <div class="panel-heading">
+                                                       <strong>myusername</strong>
+                                                       <!-- <span class="text-muted">commented 5 days ago</span> -->
+                                                 </div>
+                                          <div class="panel-body">
+                                            <h5>@comment.detail</h5>
+                                          </div><!-- /panel-body -->
+                                        </div><!-- /panel panel-default -->
+                                      </div><!-- /col-sm-10 -->
+                                      }
 
-  </body>
-}
+                                    </div><!--row-->
+                                  </div>   <!-- col-md-8 -->
+                                </div>   <!-- row -->
+                             </div><!-- container -->
+                          </div><!-- panal-body -->
+                        </div><!-- panal -->
+                     </div><!-- container -->
+       </body>
+       }

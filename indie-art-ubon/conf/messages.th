@@ -11,13 +11,13 @@ sign.in.title = Indie Art Ubon - เข้าใช้งาน
 
 toggle.navigation = เปิด/ปิด เมนู
 welcome.signed.in = ยินดีต้อนรับ, เข้าใช้งานได้แล้ว!
-welcome.guest = Welcome, CSUBU Indie Art Portal!
+welcome.guest = ยินดีต้อนรับสู่ ระบบรวมอินดี้อาร์ทอุบล
 
 sign.up.account = Register
 sign.in.credentials = Login
 
 error = มีข้อผิดพลาด!
-home = Home
+home = หน้าหลัก
 first.name = ชื่อ
 last.name = สกุล
 full.name = ชื่อ-สกุล
