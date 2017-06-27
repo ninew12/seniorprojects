@@ -6,7 +6,7 @@
 <div class="container">
   <br><br><br>
   <div class="mt mb ">
-    <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> CREATE POSTS</h3>
+    <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> แก้ไขกระทู้สนทนา</h3>
   </div>
   <div class="panel panel-info">
     <div class="panel-body">
@@ -18,15 +18,16 @@
             @helper.form(action = routes.ApplicationController.updatePost2 ,'enctype -> "multipart/form-data") {
             @helper.CSRF.formField
 
-            <h5 >หัวข้อกระทู้</h5>
-            @b3.text( forumForm("title"), '_label -> "Topic" )
-            @b3.textarea( forumForm("detail"), '_label -> "details" ,'rows -> 3 )
-            @b3.file( forumForm("picture"), '_label -> "File" )
+            h5 >หัวข้อกระทู้</h5>
+            @b3.text( forumForm("title") )
+            @b3.textarea( forumForm("detail"), '_label -> "เนื้อหากระทู้" ,'rows -> 3 )
+            @b3.file( forumForm("picture"), '_label -> "อัพโหลดไฟล์" )
 
             <div class=" text-right">
-              <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
-              <button type="submit" class="btn btn-danger">Cancel</button>
+              <button type="submit" class="btn btn-primary">บันทึก</button> &nbsp; &nbsp;
+              <button type="submit" class="btn btn-danger">ยกเลิก</button>
             </div>
+
 
             }
           </div>   <!-- col-md-8 -->

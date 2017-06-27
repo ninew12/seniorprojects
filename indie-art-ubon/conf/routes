@@ -21,8 +21,9 @@ GET         /deleteModel/:id                 controllers.ApplicationController.d
 GET         /deleteComment/:id               controllers.ApplicationController.deleteComment(id : String)
 GET         /deleteUser/:id                  controllers.ApplicationController.deleteUser(id : String)
 GET         /deleteCol/:id                   controllers.ApplicationController.deleteCol(id : Long)
+GET         /deletefollow/:fid               controllers.ApplicationController.deletefollow(fid : String)
 GET         /showmodel/:userID               controllers.IndieApplication.showmodel(id : String,userID :String)
-GET         /selectModel                     controllers.IndieApplication.selectmodel
+GET         /modelshow/:id                   controllers.IndieApplication.modelshow(id : String, userID :String)
 GET         /admin                           controllers.IndieApplication.admin
 
 
@@ -35,12 +36,12 @@ GET         /col                             controllers.IndieApplication.collec
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
 GET         /addfollow/:fid                  controllers.IndieApplication.addfollow(fid : String)
-GET         /addcollection/:id           controllers.IndieApplication.addcollection(id  : String )
+GET         /addcollection/:id               controllers.IndieApplication.addcollection(id  : String )
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment
 GET         /upmodel                         controllers.IndieApplication.upmodel
-GET         /user/:id                        controllers.IndieApplication.userP(id : String)
+GET         /post/:id                        controllers.IndieApplication.post(id : String)
 POST        /upload                          controllers.IndieApplication.upload
 GET         /test                            controllers.IndieApplication.threejs2
 

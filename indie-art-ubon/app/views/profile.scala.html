@@ -5,13 +5,13 @@
   <br><br>
   <div class="container">
       <div class="col-sm-8 ">
-          <h3><i class="fa fa-user" aria-hidden="true"></i> My Profile</h3>
+          <h3><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</h3>
       </div>
 
    <div class="col-sm-8 " >
           <ul class="breadcrumb">
               <li>
-                    <i class="fa fa-folder-open" aria-hidden="true"></i><a href="#"> My Blend</a>
+                    <i class="fa fa-folder-open" aria-hidden="true"></i><a href="#"> โมเดลของฉัน</a>
               </li>
           </ul>
           @for(user
@@ -25,7 +25,7 @@
 
                      <div class="inner">
                        <h5>@artwork.title</h5>
-                       <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button btn-sm" ><i class="fa fa-eye" aria-hidden="true"></i> Watch</a>
+                       <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button btn-sm" ><i class="fa fa-eye" aria-hidden="true"></i> เนื้อหาโมเดล</a>
                 </div>
               </div>
             </div><!--col-sm3-->
@@ -41,30 +41,27 @@
                 <h5 class="list-group-item-heading"><i class="fa fa-user" aria-hidden="true"></i> @user.fullName</h5>
                 <div class="row overview ">
                   <div class="col-md-6 user-pad text-center">
-                      <h5  style="color:#FF9933">FOLLOWERS</h5>
-                      <a href="#"><h6>84</h6></a>
+                      <h5  style="color:#FF9933">ผู้คิดตาม</h5>
+                      <a href="#"><h6>8</h6></a>
                   </div>
                   <div class="col-md-6 user-pad text-center">
-                      <h5  style="color:#FF9933">FOLLOWING</h5>
-                      <a href="#"><h6>56</h6></a>
+                      <h5  style="color:#FF9933">กำลังติดตาม</h5>
+                      <a href="#"><h6>5</h6></a>
                   </div>
 
               </div>
           </li>
 
           <li class="list-group-item">
-                <h5 class="list-group-item-heading">About Me </h5>
-                <h5><i class="fa fa-user" aria-hidden="true"></i> Name : @user.fullName</h5>
-                <h5><i class="fa fa-envelope" aria-hidden="true"></i> Email : @user.email</h5>
+                <h5 class="list-group-item-heading">เกี่ยวกับฉัน </h5>
+                <h5><i class="fa fa-user" aria-hidden="true"></i> ชื่อ : @user.fullName</h5>
+                <h5><i class="fa fa-envelope" aria-hidden="true"></i> อีเมล : @user.email</h5>
                 <h5><i class="fa fa-link" aria-hidden="true"></i> Website</h5>
-                <h5><i class="fa fa-calendar" aria-hidden="true"></i> Date</h5>
-
                 <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
           </li>
         }
           <li class="list-group-item">
-                <a href="#"><h5 style="color:#FF9933">Edit Peofile</h5></a>
-
+                <a href="#"><h5 style="color:#FF9933">แก้ไขโปรไฟล์</h5></a>
 
           </li>
 

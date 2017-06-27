@@ -387,5 +387,17 @@ class ApplicationController @Inject() (
               case None => Future.successful(Redirect("/"))
             }
         }
+//ลบการติดตาม
+        def deletefollow (fid : String) = UserAwareAction.async { implicit request =>
+          request.identity match {
+            case Some(user) =>
+            val c = for{
+              a <- DBfollow.delete(fid)
+            }yield a
+               Future.successful(Redirect("/member"))
+
+            case None => Future.successful(Redirect("/"))
+            }
+      }
 
 }

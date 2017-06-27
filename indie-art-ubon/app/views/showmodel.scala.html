@@ -1,7 +1,7 @@
-@(Forms: Form[forms.CommentForm.Data],user: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser],dbcol :Seq[models.Collection] )(implicit request: RequestHeader, messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],u: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser],dbcol :Seq[models.Collection] )(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
-@main(Messages("home.title"),Some(user)){
+@main(Messages("home.title"),Some(u)){
 
   <div class="container">
     @for(artwork
@@ -12,23 +12,22 @@
       <h3>@artwork.title</h3>
     </div>
     <div class="col-sm-8 " >
-      <!--upload file html-->
-      <!-- <iframe src="@routes.Assets.at("members/01/")@artwork.filehtml" name="iframe_a" height="480" width="740" style="border:none;"></iframe> -->
       <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture" height="480" width="740" />
-          <!-- <a href="#" class="myButton">turquoise</a> -->
       </a>
-      <br>
+
 
       <div class=" text-right" >
-        <!-- <button class="btn btn-info btn-sm " ><i class="fa fa-plus" aria-hidden="true"></i>  FOLLOW</button> -->
-        <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
-          <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  COLLECTION</button>
+        <a href= "@routes.Assets.at("members/01/")@artwork.filehtml"  target="_blank" >
+          <button class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
         </a>
-        <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  DOWNLOAD</button>
+        <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
+          <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i>  แฟ้มสะสม</button>
+        </a>
+        <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
+
       </div>
 
       <div class="row">
-        <h5><span class="badge">2</span> Comment </h5>
         <br>
         <div class="col-sm-1">
           <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
@@ -36,10 +35,10 @@
         <div class="col-sm-10">
           @helper.form(action = routes.IndieApplication.comment()) {
               @helper.CSRF.formField
-                            @b3.hidden( "commenterID", user.userID )
-                            @b3.textarea( Forms("detail"), '_label -> "Comment" ,'rows -> 3 )
+
+                            @b3.textarea( Forms("detail"), '_label -> "ความคิดเห็น" ,'rows -> 3 )
                           <div class=" text-right" >
-                               <button type="submit" class="btn btn-info  ">send</button>
+                               <button type="submit" class="btn btn-info  ">ตกลง</button>
                              </div>
                        }
         </div>
@@ -56,7 +55,8 @@
         <div class="col-sm-10">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+              <strong>myusername</strong>
+               <!-- <span class="text-muted">commented 5 days ago</span> -->
               <div class=" text-right">
                 <a   href="# "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
                 <a   data-toggle="modal" href="#modeldelete2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -73,7 +73,7 @@
                    <div class="modal-content">
                          <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 style="color:#000" class="modal-title">Delete Comment</h4>
+                                <h4 style="color:#000" class="modal-title">ลบความคิดเห็น</h4>
                           </div>
                   <div class="modal-body">
                         <h4 style="color:#000" >คุณต้องการลบความคิดเห็นนี้หรือไม่</h4>
@@ -93,17 +93,17 @@
     <div id="land-widget" class="col-sm-4 list-group ">
       <li  class=" list-group-item ">
         <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
-        <h5 class="list-group-item-heading">By @user.fullName</h5>
-        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i>  VIEW PROFILE</a>
+        <h5 class="list-group-item-heading">เจ้าของผลงาน @user.fullName</h5>
+        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
       </li>
       <li class="list-group-item">
-        <h5 class="list-group-item-heading">About This Model</h5>
+        <h5 class="list-group-item-heading">เกี่ยวกับโมเดล</h5>
         <h5>Date :</h5>
         <h5>Time :</h5>
         <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> : @artwork.tags</a>
       </li>
       <li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
-        <h4 class="widgettitle list-group-item-heading"><a href="#">Description </a></h4>
+        <h4 class="widgettitle list-group-item-heading"><a href="#">รายละเอียดโมเดล </a></h4>
         <div class="recent_custom_posts_item">
           <div class="post-entry">
             <div class="testemonial-item">
@@ -120,10 +120,11 @@
         </li>
         <li class="list-group-item">
           <h5 class="list-group-item-heading "></h5>
-          @if(artwork.userID.toString == user.userID.toString){
+
+          @if(artwork.userID.toString == u.userID.toString){
         <div class=" text-right">
-         <a href="@routes.ApplicationController.updatemd(artwork.id ) " class="btn btn-warning " > Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
-         <a data-toggle="modal" href="#modeldelete" class="btn btn-danger  "  > Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+         <a href="@routes.ApplicationController.updatemd(artwork.id ) " class="btn btn-warning " > แก้ไข <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
+         <a data-toggle="modal" href="#modeldelete" class="btn btn-danger  "  > ลบ <i class="fa fa-trash-o" aria-hidden="true"></i></a>
         </div>
       }
         </li>
@@ -133,7 +134,7 @@
                  <div class="modal-content">
                        <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h4 style="color:#000" class="modal-title">Delete Model</h4>
+                              <h4 style="color:#000" class="modal-title">ลบโมเดล</h4>
                         </div>
                 <div class="modal-body">
                       <h4 style="color:#000" >คุณต้องการลบโมเดลหรือไม่</h4>
