@@ -4,7 +4,7 @@ import javax.inject.Inject
 import sys.process._
 import play.api.mvc._
 import sys.process._
-import play.api.mvc._
+import play.api.Logger
 import models.ListUser
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator

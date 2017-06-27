@@ -15,8 +15,10 @@ import models.services.UserService
 import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.Action
+import play.api.Logger
 
 import scala.concurrent.Future
+import reflect.io._
 
 /**
  * The sign up controller.
@@ -35,7 +37,7 @@ class SignUpController @Inject() (
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
-  extends Silhouette[User, CookieAuthenticator] {
+extends Silhouette[User, CookieAuthenticator] {
 
   /**
    * Registers a new user.
@@ -61,13 +63,16 @@ class SignUpController @Inject() (
               email = Some(data.email),
               avatarURL = None
             )
-            for {
-              avatar <- avatarService.retrieveURL(data.email)
-              user <- userService.save(user.copy(avatarURL = avatar))
-              authInfo <- authInfoRepository.add(loginInfo, authInfo)
-              authenticator <- env.authenticatorService.create(loginInfo)
-              value <- env.authenticatorService.init(authenticator)
-              result <- env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
+          // -- เมื่อลงทะเบียนสมาชิกใหม่แล้วให้สร้าง folder ตาม userId ไว้ใน public/member/
+          Logger.warn(s"creating directory: public/member/${user.userID}/")
+          Directory(s"public/members/${user.userID}").createDirectory(true)
+          for {
+            avatar <- avatarService.retrieveURL(data.email)
+            user <- userService.save(user.copy(avatarURL = avatar))
+            authInfo <- authInfoRepository.add(loginInfo, authInfo)
+            authenticator <- env.authenticatorService.create(loginInfo)
+            value <- env.authenticatorService.init(authenticator)
+            result <- env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
             } yield {
               env.eventBus.publish(SignUpEvent(user, request, request2Messages))
               env.eventBus.publish(LoginEvent(user, request, request2Messages))
@@ -75,6 +80,6 @@ class SignUpController @Inject() (
             }
         }
       }
-    )
+      )
   }
 }

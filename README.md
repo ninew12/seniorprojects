@@ -7,8 +7,18 @@
 > play project files
 
 ## ฟังก์ชันที่เหลือ
-1.Downloadmodel file.blend
-2.Show Model
+1. Downloadmodel file.blend
+
+> ตรวจดู code ได้ที่  controllers/IndieApplication.upmodel , views/showmodel.scala.html 
+
+> signup สมาชิกใหม่ จากนั้น upload model เลือก picture, blend, html submit
+
+> เลือก model จากนั้น กดปุ่ม ฺBlend เพื่อ download blend model
+
+2. Show Model
+
+> เลือก Html เพื่อแสดง model บนเว็บ
+
 3. แยกหมวดหมู่ โมเดล
 
 
