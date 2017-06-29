@@ -40,7 +40,7 @@ GET         /modelO                          controllers.IndieApplication.modelO
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
-#GET         /follow/:id                     controllers.IndieApplication.follow(id : String)
+#GET        /follow/:id                      controllers.IndieApplication.follow(id : String)
 GET         /addfollow/:fid                  controllers.IndieApplication.addfollow(fid : String)
 GET         /addcollection/:id               controllers.IndieApplication.addcollection(id  : String )
 GET         /forums                          controllers.IndieApplication.forums
@@ -48,7 +48,7 @@ POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment
 POST        /answer                          controllers.IndieApplication.answer
 GET         /upmodel                         controllers.IndieApplication.upmodel
-GET         /userP/:idpost                       controllers.IndieApplication.userP(id : String,idpost : String)
+GET         /userP/:idpost                   controllers.IndieApplication.userP(id : String,idpost : String)
 POST        /upload                          controllers.IndieApplication.upload
 GET         /test                            controllers.IndieApplication.threejs2
 

@@ -20,40 +20,47 @@
         <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.filehtml}") >
           <button class="btn btn-info btn-sm " ><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
         </a>
-       <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
-         <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม</button>
-       </a>
-       <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") >
-       <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
-       </a>
+       <a href="@routes.IndieApplication.addcollection(artwork.id)" class="btn btn-warning btn-sm button disabled">
+         <i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม </a>
+       <a href="@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") " class="btn btn-warning btn-sm button disabled"><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด  </a>
       </div>
 
       <br>
 
       <div class="row">
         @for(comment
-          <- dbcommemt){
-        <div class="col-sm-10">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <strong>myusername</strong>
-               <!-- <span class="text-muted">commented 5 days ago</span> -->
-            </div>
-            <div class="panel-body">
-              <h5>@comment.detail</h5>
-            </div><!-- /panel-body -->
-          </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-10 -->
+         <- dbcommemt){
+          @if(comment.artworkid == artwork.id){
+            @for(u <- users){
+              @if(comment.userID == u.userID){
+            <div class="col-sm-1">
+              <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
+            </div><!-- /col-sm-1 -->
+            <div class="col-sm-10">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <strong>@u.fullName</strong>
+                    </div>
+
+                <div class="panel-body">
+                  <h5>@comment.detail</h5>
+                </div><!-- /panel-body -->
+              </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-10 -->
+          }
+        }
       }
+    }
       </div><!--row-->
     </div><!--col-md-8-->
+
     @for(user
       <- users){
     <div id="land-widget" class="col-sm-4 list-group ">
       <li  class=" list-group-item ">
         <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
         <h5 class="list-group-item-heading">เจ้าของผลงาน @user.fullName</h5>
-        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block "  ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
+        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block btn-sm button disabled"   ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
       </li>
       <li class="list-group-item">
         <h5 class="list-group-item-heading">เกี่ยวกับโมเดล</h5>
