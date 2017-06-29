@@ -1,0 +1,44 @@
+@(user: models.User, dbartwork : Seq[models.ArtWork])(implicit messages: Messages)
+<!DOCTYPE html>
+@main(Messages("home.title"),Some(user)){
+
+<div class="container">
+          <br><br>
+           <h3><i class="fa fa-cubes" aria-hidden="true"></i> โมเดล 3มิติ </h3>
+           <br><br>
+           <div class="inner">
+           <div class="panel panel-info">
+              <div class="panel-body">
+
+                        <div class="col-md-12">
+                            <ul class="breadcrumb">
+                              <li>
+                                <a href="#"> ตัวละคร</a>
+                              </li>
+                            </ul>
+                          </div>
+
+           @for(artwork
+           <- dbartwork ){
+                @if(artwork.tags == "Character"){
+              <div class=" col-sm-3">
+                <div class="box2">
+                  <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") alt=" " width="600" height="200"/></a>
+                  <div class="inner">
+                    <h5>@artwork.title</h5>
+                 <a href="@routes.IndieApplication.showmodel(artwork.id, artwork.userID )" class="button fit" ><i class="fa fa-eye" aria-hidden="true"></i> เนื้อหาโมเดล</a>
+
+                 </div>
+               </div>
+             </div><!--col-sm3-->
+
+                   }
+           }
+
+           </div>
+          </div>
+         </div>
+        </div>
+
+
+}

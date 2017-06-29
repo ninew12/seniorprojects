@@ -28,7 +28,7 @@
                @if(artwork.id == c.artworkid){
              <div class=" col-sm-3">
                <div class="box2">
-                     <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture"alt="" width="300" height="150"/></a>
+                     <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") width="300" height="150"/></a>
 
                      <div class="inner">
                        <h5>@artwork.title</h5>
@@ -36,7 +36,7 @@
                        @c.id.map{ a=>
                          <a href="@routes.ApplicationController.deleteCol(a)" class="button btn-sm" ><i class="fa fa-trash-o" aria-hidden="true"></i> ลบ</a>
                        }
-                      
+
                 </div>
               </div>
             </div><!--col-sm3-->

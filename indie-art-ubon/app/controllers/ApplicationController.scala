@@ -57,14 +57,14 @@ class ApplicationController @Inject() (
       }
     }
 
-
+/*
   def run = Action { request =>
       //val r = "git --version" !
       //val r = Seq("git", "--version").lineStream
       //Ok(f"I'm running: $r")
       val r = new java.io.File("/tmp").listFiles
       Ok(views.html.listfiles(r))
-  }
+  }*/
 
       def getlist = UserAwareAction.async {implicit request =>
       request.identity match {
@@ -140,21 +140,21 @@ class ApplicationController @Inject() (
   def uploadfile = UserAwareAction.async { implicit request =>
     request.identity match {
       case Some(user) =>
-      val c = for{
-        a <- ListUser.get(user.userID.toString)
-      }yield a
+       val c = for{
+         a <- ListUser.get(user.userID.toString)
+       }yield a
 
-      c.map { case (role) =>
+       c.map { case (role) =>
           Ok(views.html.uploadModel(user,uploadForm.form))
-      }
+       }
 
-      case None => Future.successful(Redirect("/"))
-    }
-  }
+       case None => Future.successful(Redirect("/"))
+     }
+   }
 
-  def getdata(x: Option[String]) = x match {
-    case Some(s) => s
-    case None => ""
+    def getdata(x: Option[String]) = x match {
+      case Some(s) => s
+      case None => ""
  }
 
 //แก้ไขกระทู้สนทนา
@@ -162,146 +162,146 @@ class ApplicationController @Inject() (
   request.identity match {
     case Some(user) =>
       request.body.asMultipartFormData.map {a =>
-      val datatitle = a.dataParts.get("title").map { a =>
-      for{
-          b <- a.mkString("")
-        }yield b
-      }
-      val datadetail = a.dataParts.get("detail").map { a =>
-      for{
-          b <- a.mkString("")
+        val datatitle = a.dataParts.get("title").map { a =>
+        for{
+            b <- a.mkString("")
+            }yield b
+            }
+        val datadetail = a.dataParts.get("detail").map { a =>
+        for{
+            b <- a.mkString("")
           }yield b
         }
-        val dataimg = a.file("picture").map { a=>
-        val filename = a.filename
-        val extension = FilenameUtils.getExtension(filename)
-        val newFileName = s"${UUID.randomUUID}.$extension"
-        a.ref.moveTo(new File(s"public/images/$newFileName"))
+          val dataimg = a.file("picture").map { a=>
+          val filename = a.filename
+          val extension = FilenameUtils.getExtension(filename)
+          val newFileName = s"${UUID.randomUUID}.$extension"
+          a.ref.moveTo(new File(s"public/images/$newFileName"))
 
       for{
-        b <- newFileName
-      }yield b
+          b <- newFileName
+        }yield b
+      }
+
+        val getRelation = for{
+        a <- addforum.get(uid)
+        }yield a
+
+        val title = getdata(datatitle)
+        val detail = getdata(datadetail)
+        val picture = getdata(dataimg)
+
+        //add table database
+        val aaaa = getRelation.map { data =>
+        data.map { aa =>
+        val dbforum =  Foruminfo (
+        id = aa.id,
+        userID = user.userID.toString,
+        title = title ,
+        detail = detail ,
+        picture = picture
+        )
+
+        val saveDate = for{
+        a <- addforum.update(dbforum)
+        }yield a
+
+        }
     }
-
-      val getRelation = for{
-      a <- addforum.get(uid)
-    }yield a
-
-      val title = getdata(datatitle)
-      val detail = getdata(datadetail)
-      val picture = getdata(dataimg)
-
-      //add table database
-      val aaaa = getRelation.map { data =>
-       data.map { aa =>
-       val dbforum =  Foruminfo (
-       id = aa.id,
-       userID = user.userID.toString,
-       title = title ,
-       detail = detail ,
-       picture = picture
-     )
-
-    val saveDate = for{
-      a <- addforum.update(dbforum)
-    }yield a
-
-    }
-}
       Future.successful(Redirect("/posts"))
       }.getOrElse {
       Future.successful(Redirect("/fourums"))
       }
-    case None => Future.successful(Redirect("/"))
+      case None => Future.successful(Redirect("/"))
     }
   }
 
   var uid = "";
   def updatepost (id : String) = UserAwareAction.async { implicit request =>
     request.identity match {
-      case Some(user) =>
-        uid =id;
-        Future.successful(Ok(views.html.EditPost(forumForm.form,user)))
-        case None => Future.successful(Redirect(routes.ApplicationController.index()))
-    }
-  }
+        case Some(user) =>
+          uid =id;
+          Future.successful(Ok(views.html.EditPost(forumForm.form,user)))
+          case None => Future.successful(Redirect(routes.ApplicationController.index()))
+          }
+        }
 
 //ลบกระทู้สนทนา
     def deletePost (id : String) = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
-        val c = for{
+         val c = for{
           a <- addforum.delete(id)
-        }yield a
+         }yield a
            Future.successful(Redirect("/posts"))
 
-        case None => Future.successful(Redirect("/"))
-        }
-  }
+         case None => Future.successful(Redirect("/"))
+         }
+   }
 
   //แก้ไขรายละเอียดโมเดล
     def  updateMD2= UserAwareAction.async { implicit request =>
     request.identity match {
-      case Some(user) =>
-      request.body.asMultipartFormData.map {a =>
-      val datatitle = a.dataParts.get("title").map { a =>
+       case Some(user) =>
+       request.body.asMultipartFormData.map {a =>
+       val datatitle = a.dataParts.get("title").map { a =>
+          for{
+            b <- a.mkString("")
+           }yield b
+       }
+
+         val datadetail = a.dataParts.get("detail").map { a =>
+          for{
+           b <- a.mkString("")
+          }yield b
+       }
+
+         val datatags = a.dataParts.get("tags").map { a =>
          for{
            b <- a.mkString("")
           }yield b
       }
 
-      val datadetail = a.dataParts.get("detail").map { a =>
+         val dataimg = a.file("picture").map { a=>
+         val filename = a.filename
+         val extension = FilenameUtils.getExtension(filename)
+         val newFileName = s"${UUID.randomUUID}.$extension"
+         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
          for{
-           b <- a.mkString("")
-          }yield b
-      }
+          b <- newFileName
+         }yield b
+       }
 
-      val datatags = a.dataParts.get("tags").map { a =>
+         val datablend = a.file("fileblend").map { a=>
+         val filename = a.filename
+         val extension = FilenameUtils.getExtension(filename)
+         val newFileName = s"${UUID.randomUUID}.$extension"
+         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
          for{
-           b <- a.mkString("")
-          }yield b
-      }
+           b <- newFileName
+         }yield b
+       }
 
-      val dataimg = a.file("picture").map { a=>
-        val filename = a.filename
-        val extension = FilenameUtils.getExtension(filename)
-        val newFileName = s"${UUID.randomUUID}.$extension"
-        a.ref.moveTo(new File(s"public/images/$newFileName"))
-        for{
+         val datahtml = a.file("filehtml").map { a=>
+         val filename = a.filename
+         val extension = FilenameUtils.getExtension(filename)
+         val newFileName = s"${UUID.randomUUID}.$extension"
+         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
+         for{
           b <- newFileName
-        }yield b
+         }yield b
       }
 
-      val datablend = a.file("fileblend").map { a=>
-        val filename = a.filename
-        val extension = FilenameUtils.getExtension(filename)
-        val newFileName = s"${UUID.randomUUID}.$extension"
-        a.ref.moveTo(new File(s"public/members/01/$newFileName"))
-        for{
-          b <- newFileName
-        }yield b
-      }
+         val getRelation = for{
+         a <- uploadart.getUser(uuid)
+       }yield a
 
-      val datahtml = a.file("filehtml").map { a=>
-        val filename = a.filename
-        val extension = FilenameUtils.getExtension(filename)
-        val newFileName = s"${UUID.randomUUID}.$extension"
-        a.ref.moveTo(new File(s"public/members/01/$newFileName"))
-        for{
-          b <- newFileName
-        }yield b
-      }
-
-        val getRelation = for{
-        a <- uploadart.getUser(uuid)
-      }yield a
-
-      val title = getdata(datatitle)
-      val detail = getdata(datadetail)
-      val tags = getdata(datatags)
-      val picture = getdata(dataimg)
-      val fileblend = getdata(datablend)
-      val filehtml = getdata(datahtml)
+        val title = getdata(datatitle)
+        val detail = getdata(datadetail)
+        val tags = getdata(datatags)
+        val picture = getdata(dataimg)
+        val fileblend = getdata(datablend)
+        val filehtml = getdata(datahtml)
 
         //add table database
         val aaaa = getRelation.map { data =>
@@ -317,19 +317,21 @@ class ApplicationController @Inject() (
          filehtml = filehtml
        )
 
-      val saveDate = for{
-        a <- uploadart.update(dbartwork)
-      }yield a
+       val saveDate = for{
+          a <- uploadart.update(dbartwork)
+        }yield a
 
       }
   }
-        Future.successful(Redirect("/model"))
-        }.getOrElse {
-        Future.successful(Redirect("/"))
-        }
-      case None => Future.successful(Redirect("/"))
-      }
+          Future.successful(Redirect("/model"))
+          }.getOrElse {
+          Future.successful(Redirect("/"))
+          }
+          case None => Future.successful(Redirect("/"))
+          }
     }
+
+
 
     var uuid = "";
     def updatemd (id : String) = UserAwareAction.async { implicit request =>
@@ -364,13 +366,24 @@ class ApplicationController @Inject() (
             case None => Future.successful(Redirect("/"))
             }
       }
+       def deleteanswer (id : String) = UserAwareAction.async { implicit request =>
+         request.identity match {
+           case Some(user) =>
+           val c = for{
+             a <- DBanswer.delete(id)
+           }yield a
+             Future.successful(Redirect("/"))
+
+           case None => Future.successful(Redirect("/"))
+          }
+     }
 //ลบสมาชิกภายในระบบโดยadmin
-    def deleteUser (id : String) = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) =>
-        val c = for{
-          a <- ListUser.delete(id)
-        }yield a
+     def deleteUser (id : String) = UserAwareAction.async { implicit request =>
+       request.identity match {
+         case Some(user) =>
+         val c = for{
+           a <- ListUser.delete(id)
+         }yield a
           Future.successful(Redirect("/pagelist"))
           case None => Future.successful(Redirect("/"))
           }

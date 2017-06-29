@@ -69,7 +69,12 @@ object uploadart {
   def delete(id: String): Future[Int] = {
     dbConfig.db.run(dbupload.filter(_.id === id).delete)
   }
-
+  def search(text : String): Future[Seq[ArtWork]] = {
+     val query = for {
+       de <- dbupload if (de.title like "%"+text+"%") || (de.detail like "%"+text+"%") || (de.tags like "%"+text+"%")
+     } yield (de)
+     dbConfig.db.run(query.result)
+   }
   /*
   def blendLink(id: String): Future[String] = {
     for {

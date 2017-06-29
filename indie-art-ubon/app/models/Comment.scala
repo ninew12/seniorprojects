@@ -14,8 +14,7 @@ case class Comment (
     id :  String,
     userID : String ,
     detail: Option[String],
-    artworkid: String ,
-    forumid: String
+    artworkid: String
 
 )
 
@@ -24,9 +23,9 @@ class comments (tag: Tag) extends Table[Comment](tag, "comment") {
   def userID = column[String]("userID")
   def detail = column[Option[String]]("detail")
   def artworkid = column[String]("artworkid")
-  def forumid = column[String]("forumid")
 
-  def * = (id,  userID, detail, artworkid, forumid) <> (Comment.tupled, Comment.unapply)
+
+  def * = (id,  userID, detail, artworkid) <> (Comment.tupled, Comment.unapply)
 }
 
 object addcomment {
@@ -57,7 +56,7 @@ object addcomment {
      case ex: Exception => ex.getCause.getMessage
    }
  }
-  def delete(userID: String): Future[Int] = {
-    dbConfig.db.run(dbcomment.filter(_.userID=== userID).delete)
+  def delete(id: String): Future[Int] = {
+    dbConfig.db.run(dbcomment.filter(_.id=== id).delete)
   }
 }

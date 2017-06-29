@@ -1,4 +1,4 @@
-@(dbforuminfo : Seq[models.Foruminfo], dbcommemt : Seq[models.Comment],users : Seq[models.DBUser])(implicit request: RequestHeader , messages: Messages)
+@(dbforuminfo : Seq[models.Foruminfo], dbanswer : Seq[models.Answer],users : Seq[models.DBUser],listuser : Seq[models.DBUser])(implicit request: RequestHeader , messages: Messages)
 <!DOCTYPE html>
 
 @main(Messages("home.title")){
@@ -27,6 +27,8 @@
                            }
                            @for(foruminfo
                              <- dbforuminfo){
+
+
                                <div class="col-sm-8  ">
                                      <h3>@foruminfo.title</h3>
                                      <hr>
@@ -37,25 +39,31 @@
                                   <h5> @foruminfo.detail</h5>
                                    <br>
 
-                               }
+
+
                                          <br>
                                  <div class="row">
-                                   @for(comment
-                                     <- dbcommemt){
+                                   @for(answer
+                                     <- dbanswer){
+                                          @if(answer.forumid == foruminfo.id){
+                                            @for(u <- listuser){
 
+                                              @if(answer.userID == u.userID){
                                        <div class="col-sm-10">
                                             <div class="panel panel-default">
                                                  <div class="panel-heading">
-                                                       <strong>myusername</strong>
+                                                       <strong>@u.fullName</strong>
                                                        <!-- <span class="text-muted">commented 5 days ago</span> -->
                                                  </div>
+                                               }
+                                             }
                                           <div class="panel-body">
-                                            <h5>@comment.detail</h5>
+                                            <h5>@answer.detail</h5>
                                           </div><!-- /panel-body -->
                                         </div><!-- /panel panel-default -->
                                       </div><!-- /col-sm-10 -->
                                       }
-
+                                    }
                                     </div><!--row-->
                                   </div>   <!-- col-md-8 -->
                                 </div>   <!-- row -->
@@ -63,5 +71,6 @@
                           </div><!-- panal-body -->
                         </div><!-- panal -->
                      </div><!-- container -->
+                   }
        </body>
        }

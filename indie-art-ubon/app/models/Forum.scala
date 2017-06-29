@@ -47,6 +47,7 @@ object addforum {
   def find(id: String): Future[Seq[Foruminfo]] = {
    dbConfig.db.run(dbforuminfo.filter(_.id === id).result)
  }
+
   def listAll: Future[Seq[Foruminfo]] = {
     dbConfig.db.run(dbforuminfo.result)
   }
@@ -58,6 +59,7 @@ object addforum {
   def get(id: String): Future[Option[Foruminfo]] = {
    dbConfig.db.run(dbforuminfo.filter(_.id === id).result.headOption)
  }
+
   def delete(id: String): Future[Int] = {
      dbConfig.db.run(dbforuminfo.filter(_.id === id).delete)
    }

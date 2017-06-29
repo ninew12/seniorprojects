@@ -21,7 +21,7 @@
                @if(artwork.userID == user.userID){
              <div class=" col-sm-4">
                <div class="box2">
-                     <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture"alt="" width="300" height="150"/></a>
+                     <a  class="image fit"><img src=@routes.Assets.at(s"members/${user.userID}/${artwork.picture}") width="300" height="150"/></a>
 
                      <div class="inner">
                        <h5>@artwork.title</h5>

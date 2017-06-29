@@ -27,35 +27,15 @@
                   <td>@user.email</td>
 
                   <td style="text-align: center;" class="col-md-2 col-sm-3">
-                    <button name="delete" data-toggle="modal" href="#modeldelete" class="btn btn-sm  btn btn-danger">ลบ</button>
+                    <button name="delete"  href="@routes.ApplicationController.deleteUser(user.userID)e" class="btn btn-sm  btn btn-danger">ลบ</button>
                   </td>
             </tr>
-          }
+
+            }
             </tbody>
           </table>
         </div>
       </div>
-
-      <div class="modal" id="modeldelete" role="dialog">
-              <div class="modal-dialog">
-                 <div class="modal-content">
-                       <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h4 style="color:#000" class="modal-title">ลบบัญชีผู้ใช้</h4>
-                        </div>
-                <div class="modal-body">
-                     <div class="well">
-                      <h4 style="color:#000" >คุณต้องการลบสมาชิกนี้หรือไม่</h4>
-                 </div>
-               </div>
-
-                   <div class="modal-footer">
-                              <a href="#" data-dismiss="modal" class="btn">ยกเลิก</a>
-                              <a href="@@routes.ApplicationController.deleteUser(user.userID)" class="btn btn-warning">ยืนยัน</a>
-                  </div>
-              </div>
-          </div>
-      </div>  <!--dialog edit password -->
   </div>
 
 }

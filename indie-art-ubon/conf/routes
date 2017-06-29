@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET         /run                             controllers.ApplicationController.run
+
 GET         /                                controllers.ApplicationController.index
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
@@ -19,6 +19,7 @@ POST        /updateMD2                       controllers.ApplicationController.u
 GET         /updatemd/:id                    controllers.ApplicationController.updatemd(id : String)
 GET         /deleteModel/:id                 controllers.ApplicationController.deleteModel(id : String)
 GET         /deleteComment/:id               controllers.ApplicationController.deleteComment(id : String)
+GET         /deleteanswer/:id                controllers.ApplicationController.deleteanswer(id : String)
 GET         /deleteUser/:id                  controllers.ApplicationController.deleteUser(id : String)
 GET         /deleteCol/:id                   controllers.ApplicationController.deleteCol(id : Long)
 GET         /deletefollow/:fid               controllers.ApplicationController.deletefollow(fid : String)
@@ -32,16 +33,22 @@ GET         /pagelist                        controllers.ApplicationController.g
 GET         /showpost/:userID                controllers.IndieApplication.showpost(id : String,userID :String)
 GET         /posts                           controllers.IndieApplication.posts
 GET         /model                           controllers.IndieApplication.model
+GET         /modelC                          controllers.IndieApplication.modelC
+GET         /modelA                          controllers.IndieApplication.modelA
+GET         /modelS                          controllers.IndieApplication.modelS
+GET         /modelO                          controllers.IndieApplication.modelO
 GET         /col                             controllers.IndieApplication.collection
 GET         /profile/:id                     controllers.IndieApplication.profile(id : String)
 GET         /member                          controllers.IndieApplication.member
+#GET         /follow/:id                     controllers.IndieApplication.follow(id : String)
 GET         /addfollow/:fid                  controllers.IndieApplication.addfollow(fid : String)
 GET         /addcollection/:id               controllers.IndieApplication.addcollection(id  : String )
 GET         /forums                          controllers.IndieApplication.forums
 POST        /forum                           controllers.IndieApplication.forum
 POST        /comment                         controllers.IndieApplication.comment
+POST        /answer                          controllers.IndieApplication.answer
 GET         /upmodel                         controllers.IndieApplication.upmodel
-GET         /post/:id                        controllers.IndieApplication.post(id : String)
+GET         /userP/:idpost                       controllers.IndieApplication.userP(id : String,idpost : String)
 POST        /upload                          controllers.IndieApplication.upload
 GET         /test                            controllers.IndieApplication.threejs2
 

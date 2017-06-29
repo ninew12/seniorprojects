@@ -25,12 +25,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
   socialProviderRegistry: SocialProviderRegistry) extends Controller with Silhouette[User, CookieAuthenticator] {
 
 
-    /*
-    //แสดงโมเดลเมื่อทำการคลิกเพื่อเข้าชมโมเดล
-    def selectmodel = UserAwareAction.async { implicit request =>
-      Future.successful(Ok(views.html.selectModels(UserConstants.guest)))
-    }
-    */
+
 
     def admin = UserAwareAction.async { implicit request =>
       request.identity match {
@@ -48,11 +43,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
+
     //แสดงรายละเอียกโมเดล
-    var artworkid = "";
-    def showmodel (id : String, userID : String) = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) =>
+      var artworkid = "";
+      def showmodel (id : String, userID : String) = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) =>
           artworkid = id
           val data = for{
             a <- uploadart.find(id)
@@ -60,7 +56,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
             c <- ListUser.find(userID)
             d <- DBcollection.listAll
           }yield(a,b,c,d)
-          data.map {case (dbartwork,dbcomment,users,dbcol) =>
+            data.map {case (dbartwork,dbcomment,users,dbcol) =>
             Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users,dbcol))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -68,14 +64,14 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     }
 
     //แสดงแฟ้มสะสมผลงาน
-   def  modelshow(id: String, userID : String) = Action.async { implicit request =>
-    val data = for{
-     a <- uploadart.find(id)
-     b <- addcomment.listAll
-     c <- ListUser.find(userID)
-    }yield(a,b,c)
-    data.map {case (dbartwork,dbcomment,users) =>
-     Ok(views.html.selectModels(dbartwork,dbcomment,users))
+    def  modelshow(id: String, userID : String) = Action.async { implicit request =>
+        val data = for{
+        a <- uploadart.find(id)
+        b <- addcomment.listAll
+        c <- ListUser.find(userID)
+        }yield(a,b,c)
+        data.map {case (dbartwork,dbcomment,users) =>
+        Ok(views.html.selectModels(dbartwork,dbcomment,users))
      }
   }
 
@@ -83,11 +79,11 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def collection = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
-          val data = for{
+            val data = for{
             a <- DBcollection.colUser(user.userID.toString)
             b <- uploadart.listAll
-          }yield(a,b)
-          data.map { case (col,art) =>
+            }yield(a,b)
+            data.map { case (col,art) =>
             Ok(views.html.collection(user,col,art))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -98,7 +94,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def profile(id: String) = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
-          val data = for{
+            val data = for{
             a <- ListUser.find(id)
             b <- uploadart.listAll
           }yield(a,b)
@@ -113,40 +109,43 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
 
     //โชว์กระทู้เมื่อทำการคลิกเพื่อเข้าอ่านกระทู้
-    /*
-    def userP(id: String) = Action.async { implicit request =>
-      val data = for{
-        a <- addforum.find(id)
-        b <- addcomment.listAll
-        c <- ListUser.find(id)
-      }yield(a,b,c)
-      data.map { case (dbforuminfo,dbcomment,users) =>
-        Ok(views.html.selectPosts(CommentForm.form,dbforuminfo,dbcomment,users))
-      }
-    }
-    */
+
+    def userP(id: String, idpost : String) = Action.async { implicit request =>
+        val data = for{
+          a <- addforum.find(idpost)
+          b <- DBanswer.listAll
+          c <- ListUser.find(id)
+          u <- ListUser.listAll
+          }yield(a,b,c,u)
+          data.map { case (dbforuminfo,dbanswer,users,listuser) =>
+          Ok(views.html.selectPosts(dbforuminfo,dbanswer,users,listuser))
+          }
+        }
+
 
     var forumid = "";
     def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) =>
+        request.identity match {
+          case Some(user) =>
           forumid = id
-          val data = for{
-            a <- addforum.get(id)
-            b <- addcomment.listAll
-            c <- ListUser.find(userID)
-          }yield(a,b,c)
-          data.map { case (dbforuminfo,dbcomment,users) =>
-            Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
+            val data = for{
+              a <- addforum.get(id)
+              b <- DBanswer.listAll
+              c <- ListUser.find(userID)
+              u <- ListUser.listAll
+          }yield(a,b,c,u)
+            data.map { case (dbforuminfo,dbanswer,users,listuser) =>
+            Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbanswer,users,user,listuser))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
 
-    //แสดงความคิดเห็น
+  //แสดงกระทู้ส่วนผู้ใช้ทั่วไป
+  /*
          def post(id: String) = Action.async { implicit request =>
             val data = for{
-              a <- addforum.listAll
+              a <- addforum.find(id)
               b <- addcomment.listAll
               c <- ListUser.find(id)
             }yield(a,b,c)
@@ -154,40 +153,19 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
               Ok(views.html.selectPosts(dbforuminfo,dbcomment,users))
               }
          }
-         /*
-       var forumid = "";
-         def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
-           request.identity match {
-             case Some(user) =>
-             forumid = id
-             val data = for{
-               a <- addforum.get(id)
-               b <- addcomment.listAll
-               c <- ListUser.find(userID)
-             }yield(a,b,c)
-             data.map { case (dbforuminfo,dbcomment,users) =>
-               Ok(views.html.showposts(CommentForm.form,dbforuminfo,dbcomment,users,user))
-               }
-                case None => Future.successful(Redirect(routes.ApplicationController.index()))
-             }
-           }
-           */
-
-
-
+*/
 //แสดงความคิดเห็น
-    def comment = UserAwareAction.async { implicit request =>
-      request.identity match {
-        case Some(user) =>
-          CommentForm.form.bindFromRequest.fold(
-            form => Future.successful( Redirect("/")),
-            data => {
-              val comments = Comment(
+      def comment = UserAwareAction.async { implicit request =>
+        request.identity match {
+          case Some(user) =>
+            CommentForm.form.bindFromRequest.fold(
+              form => Future.successful( Redirect("/")),
+              data => {
+                val comments = Comment(
                 id = UUID.randomUUID.toString,
                 userID = data.commenterID, // assign from data.commenterID see forms.CommentForm
                 detail = Some(data.detail),
-                artworkid = artworkid,
-                forumid = forumid
+                artworkid = artworkid
               )
 
             val saveD = for {
@@ -200,15 +178,39 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
           case None => Future.successful(Redirect("/"))
       }
     }
+//แสดงความคิดเห็นเกี่ยวกับกระทู้
+    def answer = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+          CommentForm.form.bindFromRequest.fold(
+            form => Future.successful( Redirect("/")),
+            data => {
+                val answers = Answer(
+                id = UUID.randomUUID.toString,
+                userID = data.commenterID, // assign from data.commenterID see forms.CommentForm
+                detail = Some(data.detail),
+                forumid = forumid
+              )
+
+             val saveD = for {
+               add <- DBanswer.add(answers)
+             }yield add
+
+             Future.successful(Redirect("/"))
+             }
+            )
+          case None => Future.successful(Redirect("/"))
+      }
+    }
     //แสดง user ภายในระบบ
     def member   = UserAwareAction.async {implicit request =>
       request.identity match {
         case Some(user) =>
-          val data = for{
+           val data = for{
             a <- ListUser.listAll
             b <- DBfollow.listAll
-          }yield (a,b)
-          data.map {  case (users,dbfollow) =>
+           }yield (a,b)
+           data.map {  case (users,dbfollow) =>
             Ok(views.html.member(users,user,dbfollow))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -216,17 +218,15 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     }
 
-
-
     //แสดงรายการกระทู้
     def posts   = UserAwareAction.async {implicit request =>
       request.identity match {
         case Some(user) =>
-          val data = for{
+           val data = for{
             a <- addforum.listAll
             b <- ListUser.listAll
           }yield(a,b)
-          data.map { case (dbforuminfo,users) =>
+            data.map { case (dbforuminfo,users) =>
             Ok(views.html.postsUser(user,dbforuminfo,users))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
@@ -237,11 +237,63 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def model = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) =>
+           val data = for{
+             a <- uploadart.listAll
+           }yield(a)
+            data.map { dbartwork =>
+            Ok(views.html.modelsUser(user,dbartwork))
+          }
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
+
+    def modelC = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+           val data = for{
+            a <- uploadart.listAll
+           }yield(a)
+            data.map { dbartwork =>
+            Ok(views.html.modelCharacter(user,dbartwork))
+          }
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
+
+    def modelA = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
           val data = for{
             a <- uploadart.listAll
           }yield(a)
           data.map { dbartwork =>
-            Ok(views.html.modelsUser(user,dbartwork))
+            Ok(views.html.modelAssets(user,dbartwork))
+          }
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
+
+    def modelS = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+          val data = for{
+            a <- uploadart.listAll
+          }yield(a)
+          data.map { dbartwork =>
+            Ok(views.html.modelScene(user,dbartwork))
+          }
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
+
+    def modelO = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+          val data = for{
+            a <- uploadart.listAll
+          }yield(a)
+          data.map { dbartwork =>
+            Ok(views.html.modelOther(user,dbartwork))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
@@ -298,7 +350,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
                  fileblend = fileblend,
                  filehtml = filehtml
                )
-                 uploadart.add(dbartwork) // save to db 
+                 uploadart.add(dbartwork) // save to db
                  // move files
                  pictureFile.ref.moveTo(new File(s"public/members/${user.userID}/$picture"))
                  blendFile.ref.moveTo(new File(s"public/members/${user.userID}/$fileblend"))
@@ -363,6 +415,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         case None => Future.successful(Redirect("/"))
       }
     }
+
     def forums = UserAwareAction.async { implicit request =>
       request.identity match {
         case Some(user) => Future.successful(Ok(views.html.createPosts(forumForm.form,user)))
@@ -420,10 +473,11 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def threejs2() = Action {
       Ok(views.html.threejs2())
     }
-
+    
     // ====== Not used ========================================================
     def downloadBlend(id:UUID) = UserAwareAction.async { implicit request =>
       Future.successful(Redirect("/"))
     }
+
 
   }

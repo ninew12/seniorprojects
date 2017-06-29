@@ -12,19 +12,20 @@
       <h3>@artwork.title</h3>
     </div>
     <div class="col-sm-8 " >
-      <a  class="image fit"><img src="@routes.Assets.at("images/")@artwork.picture" height="480" width="740" />
+      <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") height="480" width="740" />
       </a>
 
 
       <div class=" text-right" >
-        <a href= "@routes.Assets.at("members/01/")@artwork.filehtml"  target="_blank" >
-          <button class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
+        <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.filehtml}") >
+          <button class="btn btn-info btn-sm " ><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
         </a>
-        <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
-          <button class="btn btn-success btn-sm " disabled ><i class="fa fa-plus-square" aria-hidden="true"></i>  แฟ้มสะสม</button>
-        </a>
-        <button class="btn btn-warning btn-sm " disabled ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
-
+       <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
+         <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม</button>
+       </a>
+       <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") >
+       <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
+       </a>
       </div>
 
       <br>
