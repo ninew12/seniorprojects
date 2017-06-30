@@ -1,4 +1,4 @@
-@(Forms: Form[forms.CommentForm.Data],u: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser],dbcol :Seq[models.Collection] )(implicit request: RequestHeader, messages: Messages)
+@(Forms: Form[forms.CommentForm.Data],u: models.User,dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment],users : Seq[models.DBUser],dbcol :Seq[models.Collection],us : Seq[models.DBUser])(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
 @main(Messages("home.title"),Some(u)){
@@ -48,20 +48,21 @@
                      @for(comment
                       <- dbcommemt){
                        @if(comment.artworkid == artwork.id){
-                         @for(u <- users){
-                           @if(comment.userID == u.userID){
+                         @for(ur <- us){
+                           @if(comment.userID == ur.userID){
                          <div class="col-sm-1">
                            <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
                          </div><!-- /col-sm-1 -->
                          <div class="col-sm-10">
                            <div class="panel panel-default">
                              <div class="panel-heading">
-                               <strong>@u.fullName</strong>
+                               <strong>@ur.fullName</strong>
+
+                               @if(comment.userID.toString == u.userID.toString){
                                <div class=" text-right">
-                                 <a   href="# "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
                                  <a   data-toggle="modal" href="#modeldelete2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                </div>
-
+                             }
                              </div>
                              <div class="panel-body">
                                <h5>@comment.detail</h5>

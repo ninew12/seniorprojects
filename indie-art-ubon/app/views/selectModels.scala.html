@@ -1,4 +1,4 @@
-@( dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment], users : Seq[models.DBUser] )(implicit request: RequestHeader, messages: Messages)
+@( dbartwork : Seq[models.ArtWork],dbcommemt : Seq[models.Comment], users : Seq[models.DBUser] ,u : Seq[models.DBUser])(implicit request: RequestHeader, messages: Messages)
 <!DOCTYPE html>
 
 @main(Messages("home.title")){
@@ -31,17 +31,16 @@
         @for(comment
          <- dbcommemt){
           @if(comment.artworkid == artwork.id){
-            @for(u <- users){
-              @if(comment.userID == u.userID){
+            @for(us <- u){
+              @if(comment.userID == us.userID){
             <div class="col-sm-1">
               <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  >
             </div><!-- /col-sm-1 -->
             <div class="col-sm-10">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <strong>@u.fullName</strong>
+                  <strong>@us.fullName</strong>
                     </div>
-
                 <div class="panel-body">
                   <h5>@comment.detail</h5>
                 </div><!-- /panel-body -->
@@ -51,6 +50,7 @@
         }
       }
     }
+
       </div><!--row-->
     </div><!--col-md-8-->
 
@@ -85,6 +85,6 @@
         </li>
       </div><!--col-md-4 list-group-->
     }
-  }
+}
   </div><!--container-->
   }

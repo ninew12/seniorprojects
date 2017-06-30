@@ -55,9 +55,10 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
             b <- addcomment.listAll
             c <- ListUser.find(userID)
             d <- DBcollection.listAll
-          }yield(a,b,c,d)
-            data.map {case (dbartwork,dbcomment,users,dbcol) =>
-            Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users,dbcol))
+            us <- ListUser.listAll
+          }yield(a,b,c,d,us)
+            data.map {case (dbartwork,dbcomment,users,dbcol,us) =>
+            Ok(views.html.showmodel(CommentForm.form,user,dbartwork,dbcomment,users,dbcol,us))
           }
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
@@ -69,9 +70,10 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         a <- uploadart.find(id)
         b <- addcomment.listAll
         c <- ListUser.find(userID)
-        }yield(a,b,c)
-        data.map {case (dbartwork,dbcomment,users) =>
-        Ok(views.html.selectModels(dbartwork,dbcomment,users))
+        u <- ListUser.listAll
+        }yield(a,b,c,u)
+        data.map {case (dbartwork,dbcomment,users,u) =>
+        Ok(views.html.selectModels(dbartwork,dbcomment,users,u))
      }
   }
 
@@ -473,7 +475,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def threejs2() = Action {
       Ok(views.html.threejs2())
     }
-    
+
     // ====== Not used ========================================================
     def downloadBlend(id:UUID) = UserAwareAction.async { implicit request =>
       Future.successful(Redirect("/"))
