@@ -12,15 +12,21 @@
         </div>
 
         <div class="col-sm-8 " >
-          <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") height="480" width="740" />
-          </a>
-          <div class=" text-right" >
-            <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.filehtml}") >
-              <button class="btn btn-info btn-sm " ><i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
+
+            <a  class="image fit" ><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") height="480" width="740" />
+              <div class="carousel-caption">
+                <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.filehtml}")>
+                  <button  class="btn-theme btn-theme-md btn-white-bg "  >
+                  <i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
+                </a>
+              </div>
             </a>
+          <div class=" text-right" >
+            @if(artwork.userID.toString != u.userID.toString){
             <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
               <button class="btn btn-success btn-sm " ><i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม</button>
             </a>
+          }
             <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") >
               <button class="btn btn-warning btn-sm " ><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด</button>
             </a>
@@ -35,9 +41,12 @@
           @helper.form(action = routes.IndieApplication.comment()) {
               @helper.CSRF.formField
                             @b3.hidden( "commenterID", u.userID )
-                            @b3.textarea( Forms("detail"), '_label -> "ความคิดเห็น" ,'rows -> 3 )
-                          <div class=" text-right" >
-                               <button type="submit" class="btn btn-info  ">ตกลง</button>
+                            <label> แสดงความคิดเห็น </lebrl>
+                              <br><br>
+                           <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="3" cols="60" required =" " ></textarea>
+
+                            <div class=" text-right" >
+                              <button type="submit" class="btn btn-info  ">ตกลง</button>
                              </div>
                        }
                      </div>
@@ -56,16 +65,15 @@
                          <div class="col-sm-10">
                            <div class="panel panel-default">
                              <div class="panel-heading">
-                               <strong>@ur.fullName</strong>
-
+                               <strong>@ur.fullName </strong>
+                             </div>
+                             <div class="panel-body">
+                               <h5>@comment.detail</h5>
                                @if(comment.userID.toString == u.userID.toString){
                                <div class=" text-right">
                                  <a   data-toggle="modal" href="#modeldelete2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                </div>
                              }
-                             </div>
-                             <div class="panel-body">
-                               <h5>@comment.detail</h5>
                              </div><!-- /panel-body -->
                            </div><!-- /panel panel-default -->
                          </div><!-- /col-sm-10 -->

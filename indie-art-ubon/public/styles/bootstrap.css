@@ -5593,6 +5593,7 @@ button.close {
   .carousel-caption {
     right: 20%;
     left: 20%;
+    top: 20%;
     padding-bottom: 30px;
   }
   .carousel-indicators {

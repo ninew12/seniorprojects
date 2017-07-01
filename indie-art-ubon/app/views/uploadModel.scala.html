@@ -21,8 +21,10 @@
                      @helper.form(action = routes.IndieApplication.upload,'enctype -> "multipart/form-data") {
                        @helper.CSRF.formField
 
-                         @b3.text( uploadForm("title"), '_label -> "หัวข้อ" )
-                         @b3.textarea( uploadForm("detail"), '_label -> "รายละเอียดผลงาน" ,'rows -> 3 )
+                       <h5 >หัวข้อ</h5>
+                       <input  style="color:#000000" type="text" name="title" required =" " maxlength="100"  size="60"  ></input><br>
+                       <h5 >รายละเอียดผลงาน</h5>
+                       <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="4" cols="70" required =" " ></textarea>
                          @b3.select( uploadForm("tags"), options = blend, '_label -> "หมวดหมู่" )
                          @b3.file( uploadForm("picture"), '_label -> "อัพโหลดไฟล์รูปภาพ" )
                          @b3.file( uploadForm("fileblend"), '_label -> "อัพโหลดไฟล์.blend" )
@@ -67,5 +69,5 @@
                          </div>
                      </div>  <!--dialog -->
 
-          @footer()
+
 }

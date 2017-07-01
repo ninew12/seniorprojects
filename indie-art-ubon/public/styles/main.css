@@ -426,7 +426,6 @@ a {
                     			.button {
                     				padding: 0;
                     			}
-
                 	}
           /* Main */
 
@@ -467,8 +466,16 @@ a {
                 background-color: #424242;
                 color: #636363;
             }
+            #wrap4 {
+                padding-top: 70px;
+                padding-bottom: 50px;
+                background-color: #2f2f2f;
+                color: #636363;
+            }
+
 
         .button.disabled {
             opacity: 0.65;
            cursor: not-allowed;
            }
+        

@@ -19,8 +19,9 @@
             @helper.CSRF.formField
 
             <h5 >หัวข้อกระทู้</h5>
-            @b3.text( forumForm("title") )
-            @b3.textarea( forumForm("detail"), '_label -> "เนื้อหากระทู้" ,'rows -> 3 )
+            <input  style="color:#000000" type="text" name="title" required =" " maxlength="100"  size="60"  ></input><br>
+            <h5 >รายละเอียดกระทู้</h5>
+            <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="4" cols="70" required =" " ></textarea>
             @b3.file( forumForm("picture"), '_label -> "อัพโหลดไฟล์" )
 
             <div class=" text-right">
@@ -35,5 +36,5 @@
     </div><!-- panal-body -->
   </div><!-- panal -->
 </div><!--inner-->
-@footer()
+
 }

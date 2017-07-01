@@ -52,7 +52,9 @@
                                     @helper.form(action = routes.IndieApplication.answer()) {
                                         @helper.CSRF.formField
                                                       @b3.hidden( "commenterID", user.userID )
-                                                      @b3.textarea( Forms("detail"), '_label -> "แสดงความคิดเห็น" ,'rows -> 3 )
+                                                      <label> แสดงความคิดเห็น </lebrl>
+                                                        <br><br>
+                                                     <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="3" cols="60" required =" " ></textarea>
                                                     <div class=" text-right" >
                                                          <button type="submit" class="btn btn-info  ">ตกลง</button>
                                                        </div>
@@ -77,16 +79,16 @@
                                                  <div class="panel-heading">
                                                        <strong>@u.fullName</strong>
                                                        <!-- <span class="text-muted">commented 5 days ago</span> -->
-                                                       <div class=" text-right">
-                                                        <a   href="# "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;
-                                                        <a   data-toggle="modal" href="#modeldelete2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                       </div>
-                                                  }
-                                                }
-
                                                  </div>
                                           <div class="panel-body">
                                             <h5>@answer.detail</h5>
+                                            @if(answer.userID.toString == user.userID.toString){
+                                           <div class=" text-right">
+                                            <a   data-toggle="modal" href="#modeldelete2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                           </div>
+                                         }
+                                       }
+                                     }
                                           </div><!-- /panel-body -->
                                         </div><!-- /panel panel-default -->
                                       </div><!-- /col-sm-10 -->
