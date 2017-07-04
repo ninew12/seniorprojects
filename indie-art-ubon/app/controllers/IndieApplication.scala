@@ -46,10 +46,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
     //แสดงรายละเอียกโมเดล
       var artworkid = "";
+      var testid = "";
       def showmodel (id : String, userID : String) = UserAwareAction.async { implicit request =>
         request.identity match {
           case Some(user) =>
           artworkid = id
+          testid = userID
           val data = for{
             a <- uploadart.find(id)
             b <- addcomment.listAll
@@ -63,7 +65,18 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         case None => Future.successful(Redirect(routes.ApplicationController.index()))
       }
     }
+    //ลบความคิดเห็น
+        def deleteComment (id : String) = UserAwareAction.async { implicit request =>
+          request.identity match {
+            case Some(user) =>
+            val c = for{
+              a <- addcomment.delete(id)
+            }yield a
+               Future.successful(Redirect(s"/showmodel/${artworkid}?userID=${testid}"))
 
+            case None => Future.successful(Redirect("/"))
+            }
+      }
     //แสดงแฟ้มสะสมผลงาน
     def  modelshow(id: String, userID : String) = Action.async { implicit request =>
         val data = for{
@@ -92,6 +105,19 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       }
     }
 
+    def follow = UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(user) =>
+            val data = for{
+            a <- DBfollow.folUser(user.userID.toString)
+            b <- ListUser.listAll
+            }yield(a,b)
+            data.map { case (dbfollow,users) =>
+            Ok(views.html.follow(users,user,dbfollow))
+          }
+        case None => Future.successful(Redirect(routes.ApplicationController.index()))
+      }
+    }
     //แสดงข้อมูลส่วนตัว
     def profile(id: String) = UserAwareAction.async { implicit request =>
       request.identity match {
@@ -126,10 +152,12 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
 
 
     var forumid = "";
+    var tid = "";
     def showpost (id : String, userID : String) = UserAwareAction.async { implicit request =>
         request.identity match {
           case Some(user) =>
           forumid = id
+          tid = userID
             val data = for{
               a <- addforum.get(id)
               b <- DBanswer.listAll
@@ -143,6 +171,17 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
       }
     }
 
+         def deleteanswer (id : String) = UserAwareAction.async { implicit request =>
+           request.identity match {
+             case Some(user) =>
+             val c = for{
+               a <- DBanswer.delete(id)
+             }yield a
+               Future.successful(Redirect(s"/showpost/${forumid}?userID=${tid}"))
+
+             case None => Future.successful(Redirect("/"))
+            }
+       }
   //แสดงกระทู้ส่วนผู้ใช้ทั่วไป
   /*
          def post(id: String) = Action.async { implicit request =>
@@ -174,7 +213,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
               add <- addcomment.add(comments)
             }yield add
 
-            Future.successful(Redirect("/"))
+            Future.successful(Redirect(s"/showmodel/${artworkid}?userID=${testid}"))
             }
             )
           case None => Future.successful(Redirect("/"))
@@ -198,7 +237,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
                add <- DBanswer.add(answers)
              }yield add
 
-             Future.successful(Redirect("/"))
+             Future.successful(Redirect(s"/showpost/${forumid}?userID=${tid}"))
              }
             )
           case None => Future.successful(Redirect("/"))
@@ -241,6 +280,7 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
         case Some(user) =>
            val data = for{
              a <- uploadart.listAll
+
            }yield(a)
             data.map { dbartwork =>
             Ok(views.html.modelsUser(user,dbartwork))
@@ -480,6 +520,5 @@ class IndieApplication @Inject()(val webJarAssets: WebJarAssets,   val messagesA
     def downloadBlend(id:UUID) = UserAwareAction.async { implicit request =>
       Future.successful(Redirect("/"))
     }
-
 
   }

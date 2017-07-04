@@ -3,8 +3,9 @@
 
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
-@blend = @{ Seq("Category"->"หมวดหมู่","Character"->"ตัวละคร","Assets"->"ส่วนประกอบ","Scene"->"ฉาก","Others"->"อืนๆ") }
+@blend = @{ Seq("หมวดหมู่"->"หมวดหมู่","ตัวละคร"->"ตัวละคร","ส่วนประกอบ"->"ส่วนประกอบ","ฉาก"->"ฉาก","อืนๆ"->"อืนๆ") }
 @main(Messages("home.title"), Some(user)){
+
   <div class="container">
          <br><br><br>
           <div class="mt mb ">
@@ -22,9 +23,9 @@
                        @helper.CSRF.formField
 
                        <h5 >หัวข้อ</h5>
-                       <input  style="color:#000000" type="text" name="title" required =" " maxlength="100"  size="60"  ></input><br>
+                       <input  style="color:#000000" type="text" class="form-control"  name="title" required =" " maxlength="100"  ></input><br>
                        <h5 >รายละเอียดผลงาน</h5>
-                       <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="4" cols="70" required =" " ></textarea>
+                       <textarea style="color:#000000" type="text" class="form-control" name="detail" maxlength="200" rows="4"  required =" " ></textarea>
                          @b3.select( uploadForm("tags"), options = blend, '_label -> "หมวดหมู่" )
                          @b3.file( uploadForm("picture"), '_label -> "อัพโหลดไฟล์รูปภาพ" )
                          @b3.file( uploadForm("fileblend"), '_label -> "อัพโหลดไฟล์.blend" )
@@ -32,11 +33,12 @@
 
                          <div class=" text-right">
                             <button type="submit" class="btn btn-primary">บันทึก</button> &nbsp; &nbsp;
-                            <button type="submit" class="btn btn-danger">ยกเลิก</button>
+                          }
+                             <a href="/"type="submit" class="btn btn-danger">ยกเลิก</a>
                           </div>
 
 
-                          }
+
 
                             </div>   <!-- col-md-8 -->
                          </div>   <!-- row -->

@@ -39,7 +39,9 @@ object DBfollow {
     def listAll: Future[Seq[Follow]] = {
       dbConfig.db.run(dbfollow.result)
   }
-
+  def folUser(userID : String): Future[Seq[Follow]] = {
+    dbConfig.db.run(dbfollow.filter(_.userID === userID).result)
+  }
     def find(userID: String): Future[Seq[Follow]] = {
       dbConfig.db.run(dbfollow.filter(_.userID === userID).result)
   }

@@ -19,17 +19,18 @@
             @helper.CSRF.formField
 
             <h5 >หัวข้อกระทู้</h5>
-            <input  style="color:#000000" type="text" name="title" required =" " maxlength="100"  size="60"  ></input><br>
+            <input  style="color:#000000" type="text" class="form-control"  name="title" required =" " maxlength="100"  ></input><br>
             <h5 >รายละเอียดกระทู้</h5>
-            <textarea style="color:#000000" type="text" name="detail" maxlength="200" rows="4" cols="70" required =" " ></textarea>
+            <textarea style="color:#000000" type="text" class="form-control"  name="detail" maxlength="200" rows="4"  required =" " ></textarea>
             @b3.file( forumForm("picture"), '_label -> "อัพโหลดไฟล์" )
 
             <div class=" text-right">
               <button type="submit" class="btn btn-primary">บันทึก</button> &nbsp; &nbsp;
-              <button type="submit" class="btn btn-danger">ยกเลิก</button>
+              }
+               <a href="/"type="submit" class="btn btn-danger">ยกเลิก</a>
             </div>
 
-            }
+
           </div>   <!-- col-md-8 -->
         </div>   <!-- row -->
       </div><!-- container -->

@@ -354,29 +354,7 @@ class ApplicationController @Inject() (
           case None => Future.successful(Redirect("/"))
           }
     }
-    //ลบความคิดเห็น
-        def deleteComment (id : String) = UserAwareAction.async { implicit request =>
-          request.identity match {
-            case Some(user) =>
-            val c = for{
-              a <- addcomment.delete(id)
-            }yield a
-               Future.successful(Redirect("/"))
 
-            case None => Future.successful(Redirect("/"))
-            }
-      }
-       def deleteanswer (id : String) = UserAwareAction.async { implicit request =>
-         request.identity match {
-           case Some(user) =>
-           val c = for{
-             a <- DBanswer.delete(id)
-           }yield a
-             Future.successful(Redirect("/"))
-
-           case None => Future.successful(Redirect("/"))
-          }
-     }
 //ลบสมาชิกภายในระบบโดยadmin
      def deleteUser (id : String) = UserAwareAction.async { implicit request =>
        request.identity match {

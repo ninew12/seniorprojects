@@ -71,7 +71,7 @@ object uploadart {
   }
   def search(text : String): Future[Seq[ArtWork]] = {
      val query = for {
-       de <- dbupload if (de.title like "%"+text+"%") || (de.detail like "%"+text+"%") || (de.tags like "%"+text+"%")
+       de <- dbupload if (de.title like "%"+text+"%") || (de.tags like "%"+text+"%")
      } yield (de)
      dbConfig.db.run(query.result)
    }

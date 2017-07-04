@@ -15,16 +15,16 @@
         <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") height="480" width="740" />
           <div class="carousel-caption">
             <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.filehtml}")>
-              <button  class="btn-theme btn-theme-md btn-white-bg "  >
+              <button  class="btn btn-theme-md btn-white-bg "  >
               <i class="fa fa-eye" aria-hidden="true"></i> ตัวอย่างโมเดล</button>
             </a>
           </div>
         </a>
 
       <div class=" text-right" >
-       <a href="@routes.IndieApplication.addcollection(artwork.id)" class="btn btn-warning btn-sm button disabled">
+       <a href="@routes.IndieApplication.addcollection(artwork.id)" class="btn btn-warning button disabled">
          <i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม </a>
-       <a href="@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") " class="btn btn-warning btn-sm button disabled"><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด  </a>
+       <a href="@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") " class="btn btn-warning  button disabled"><i class="fa fa-download" aria-hidden="true"></i>  ดาวน์โหลด  </a>
       </div>
 
       <br>
@@ -62,22 +62,17 @@
       <li  class=" list-group-item ">
         <img  src= "@routes.Assets.at("images/user.png")"  class="img-circle " width="70">
         <h5 class="list-group-item-heading">เจ้าของผลงาน @user.fullName</h5>
-        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block btn-sm button disabled"   ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
-      </li>
-      <li class="list-group-item">
-        <h5 class="list-group-item-heading">เกี่ยวกับโมเดล</h5>
-        <h5>Date :</h5>
-        <h5>Time :</h5>
-        <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> : @artwork.tags</a>
+        <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block button disabled"   ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
       </li>
       <li id="super_recent_posts_widget-3" class="widget recent_custom_posts testimonial list-group-item">
-        <h4 class="widgettitle list-group-item-heading"><a href="#">รายละเอียดโมเดล </a></h4>
+        <h4 class="widgettitle list-group-item-heading">รายละเอียดโมเดล </h4>
         <div class="recent_custom_posts_item">
           <div class="post-entry">
             <div class="testemonial-item">
               <div class="mb-thumb"></div>
               <blockquote cite="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/" title="Jag är mycket nöjd med det färdiga resultatet">
                 <a href="https://www.vulkanmedia.se/testimonial/jag-ar-mycket-nojd-med-det-fardiga-resultatet/">
+                  <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> : @artwork.tags</a>
                   <p> @artwork.detail </p>
                 </a>
                 </blockquote>

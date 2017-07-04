@@ -17,10 +17,10 @@
                                 <li>
                                   <img class="img-responsive user-photo" src="@routes.Assets.at("images/user.png")"  width="80" >
                                     <br>
-                                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> เจ้าของกระทู้ @user.fullName</a>
+                                    <i class="fa fa-user" aria-hidden="true"></i> เจ้าของกระทู้ @user.fullName
                                 </li>
-                                    <br>
-                                    <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
+                                    <br><br>
+                                    <a href="@routes.IndieApplication.profile(user.userID)" class="btn btn-info btn-block btn-sm button disabled"   ><i class="fa fa-user" aria-hidden="true"></i> โปรไฟล์</a>
 
                                 </ul>
                              </div>
