@@ -8,9 +8,9 @@
            <div class="mt mb ">
               <h3><i class="fa fa-users" aria-hidden="true"></i> ผู้ติดตาม</h3>
           </div>
-          <div class="panel panel-info">
-             <div class="panel-body">
-        <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <div class="row">
 
              <div class="col-sm-12 col-xs-12">
                  <ul class="breadcrumb">
@@ -28,23 +28,33 @@
                      <div class="box2">
                        <a  class="image fit"><img src="@routes.Assets.at("images/user2.jpg")"  width="300" height="150" /></a>
                        <div class="inner">
+
                          <a href="@routes.IndieApplication.profile(u.userID)"><h5>@u.firstName</h5></a>
-                      }
-                    }
-                   @for(f <- dbfollow){
-                     @if(f.fid == u.userID.toString && user.userID.toString == f.userID){
-                             <a href="@routes.ApplicationController.deletefollow(f.fid)"  >
-                               <button class="button fit btn-sm"><i class="fa fa-plus" ></i> เลิกติดตาม</button>
-                             </a>
+                         @for(f <- dbfollow){
+                           @if(f.fid == u.userID.toString && user.userID.toString == f.userID){
+                                  @{a = "h"}
+                                   <a href="@routes.ApplicationController.deletefollow(f.fid)"  >
+                                     <button class="button fit btn-sm"><i class="fa fa-plus" ></i> เลิกติดตาม</button>
+                                   </a>
+                                 }
+                         }
+                         @if(a == "n"){
+                         <a href="@routes.IndieApplication.addfollow(u.userID)"  >
+                           <button class="button fit btn-sm"><i class="fa fa-plus" ></i> ติดตาม</button>
+                         </a>
+                       }
+                       @{a = "n"}
+
+                       </div>
+                     </div>
+                   </div><!--col-sm2-2-->
+                       }
                      }
                    }
-
                  }
-               }
-           </div>
-         </div>
-       </div>
-      </div>
-    </div>
-
+                </div><!--row-->
+              </div><!--inner-->
+            </div><!--container-->
+            </div>
+            </div>
 }

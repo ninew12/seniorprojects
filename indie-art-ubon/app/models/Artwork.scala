@@ -52,6 +52,9 @@ object uploadart {
     dbConfig.db.run(dbupload.filter(_.userID === userID).result.headOption)
   }
 
+  def get(userID: String): Future[Option[ArtWork]] = {
+    dbConfig.db.run(dbupload.filter(_.userID === userID).result.headOption)
+  }
   def listAll: Future[Seq[ArtWork]] = {
     dbConfig.db.run(dbupload.result)
   }

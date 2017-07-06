@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 @import b3.inline.fieldConstructor
-@blend = @{ Seq("หมวดหมู่"->"หมวดหมู่","ตัวละคร"->"ตัวละคร","ส่วนประกอบ"->"ส่วนประกอบ","ฉาก"->"ฉาก","อืนๆ"->"อืนๆ") }
+
 @main(Messages("home.title"), Some(user)){
 
   <div class="container">
@@ -26,10 +26,24 @@
                        <input  style="color:#000000" type="text" class="form-control"  name="title" required =" " maxlength="100"  ></input><br>
                        <h5 >รายละเอียดผลงาน</h5>
                        <textarea style="color:#000000" type="text" class="form-control" name="detail" maxlength="200" rows="4"  required =" " ></textarea>
-                         @b3.select( uploadForm("tags"), options = blend, '_label -> "หมวดหมู่" )
-                         @b3.file( uploadForm("picture"), '_label -> "อัพโหลดไฟล์รูปภาพ" )
-                         @b3.file( uploadForm("fileblend"), '_label -> "อัพโหลดไฟล์.blend" )
-                         @b3.file( uploadForm("filehtml"), '_label -> "อัพโหลดไฟล์html" )
+                       <br>
+                       <div class="form-group">
+                       <select class="form-control" name="tags" required =" ">
+                         <option>หมวดหมู่</option>
+                         <option>ตัวละคร</option>
+                         <option>ส่วนประกอบ</option>
+                         <option>ฉาก</option>
+                         <option>อืนๆ</option>
+                       </select>
+                       </div>
+                       <div class="form-group">
+                          <label for="exampleInputFile">อัพโหลดไฟล์รูปภาพ</label><br>
+                          <input style="color:#FFFFFF" type="file" name="picture" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"required =" "><br>
+                          <label for="exampleInputFile">อัพโหลดไฟล์blend</label><br>
+                          <input style="color:#FFFFFF" type="file" name="fileblend" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"required =" "><br>
+                          <label for="exampleInputFile">อัพโหลดไฟล์html</label><br>
+                          <input style="color:#FFFFFF" type="file" name="filehtml" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required =" "><br>
+                          </div>
 
                          <div class=" text-right">
                             <button type="submit" class="btn btn-primary">บันทึก</button> &nbsp; &nbsp;

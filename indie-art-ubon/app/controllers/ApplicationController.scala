@@ -243,94 +243,47 @@ class ApplicationController @Inject() (
     def  updateMD2= UserAwareAction.async { implicit request =>
     request.identity match {
        case Some(user) =>
-       request.body.asMultipartFormData.map {a =>
-       val datatitle = a.dataParts.get("title").map { a =>
-          for{
-            b <- a.mkString("")
-           }yield b
-       }
+       request.body.asMultipartFormData.map { a =>
 
-         val datadetail = a.dataParts.get("detail").map { a =>
-          for{
-           b <- a.mkString("")
-          }yield b
-       }
+         for (
+              title <- a.dataParts.get("title");
+              detail <- a.dataParts.get("detail");
+              tags <- a.dataParts.get("tags");
+              pictureFile <- a.file("picture");
+              blendFile <- a.file("fileblend");
+              htmlFile <- a.file("filehtml")
+            ) yield {
+              //Logger.warn(s"pic = ${pic}, blend = ${blend}, html = ${html}")
+              val pictureExtension = reflect.io.File(pictureFile.filename).extension
+              val picture = s"$uuid.$pictureExtension"
+              val fileblend = s"$uuid.blend"
+              val filehtml = s"$uuid.html"
+              val dbartwork =  ArtWork (
+                //id = UUID.randomUUID.toString,
+              id = uuid,
+              userID = user.userID.toString,
+              title = title(0),
+              detail =  detail(0),
+              tags = tags(0),
+              picture = picture,
+              fileblend = fileblend,
+              filehtml = filehtml
+            )
+              uploadart.update(dbartwork) // save to db
+              // move files
+              pictureFile.ref.moveTo(new File(s"public/members/${user.userID}/$picture"))
+              blendFile.ref.moveTo(new File(s"public/members/${user.userID}/$fileblend"))
+              htmlFile.ref.moveTo(new File(s"public/members/${user.userID}/$filehtml"))
+            }
 
-         val datatags = a.dataParts.get("tags").map { a =>
-         for{
-           b <- a.mkString("")
-          }yield b
-      }
 
-         val dataimg = a.file("picture").map { a=>
-         val filename = a.filename
-         val extension = FilenameUtils.getExtension(filename)
-         val newFileName = s"${UUID.randomUUID}.$extension"
-         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
-         for{
-          b <- newFileName
-         }yield b
-       }
-
-         val datablend = a.file("fileblend").map { a=>
-         val filename = a.filename
-         val extension = FilenameUtils.getExtension(filename)
-         val newFileName = s"${UUID.randomUUID}.$extension"
-         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
-         for{
-           b <- newFileName
-         }yield b
-       }
-
-         val datahtml = a.file("filehtml").map { a=>
-         val filename = a.filename
-         val extension = FilenameUtils.getExtension(filename)
-         val newFileName = s"${UUID.randomUUID}.$extension"
-         a.ref.moveTo(new File(s"public/members/${user.userID}/$newFileName"))
-         for{
-          b <- newFileName
-         }yield b
-      }
-
-         val getRelation = for{
-         a <- uploadart.getUser(uuid)
-       }yield a
-
-        val title = getdata(datatitle)
-        val detail = getdata(datadetail)
-        val tags = getdata(datatags)
-        val picture = getdata(dataimg)
-        val fileblend = getdata(datablend)
-        val filehtml = getdata(datahtml)
-
-        //add table database
-        val aaaa = getRelation.map { data =>
-         data.map { aa =>
-         val dbartwork =  ArtWork (
-         id = aa.id,
-         userID = user.userID.toString,
-         title = title ,
-         detail = detail ,
-         tags = tags ,
-         picture = picture ,
-         fileblend = fileblend,
-         filehtml = filehtml
-       )
-
-       val saveDate = for{
-          a <- uploadart.update(dbartwork)
-        }yield a
-
-      }
-  }
-          Future.successful(Redirect("/model"))
-          }.getOrElse {
-          Future.successful(Redirect("/"))
-          }
-          case None => Future.successful(Redirect("/"))
-          }
-    }
-
+           Future.successful(Redirect("/model"))
+         }.getOrElse {
+           Future.successful(Redirect("/up"))
+         }
+     case None => Future.successful(Redirect("/"))
+   }
+ }
 
 
     var uuid = "";

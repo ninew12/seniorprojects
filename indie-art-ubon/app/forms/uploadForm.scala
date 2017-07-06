@@ -11,7 +11,9 @@ object uploadForm {
       "title" -> nonEmptyText,
       "detail" -> nonEmptyText,
       "modelType" -> nonEmptyText,
-      "picture" -> text
+      "picture" -> text,
+      "fileblend" ->text,
+      "filehtml" ->text
 
     )(Data.apply)(Data.unapply)
   )
@@ -21,7 +23,9 @@ object uploadForm {
       title: String,
       detail: String,
       modelType: String,
-      picture: String
+      picture: String,
+      fileblend: String,
+      filehtml: String
 
   )
 }

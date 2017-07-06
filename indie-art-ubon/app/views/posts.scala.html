@@ -2,7 +2,14 @@
 <!-- dbforuminfo : Seq[models.Foruminfo] -->
 <!DOCTYPE html>
 @main(Messages("home.title")){
-
+  <style>
+  #word {
+     white-space: nowrap;
+    width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  </style>
   <div class="container">
       <h3><i class="fa fa-list-alt" aria-hidden="true"></i> กระทู้สนทนา </h3>
     <div class="panel panel-info">
@@ -33,13 +40,13 @@
                                       </td>
                                       <td style= "width: 20%;">
                                           <h5>
-                                              <p style= "width: 50%; word-wrap: break-word ;">@foruminfo.title</p>
+                                              <p id="word">@foruminfo.title</p>
                                           </h5>
 
                                       </td>
                                       <td style= "width: 30%;">
                                           <h5 >
-                                              <p style= "width: 30%; word-wrap: break-word ;">@foruminfo.detail</p>
+                                              <p id="word">@foruminfo.detail</p>
                                           </h5>
                                       </td>
                                       <td></td>

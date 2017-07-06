@@ -10,7 +10,6 @@
           <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" >
             <thead>
               <tr>
-                <th>ID Forum</th>
                 <th>Full name</th>
                 <th>Title</th>
                 <th>Details</th>
@@ -22,18 +21,17 @@
               @for(foruminfo
                 <- dbforuminfo){
                   <tr>
-                  <td>@foruminfo.id</td>
                   @for(u
                     <- users){
-                  @if(u.userID.toString == user.userID.toString){
-                  <td>@user.fullName</td>
+                  @if(foruminfo.userID == u.userID.toString){
+                  <td>@u.firstName</td>
                       }
                     }
                   <td>@foruminfo.title</td>
                   <td>@foruminfo.detail</td>
 
                   <td style="text-align: center;" class="col-md-2 col-sm-3">
-                    <button name="delete"  href="@routes.ApplicationController.deletePost(foruminfo.id)" class="btn btn-sm  btn btn-danger">ลบ</button>
+                    <a  href="@routes.ApplicationController.deletePost(foruminfo.id)" class="btn btn-sm  btn btn-danger">ลบ</a>
                   </td>
             </tr>
           }

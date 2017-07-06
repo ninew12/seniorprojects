@@ -24,6 +24,7 @@
              @for(u
                <- users){
                  @if(u.userID.toString != user.userID.toString){
+                   @if(u.firstName != Some("admin")){
                    <div class=" col-sm-2 col-xs-2">
                      <div class="box2">
                        <a  class="image fit"><img src="@routes.Assets.at("images/user2.jpg")"  width="300" height="150" /></a>
@@ -36,7 +37,7 @@
                              <a href="@routes.ApplicationController.deletefollow(f.fid)"  >
                                <button class="button fit btn-sm"><i class="fa fa-plus" ></i> เลิกติดตาม</button>
                              </a>
-                     }
+                           }
                    }
                    @if(a == "n"){
                    <a href="@routes.IndieApplication.addfollow(u.userID)"  >
@@ -49,6 +50,7 @@
                </div>
              </div><!--col-sm2-2-->
                  }
+               }
              }
 
           </div><!--row-->

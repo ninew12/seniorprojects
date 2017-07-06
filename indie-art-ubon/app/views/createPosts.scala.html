@@ -22,7 +22,11 @@
             <input  style="color:#000000" type="text" class="form-control"  name="title" required =" " maxlength="100"  ></input><br>
             <h5 >รายละเอียดกระทู้</h5>
             <textarea style="color:#000000" type="text" class="form-control"  name="detail" maxlength="200" rows="4"  required =" " ></textarea>
-            @b3.file( forumForm("picture"), '_label -> "อัพโหลดไฟล์" )
+            <br>
+            <div class="form-group">
+               <label for="exampleInputFile">อัพโหลดไฟล์รูปภาพ</label><br>
+               <input style="color:#FFFFFF" type="file" name="picture" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"required =" "><br>
+               </div>
 
             <div class=" text-right">
               <button type="submit" class="btn btn-primary">บันทึก</button> &nbsp; &nbsp;

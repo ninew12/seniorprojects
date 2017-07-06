@@ -24,7 +24,7 @@
           <div class=" text-right" >
             @if(artwork.userID.toString != u.userID.toString){
             <a href="@routes.IndieApplication.addcollection(artwork.id)"  >
-              <button class="btn btn-success  " ><i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม</button>
+              <button class=" btn btn-success  " ><i class="fa fa-plus-square" aria-hidden="true"></i> แฟ้มสะสม</button>
             </a>
           }
             <a href=@routes.Assets.at(s"members/${artwork.userID}/${artwork.fileblend}") >

@@ -20,7 +20,7 @@
 
            @for(artwork
            <- dbartwork ){
-                @if(artwork.tags == " Others"){
+                @if(artwork.tags == "อืนๆ"){
               <div class=" col-sm-3">
                 <div class="box2">
                   <a  class="image fit"><img src=@routes.Assets.at(s"members/${artwork.userID}/${artwork.picture}") alt=" " width="600" height="200"/></a>
